@@ -2,7 +2,7 @@
 
 Stage 1 of the FHMWG standards process is the drafting of recommendations about the use of existing metadata tags for family history purposes.
 
-FHMWG has a larger mission, but this initial project is limited to the use of existing photo embedded metatdata tags
+FHMWG has a larger mission, but this initial project is limited to the use of existing photo embedded metatdata tags.
 
 ## Topical Areas
 
