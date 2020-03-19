@@ -24,14 +24,14 @@ Also within scope for the standards teams is
 - Quality, conformance, testing
 - Sample Code
 
-## Proposed task flow backlog
+## Proposed task flow
 
 1. For each topic
     1. Perform inventory of relevant tags in EXIF, IPTC, and XMP
     1. If needed, draft "how these tags differ" text
     1. Create recommendations on which tags should be used
-        1. incl. which to read and which to write
-        1. incl. how to resolve conflicting information in equivalent-meaning tags
+        1. include which to read and which to write
+        1. include how to resolve conflicting information in equivalent-meaning tags
     1. If applicable, draft "avoiding malicious/tracking/marketing payloads" recommendations
     1. Interview potential implementers to collect intitial feedback on recommendations; return to 1.III as needed
     1. Create minimal draft open-source software for implementing recommendation
