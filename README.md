@@ -31,7 +31,7 @@ Also within scope for the standards teams is
 ## Proposed task flow
 
 1. For each topic
-    1. Perform inventory of relevant tags in EXIF, IPTC, and XMP
+    1. Perform inventory of relevant tags in [EXIF](http://www.cipa.jp/std/documents/e/DC-X008-Translation-2019-E.pdf), [IPTC](https://iptc.org/standards/photo-metadata/iptc-standard/), and [XMP](https://www.adobe.com/devnet/xmp.html)
     1. If needed, draft "how these tags differ" text
     1. Create recommendations on which tags should be used
         1. include which to read and which to write
