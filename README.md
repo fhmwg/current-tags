@@ -44,4 +44,10 @@ We anticipate additional activities after these steps are completed, including s
 
 ## Repository structure
 
-One folder shall be created for each working team. At present, we are not imposing any common structure on these folders, not mandating that github be used prior to final product creation. Files outside of folders shall be limited to those applying across all working teams.
+One folder shall be created for each working team. At present, we are not imposing any common structure on these folders, nor mandating that github be used prior to final product sharing if a team would rather work using a different toolchain. Files outside of folders shall be limited to those applying across all working teams.
+
+We may, at some future time, create separate folders for the final recommendation document(s) and the reference code.
+
+Branches may be used to experiment with alternative approaches. It is expected that the master branch will contain the "main" development work for each team.
+
+At present, we are discouraging the creation of forks and separate repositories.
