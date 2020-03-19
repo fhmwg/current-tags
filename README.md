@@ -18,6 +18,8 @@ The board has identified the following areas for metadata standardisation:
 - Rights
 - Sources
 
+The word "subject" is used differently in different contexts. Sometimes it means the broad overviews (e.g., "1980 Jones family reunion"); sometimes a general term for things in the scene (e.g., Objects and People).
+
 It is within scope for these to be combined (e.g. source and rights tags may prove to be sufficiently related to be worth merging) or further split up (e.g., sources and provenance may prove to be sufficiently varied to be worth splitting). These shall be considered an initial list, not a final mandate.
 
 Also within scope for the standards teams is 
