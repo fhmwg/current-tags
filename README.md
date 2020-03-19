@@ -2,7 +2,7 @@
 
 Stage 1 of the FHMWG standards process is the drafting of recommendations about the use of existing metadata tags for family history purposes.
 
-# Topical Areas
+## Topical Areas
 
 The board has identified the following areas for metadata standardisation:
 
@@ -24,7 +24,7 @@ Also within scope for the standards teams is
 - Quality, conformance, testing
 - Sample Code
 
-# Proposed task flow backlog
+## Proposed task flow backlog
 
 1. For each topic
     1. Perform inventory of relevant tags in EXIF, IPTC, and XMP
@@ -42,6 +42,6 @@ Also within scope for the standards teams is
 
 We anticipate additional activities after these steps are completed, including seeking consensus, defining compliance certification processes, coordinating with other metadata organizations, etc. Those will be added to this document if/when they are more clearly defined.
 
-# Repository structure
+## Repository structure
 
 One folder shall be created for each working team. At present, we are not imposing any common structure on these folders, not mandating that github be used prior to final product creation. Files outside of folders shall be limited to those applying across all working teams.
