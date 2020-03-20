@@ -42,8 +42,8 @@ Also within scope for the standards teams is
     1. Create minimal draft open-source software for implementing recommendation
 1. Coordination
     1. Unify formatting and style of recommendations and sample code
-    1. Coordinate on cross-cutting ideas like levels of compliance, etc
-    1. Create united recommendation document
+    1. Coordinate on cross-cutting ideas where a single decision could serve multiple teams
+    1. Create combined recommendation document
 
 We anticipate additional activities after these steps are completed, including seeking consensus, defining compliance certification processes, coordinating with other metadata organizations, etc. Those will be added to this document if/when they are more clearly defined.
 
