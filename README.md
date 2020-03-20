@@ -6,7 +6,7 @@ FHMWG has a larger mission, but this initial project is limited to the use of ex
 
 ## Topical Areas
 
-The board has identified the following areas for metadata standardisation:
+The board has identified the following areas for metadata standardisation during the stage-1 work:
 
 - Album
 - Caption
