@@ -36,7 +36,8 @@ Also within scope for the standards teams is
     1. Create recommendations on which tags should be used
         1. include which to read and which to write
         1. include how to resolve conflicting information in equivalent-meaning tags
-    1. If applicable, draft "avoiding malicious/tracking/marketing payloads" recommendations
+    1. If applicable, draft "avoiding malicious/tracking/marketing payloads" recommendations for free-text fields
+    1. If applicable, draft "we recommend these authorities or formats" for identifier-valued fields (e.g., URI, IRI, UUID, GUID)
     1. Interview potential implementers to collect intitial feedback on recommendations; return to 1.iii. as needed
     1. Create minimal draft open-source software for implementing recommendation
 1. Coordination
