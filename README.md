@@ -18,6 +18,8 @@ The board has identified the following areas for metadata standardisation during
 - Rights
 - Sources
 
+We anticipate having several concurrent teams working on different subsets of these topics.
+
 It is within scope for these to be combined (e.g. source and rights tags may prove to be sufficiently related to be worth merging) or further split up (e.g., sources and provenance may prove to be sufficiently varied to be worth splitting). These shall be considered an initial list, not a final mandate.
 
 Note that the word "subject" is used differently in different contexts. Sometimes it means the broad overviews (e.g., "1980 Jones family reunion"); sometimes a general term for things in the scene (e.g., Objects and People).
@@ -49,10 +51,5 @@ We anticipate additional activities after these steps are completed, including s
 
 ## Repository structure
 
-One folder shall be created for each working team. At present, we are not imposing any common structure on these folders, nor mandating that github be used prior to final product sharing if a team would rather work using a different toolchain. Files outside of folders shall be limited to those applying across all working teams.
-
-We may, at some future time, create separate folders for the final recommendation document(s) and the reference code.
-
-Branches may be used to experiment with alternative approaches. It is expected that the master branch will contain the "main" development work for each team.
-
-At present, we are discouraging the creation of forks and separate repositories.
+Working documents can be stored in this google drive directory (<https://drive.google.com/drive/u/0/folders/1xssT6SYLWrTFtIHOZuBJbrqu7SF4UP2l>) and/or on github (<https://github.com/fhmwg/>). For access to drive, send Gordon Clarke your google account. For access to github, send Luther Tychonievich your github account.
+One folder shall be created for each working team. At present, we are not imposing any common structure on these folders. Files outside of folders either predate the creation of this structure or are of general interest across all team
