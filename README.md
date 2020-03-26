@@ -34,8 +34,8 @@ Also within scope for the standards teams is
 
 1. For each topic
     1. Perform inventory of relevant tags in [EXIF](http://www.cipa.jp/std/documents/e/DC-X008-Translation-2019-E.pdf), [IPTC](https://iptc.org/standards/photo-metadata/iptc-standard/), and [XMP](https://www.adobe.com/devnet/xmp.html)
-    1. If needed, draft "how these tags differ" text (see, e.g., [draft dates](https://github.com/fhmwg/current-tags/blob/master/dates/Working%20Draft_08Jan2020.svg))
-    1. Create recommendations on which tags should be used
+    1. If needed, draft "how these tags differ" text
+    1. Create recommendations on which tags should be used (see, e.g., [draft dates](https://github.com/fhmwg/current-tags/blob/master/dates/Working%20Draft_08Jan2020.svg))
         1. include which to read and which to write
         1. include how to resolve conflicting information in equivalent-meaning tags
     1. If applicable, draft "avoiding malicious/tracking/marketing payloads" recommendations for free-text fields
