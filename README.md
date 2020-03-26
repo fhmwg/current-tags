@@ -51,5 +51,5 @@ We anticipate additional activities after these steps are completed, including s
 
 ## Repository structure
 
-Working documents can be stored in this google drive directory (<https://drive.google.com/drive/u/0/folders/1xssT6SYLWrTFtIHOZuBJbrqu7SF4UP2l>) and/or on github (<https://github.com/fhmwg/>). For access to drive, send Gordon Clarke your google account. For access to github, send Luther Tychonievich your github account.
+Working documents can be stored in google drive (<https://drive.google.com/drive/u/0/folders/1xssT6SYLWrTFtIHOZuBJbrqu7SF4UP2l>) and/or on github (<https://github.com/fhmwg/>). For access to drive, send Gordon Clarke your google account. For access to github, send Luther Tychonievich your github account.
 One folder shall be created for each working team. At present, we are not imposing any common structure on these folders. Files outside of folders either predate the creation of this structure or are of general interest across all team
