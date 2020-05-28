@@ -2,7 +2,8 @@
 title: FHMWG Stage 1 Recommendations
 author:
     - Luther Tychonievich
-    - et al
+    - Gordon Clarke
+    - Peter Krogh
 ...
 
 
@@ -66,9 +67,9 @@ To be fully compliant with these recommendations, an application will
 
 2. If
     
-    a. a user provides additional metadata about an image, and 
-    b. the metadata provided is of a type covered in this recommendation, and
-    c. the user does not request that the metadata be kept private:
+    - a user provides additional metadata about an image, and 
+    - the metadata provided is of a type covered in this recommendation, and
+    - the user does not request that the metadata be kept private:
     
     then the application embeds the metadata in the image upon export as specified in this recommendation.
 
