@@ -197,10 +197,16 @@ The following represents an image belonging to two albums, one with a URI and on
 
 
 ## Caption
+
 ## Date
+
 ## Event
+
 ## Location
+
 ## Object
+
 ## People
+
 ## Rights
-## Sources
+
