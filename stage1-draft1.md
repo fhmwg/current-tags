@@ -44,7 +44,7 @@ album membership is encoded as
 - which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
 - each of which shall contain either or both of
     - 1 `mwg-coll:CollectionName` with a free-text content
-    - 1 `mwg-coll:CollectionURI` with a valie IRI as its content
+    - 1 `mwg-coll:CollectionURI` with a valid IRI as its content
 
 Implementations *should* whitespace-normalize the contents of `mwg-coll:CollectionName` and `mwg-coll:CollectionURI`.
 Implementations *should not* use empty strings (or strings that whitespace-normalize to the empty string) for the content of the `mwg-coll:CollectionName` or `mwg-coll:CollectionURI` elements; if such are encountered, they *should* be treated as if the element was not provided.
