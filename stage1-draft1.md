@@ -137,6 +137,7 @@ Where possible, implementations should encourage placing information in other me
 - Defined by the Dublin Core <http://purl.org/dc/elements/1.1/description>
 - Recommended by IPTC <https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description>
 - Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
+- With language tags defined in IETF BPC 47 <https://tools.ietf.org/rfc/bcp/bcp47.txt>
 
 ## Formal Specification
 
@@ -155,7 +156,15 @@ image description is encoded as
 - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
 - each of which shall contain a free-text content in the given human language
 
-To the degree possible, implementations should prevent users from entering multiple languages with content that differs in more than lanugage.
+To the degree possible, implementations should require users to have translations of the same content in each language they provide.
+
+Implementations *must not* create multiple `rdf:li` in the same `rdf:Alt` with equivalent `xml:lang` attributes, as defined by BPC 47. If such prohibited multiples are encountered on import, implementations *may* handle them in an implementation-defined way.
+
+XMP does not provide a method for distinguishing the order of language alternatives nor for indicating the prefered alternative.
+
+> Should stage 1 be limited to a single language only? Simpler, but also not fully compatible with some existing XMP.
+>
+> Perhaps it is enough to say something like "implementations that are not able to handle language alternatives *may* deiscard all but one language alternative."
 
 ## Guidelines
 
@@ -216,6 +225,7 @@ There is a known desire to include style markup in captions
 
 There is a known desire to include links between portions of captions and other metadata fields
 
+There is a known desire to indicate which language is the original and which are translations
 
 # Date
 
