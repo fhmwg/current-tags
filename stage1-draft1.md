@@ -102,7 +102,7 @@ Each collection is identified by one human-readable string and/or one URI.
 - Positions within a collection
 - Collections with more than one identifier
 
-#### What other standards does this use
+### What other standards does this use
 
 - Defined by the Metadata Working Group <http://web.archive.org/web/20180822085951/http://metadataworkinggroup.com/pdf/mwg_guidance.pdf>
 - Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
@@ -153,9 +153,9 @@ An album without a URI is ambiguous as to its identity, and that ambiguity *shou
 
 > Should we *require* providing a URI? Or both a URI and a name? --- Luther 
 
-#### Other metadata to read
+#### Other metadata of interest
 
-The FHMWG is unaware of other widely-used album identifiers to be read.
+The FHMWG is unaware of other widely-used album identifiers.
 
 > I vaguely remember that EXIF had some capture-time information that could possibly be used to pre-populate albums? --- Luther
 
@@ -195,8 +195,108 @@ The following represents an image belonging to two albums, one with a URI and on
 
 ````
 
+### Future extensions
+
+There is a known desire to store position within a collection
+
+There is a known desire to store metadata about a collection, such as creator, purpose, date, etc
+
 
 ## Caption
+
+### What this metadata stores
+
+Free-text description in any language containing any information the caption-writer wishes to add.
+
+### What this metadata does not store
+
+Structured information.
+Where possible, implementations should encourage placing information in other metadata fields.
+
+### What other standards does this use
+
+- Defined by the Dublin Core <http://purl.org/dc/elements/1.1/description>
+- Recommended by IPTC <https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description>
+- Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
+
+### Formal Specification
+
+#### XMP structure
+
+Using the prefixes
+
+- `dc` for `http://purl.org/dc/elements/1.1/`
+- `rdf` for `http://www.w3.org/1999/02/22-rdf-syntax-ns#`
+
+image description is encoded as
+
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `dc:description`
+- which shall contain 1 `rdf:Alt`
+- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+- each of which shall contain a free-text content in the given human language
+
+To the degree possible, implementations should prevent users from entering multiple languages with content that differs in more than lanugage.
+
+### Guidelines
+
+#### Interpretation
+
+It is common for captions to replicate some information ncluded elsewhere in the metadata;
+for example, peopled portrayed in the image may be identified in person meatadata and also in the caption so that the caption may discuss the relationships between the people or the like.
+This inevitably leads to the posiblity of conflicting information.
+Because it is not possible to programatically determine which metadata is most accurate, implementations *should* display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
+
+#### Other metadata of interest
+
+If present, the EXIF ImageDescription (tag 270/0x10E) is an ASCII-only non-language-tagged title possibly containing comments.
+
+If present, the XMP `dc:title` is a short identifying title of the image.
+`dc:title` was defined for the purpose of recording the official title of published works;
+when encountered on family photos its intented meaning cannot in general be infered.
+
+If present, the XMP `photoshop:Headline` is a short descriptive summary of the image.
+`photoshop:title` was defined for the purpose of recording the suggested deadline to accompany images in news articles;
+when encountered on family photos its intented meaning cannot in general be infered.
+
+IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record that information. Note, however, that this is a single writer name. We are not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
+
+#### Resolving conflicting metadata
+
+It is *recommended* that implementations encountering an image without a caption pre-populate it with
+the ImageDescription if present; otherwise the photoshop:Headline if present; otherwise the dc:title if present. When so populating a language-tagged string from a non-language-tagged field, the language tag `und` *shall* be used.
+
+If the language tag `x-default` is encountered upon read, it *should* be replaced with a registered language tag, which should either be the prefered language of the caption writer, if known, or `und`.
+
+
+### Example
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
+  <dc:description>
+   <rdf:Alt>
+    <rdf:li xml:lang='eng'>My aunt Judy's pet rabbit</rdf:li>
+   </rdf:Alt>
+  </dc:description>
+ </rdf:Description>
+</rdf:RDF>
+```
+
+### Future extensions
+
+There is a known desire to store the following captions types separately:
+
+- caption as written on image
+- printed caption accompanying image
+- caption supplied by user of digital tool
+
+There is a known desire to store the authorship and edit dates of all captions
+
+There is a known desire to include style markup in captions
+
+There is a known desire to include links between portions of captions and other metadata fields
+
 
 ## Date
 
