@@ -4,6 +4,7 @@ author:
     - Luther Tychonievich
     - Gordon Clarke
     - Peter Krogh
+    - Maureen Taylor
 ...
 
 
