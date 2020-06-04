@@ -7,6 +7,19 @@ author:
     - Maureen Taylor
 ...
 
+Table of contents (links only for drafted sections)
+
+- [Album](#album)
+- [Caption](#caption)
+- Date
+- Event
+- Location
+- Object
+- People
+- Rights
+
+
+
 
 # Album
 
