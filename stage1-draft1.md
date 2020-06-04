@@ -204,10 +204,16 @@ IPTC also defines `photoshop:CaptionWriter`, which may be useful for application
 
 ### Resolving conflicting metadata
 
-It is *recommended* that implementations encountering an image without a caption pre-populate it with
-the ImageDescription if present; otherwise the photoshop:Headline if present; otherwise the dc:title if present. When so populating a language-tagged string from a non-language-tagged field, the language tag `und` *shall* be used.
+It is *recommended* that implementations encountering an image without a caption pre-populate it the first of the following that is available:
 
-If the language tag `x-default` is encountered upon read, it *should* be replaced with a registered language tag, which should either be the prefered language of the caption writer, if known, or `und`.
+1. the EXIF ImageDescription
+2. the `photoshop:Headline`
+3. the `dc:title`
+4. the file name of the image file
+
+When populating a language-tagged string from a non-language-tagged field, the language tag `und` *shall* be used.
+
+Some existing generic metadata tools use the language tag `x-default`. This *should* be replaced with a registered language tag, generally either be the prefered language of the caption writer or `und`.
 
 
 ## Example
