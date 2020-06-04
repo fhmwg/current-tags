@@ -116,9 +116,9 @@ The following represents an image belonging to two albums, one with a URI and on
 
 ## Future extensions
 
-There is a known desire to store position within a collection
+There is a known desire to store position within a collection. In addition to requiring a new metadata field, this raises concerns about distinct elements claiming the same position.
 
-There is a known desire to store metadata about a collection, such as creator, purpose, date, etc
+There is a known desire to store metadata about a collection, such as creator, purpose, date, etc. This would require the collection itself to be an entity about which metadata can be recorded.
 
 
 # Caption
@@ -184,10 +184,10 @@ If present, the XMP `dc:title` is a short identifying title of the image.
 when encountered on family photos its intented meaning cannot in general be infered.
 
 If present, the XMP `photoshop:Headline` is a short descriptive summary of the image.
-`photoshop:title` was defined for the purpose of recording the suggested deadline to accompany images in news articles;
+`photoshop:title` was defined for the purpose of recording the suggested headline to accompany images in news articles;
 when encountered on family photos its intented meaning cannot in general be infered.
 
-IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record that information. Note, however, that this is a single writer name. We are not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
+IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a caption. Note, however, that `photoshop:CaptionWriter` is limited to a single name. We are not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
 ### Resolving conflicting metadata
 
@@ -219,13 +219,13 @@ There is a known desire to store the following captions types separately:
 - printed caption accompanying image
 - caption supplied by user of digital tool
 
-There is a known desire to store the authorship and edit dates of all captions
+There is a known desire to store the authorship and edit dates of all captions. `photoshop:CaptionWriter` may provide a partial solution to this.
 
-There is a known desire to include style markup in captions
+There is a known desire to include style markup in captions. Embedded HTML may be a solution to this, but is not directly permitted as part of XMP and raises issues about validation and markup-unaware implmentations.
 
-There is a known desire to include links between portions of captions and other metadata fields
+There is a known desire to include links between portions of captions and other metadata fields. RDFa may provide a solution to this, but is quite heavy-handed.
 
-There is a known desire to indicate which language is the original and which are translations
+There is a known desire to indicate which language is the original and which are translations. Various solutions could work (e.g., adding `xml:lang` to `dc:description`, adding a `fhmwg:original="true"` attribute to `rdf:li`, etc) but all have implementation challenges when interacting with FHMWG-unaware tools.
 
 # Date
 
