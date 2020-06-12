@@ -15,7 +15,7 @@ Table of contents (links only for drafted sections)
 - Event
 - Location
 - Object
-- People
+- [People](#people)
 - Rights
 
 
