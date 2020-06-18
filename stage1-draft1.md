@@ -13,7 +13,7 @@ Table of contents (links only for drafted sections)
 - [Caption](#caption)
 - Date
 - Event
-- Location
+- [Location](#location)
 - Object
 - [People](#people)
 - Rights
@@ -253,6 +253,17 @@ There is a known desire to indicate which language is the original and which are
 # Event
 
 # Location
+
+The location team has recommended that both geographic (e.g., GPS) and jusrisdictional data be used. However, they have recommended against the fields provided for this in existing standards.
+
+A fixed hierarchy of jurisdictions, such as that provided by IPTC, leads to misleading historical data and should not be used in family history applications.
+Instead, a custom hierarchy of jurisdictions should be permitted for each location.
+Furthermore, applications *should* encourage users to use the hierarchy that existing at the time of the depicted event.
+
+A numeric latitute-longitude pair, such as that ptovided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
+Instead, imprecise coordinates should be supported, as for example by extension of the image region structure or the like.
+
+
 
 # Object
 
