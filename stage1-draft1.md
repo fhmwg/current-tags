@@ -268,6 +268,9 @@ A fixed hierarchy of jurisdictions, such as that provided by IPTC, leads to misl
 Instead, a custom hierarchy of jurisdictions should be permitted for each location.
 Furthermore, applications *should* encourage users to use the hierarchy that existing at the time of the depicted event.
 
+Additionally, a survey of existing online and desktop tools suggested that most are storing a hierarchy of jurisdictions but are not storing (or are storing internally but not exposing) the meaning of each level in the hierarchy.
+Thus, from a practical adoption standpoint, the meaning of each level should be optional but recommended.
+
 A numeric latitute-longitude pair, such as that ptovided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
 Instead, imprecise coordinates should be supported, as for example by extension of the image region structure or the like.
 
