@@ -1,10 +1,18 @@
 ---
+
 title: FHMWG Stage 1 Recommendations
+
 author:
-    - Luther Tychonievich
-    - Gordon Clarke
-    - Peter Krogh
-    - Maureen Taylor
+
+  - Luther Tychonievich
+  - Gordon Clarke
+  - Peter Krogh
+  - Maureen Taylor
+  - Robert Friedman
+  - Christopher Desmond
+  - Jeff Looman
+  - James Tanner
+
 ...
 
 Table of contents (links only for drafted sections)
