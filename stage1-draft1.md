@@ -319,7 +319,7 @@ These are listed in approximate order from most likely to correctly represent th
 | EXIF        | DateTimeOriginal    | Creation of first image           |
 | Dublin Core | date                | A date associated with the media  |
 | EXIF        | DateTimeDigitized   | Creation of first digital file    |
-| IPTC        | DigitalCreationDate | Creation of first digital file    |
+| IPTC IIM    | 2:62 and 2:63       | Creation of first digital file    |
 | XMP         | CreateDate          | Creation of digital file          |
 | EXIF        | DateTime            | Modification date digital file    |
 | XMP         | ModifyDate          | Modification date digital file    |
