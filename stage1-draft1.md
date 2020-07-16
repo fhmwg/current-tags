@@ -12,6 +12,9 @@ author:
   - Christopher Desmond
   - Jeff Looman
   - James Tanner
+  - Nancy Desmond
+  - Michael Felts
+  - Russell Lynch
 
 ...
 
@@ -19,14 +22,11 @@ Table of contents (links only for drafted sections)
 
 - [Album](#album)
 - [Caption](#caption)
-- Date
+- [Date](#date)
 - Event
 - [Location](#location)
-- Object
-- [People](#people)
-- Rights
-
-
+- [Object](#objects-and-people)
+- [People](#objects-and-people)
 
 
 # Album
@@ -158,7 +158,7 @@ Where possible, implementations should encourage placing information in other me
 - Defined by the Dublin Core <http://purl.org/dc/elements/1.1/description>
 - Recommended by IPTC <https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description>
 - Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
-- With language tags defined in IETF BPC 47 <https://tools.ietf.org/rfc/bcp/bcp47.txt>
+- With language tags defined in IETF BCP 47 <https://tools.ietf.org/rfc/bcp/bcp47.txt>
 
 ## Formal Specification
 
@@ -258,6 +258,105 @@ There is a known desire to indicate which language is the original and which are
 
 # Date
 
+## What this metadata stores
+
+The date of the depicted scene.
+
+## What this metadata does not store
+
+Various other dates are sometimes present in metadata, but are of less interest from a family history perspective. These include
+
+- Creation date of digital file -- the correct date if this was a direct-to-digital photograph, but not in most other cases
+- Modification date of digital file
+- Copyright date
+- Date burned on image by camera -- the correct date if this is a photograph and the camera's clock was set correctly
+- Creation date of the depiction -- the correct date for a photograph or portrait, but not for a tapestry or illustration
+
+## What other standards does this use
+
+- Defined by Adobe Photoshop <http://ns.adobe.com/photoshop/1.0/DateCreated>
+- Recommended by IPTC <https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created>
+- Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
+- With date strings defined in ISO 8601, summarized in <https://www.w3.org/TR/NOTE-datetime>, and quoted in [XMP part 1](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf)
+
+## Formal Specification
+
+### XMP structure
+
+Using the prefixes
+
+- `rdf` for `http://www.w3.org/1999/02/22-rdf-syntax-ns#`
+- `photoshop` for `http://ns.adobe.com/photoshop/1.0/`
+
+image description is encoded as
+
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `photoshop:DateCreated`
+- which shall contain a date or date-time string conforming to the subset of ISO 8601 format specified in <https://www.w3.org/TR/NOTE-datetime>
+
+## Guidelines
+
+### Interpretation
+
+User interfaces should make clear that this is *not* an image modification date: it is the date of the depicted scene.
+
+`photoshop:DateCreated` should only be updated at the request of the user.
+Modifications to the file, including users changing pixel values, are generally not enough to change the `photoshop:DateCreated` unless they fundamentally change what scene is being depicted.
+
+XMP recommends recording times using timezone offsets, as that provides more information than converting to UTC.
+
+IPTC recommends truncating any unavailable information; for example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-15` or the like.
+
+### Other metadata of interest
+
+The following metadata are defined to store the following dates.
+Note that many user interfaces list these simply as "date" so the accuracy of these definitions may vary from one image to another.
+These are listed in approximate order from most likely to correctly represent the date of the depicted scene to least likely.
+
+| Standard    | Tag                 | Date type                         |
+|-------------|---------------------|-----------------------------------|
+| IPTC IIM    | 2:55 and 2:60       | Date of depicted scene            |
+| EXIF        | DateTimeOriginal    | Creation of first image           |
+| Dublin Core | date                | A date associated with the media  |
+| EXIF        | DateTimeDigitized   | Creation of first digital file    |
+| IPTC        | DigitalCreationDate | Creation of first digital file    |
+| XMP         | CreateDate          | Creation of digital file          |
+| EXIF        | DateTime            | Modification date digital file    |
+| XMP         | ModifyDate          | Modification date digital file    |
+| XMP         | MetadataDate        | Modification date of metadata     |
+
+If `photoshop:DateCreated` metadata field is absent but an alternative date field is present, it is *recommended* that the first available entry in the above list be use as a default value (converting from the EXIF format to the ISO 8601 format if appropriate). It is *recommended* that the user be asked for confirmation before entering this metadata into `photoshop:DateCreated`.
+
+Many other dates may also be present in metadata, such as copyright date, date of licensing, publication date, date of particular modification action, etc.
+
+### Resolving conflicting metadata
+
+The IPTC IIM tags 2:55 (Date Created) and 2:60 (Time Created) were superseded by the current IPTC `photoshop:DateCreated`.
+If both an IIM field and `photoshop:DateCreated` are present, `photoshop:DateCreated` is most likely to be correct.
+
+There are no known other metadata fields that store the date of the depicted scene.
+
+## Example
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'>
+  <photoshop:DateCreated>2020-07-16T08:28:17-04:00</photoshop:DateCreated>
+ </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
+```
+
+## Future extensions
+
+There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
+
+- approximate dates
+- date ranges (for depictions of events that covered multiple days)
+- dates before 0001-01-01
+- dates with time information but without tome zone information
+
+
 # Event
 
 # Location
@@ -276,14 +375,11 @@ Instead, imprecise coordinates should be supported, as for example by extension 
 
 
 
-# Object
-
-
-
-# People
+# Objects and People
 
 ## What this metadata stores
 
+- Objects, structures, etc directly depicted in the media
 - People directly depicted in the media
 - People not depicted by who contributed to or were otherwise relevant to the depiction (e.g., a witness of the event such as the photographer, painter, drafter, etc.)
 
@@ -348,6 +444,14 @@ The `Iptc4xmpExt:PersonInImageWDetails` shall contain
 - each of which shall contain a free-text content in the given human language, which *shall* be the persons name in that language.
 
 The `Iptc4xmpExt:PersonInImageWDetails` may additionally contain a `Iptc4xmpExt:PersonDescription` and/or `Iptc4xmpExt:PersonId`.
+
+The `Iptc4xmpExt:ArtworkOrObject` shall contain
+
+- one `Iptc4xmpExt:AOTitle`
+- which shall contain 1 `rdf:Alt`
+- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+- each of which shall contain a free-text content in the given human language, which *shall* be the an identifying title for the object in that language.
+
 
 ## Guidelines
 
@@ -417,6 +521,14 @@ In addition to the `Iptc4xmpExt:PersonName`, each `Iptc4xmpExt:PersonInImageWDet
 
 Reading and writing `Iptc4xmpExt:PersonDescription` and `Iptc4xmpExt:PersonId` is encouraged.
 
+In addition to `Iptc4xmpExt:AOTitle`, each `Iptc4xmpExt:ArtworkOrObject` may also include
+
+- `Iptc4xmpExt:AOPhysicalDescription` a free-text desciption of the object's physical (not personal or historical) characterstics
+- `Iptc4xmpExt:AODateCreated` and/or `Iptc4xmpExt:AOCircaDateCreated`, both describing the date the object was created (one as an ISO 8601 datetime, the other as free text)
+- `Iptc4xmpExt:AOContentDescription`, only appropriate for an object that is itself a depiction of something else, such as a family portrait in the background of a scene
+- `Iptc4xmpExt:AOCreator`, a description of who created the object
+- IPTC defines several other fields that apply to photographs of artwork
+
 ### Resolving conflicting metadata
 
 We are aware of no data conflicts in persons.
@@ -474,7 +586,3 @@ Even having multiple regions with the same `Iptc4xmpExt:PersonId` is in generall
 There is a known desire to indicate which language is the original and which are translations. Various solutions could work (e.g., adding `xml:lang` to `Iptc4xmpExt:PersonName`, adding a `fhmwg:original="true"` attribute to `rdf:li`, etc) but all have implementation challenges when interacting with FHMWG-unaware tools.
 
 There is a known desire to indicate name parts (given, preferred, family, patronymic, matronymic, honorific, etc).
-
-
-# Rights
-
