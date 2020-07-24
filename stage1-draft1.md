@@ -361,6 +361,55 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 
 # Location
 
+## What this metadata stores
+
+- GPS coordinates of a characteristic point within the depicted scene
+- A textual description of the location of the depicted scene.
+
+## What this metadata does not store
+
+- GPS precision
+- GPS regions
+- Jurisdiction-name-based locations
+- A distinction between current and historical location
+
+## What other standards does this use
+
+- GPS coordinates are defined in EXIF ([CIPA DC-X008](http://www.cipa.jp/std/documents/e/DC-X008-Translation-2019-E.pdf))
+- XMP embedding of EXIF data is defined in EXIF Metadaa for XMP ([CIPA DC-X010](http://www.cipa.jp/std/documents/download_e.html?DC-X010-2020))
+- The location structure and description is defined by XMP (<https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata>)
+- Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
+
+## Formal Specification
+
+### XMP structure
+
+Using the prefixes
+
+- `rdf` for `http://www.w3.org/1999/02/22-rdf-syntax-ns#`
+- `exif` for `http://ns.adobe.com/exif/1.0/`
+- `Iptc4xmpExt` for `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`
+
+image description is encoded as
+
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `Iptc4xmpExt:LocationShown`
+- which shall contain 1 `rdf:Bag`
+- which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
+- each of which shall contain either or both of
+    - 1 `exif:GPSLongitude` and ` `exif:GPSLatitude`, each containing a number
+    - 1 `Iptc4xmpExt:LocationName`
+        - which shall contain 1 `rdf:Alt`
+        - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+        - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
+
+XMP defines a "number" to be either
+
+- An integer, consisting of an optional sinn (`-` or `+`) followed by one or more decimal digits (`0` through `9`).
+- A real number, consisting of an optional sign (`-` or `+`) followed by a sequence of decimal digits (`0` through `9`) containing exactly one decimal point (`.`).
+
+IPTC clarifies that latitude and longitude are defined per WGS 84 (also called WGS 1984 or EPSG:4326), meaning positive latitudes are north of the equator and positive longitudes are east of the meridian.
+
 The location team has recommended that both geographic (e.g., GPS) and jusrisdictional data be used. However, they have recommended against the fields provided for this in existing standards.
 
 A fixed hierarchy of jurisdictions, such as that provided by IPTC, leads to misleading historical data and should not be used in family history applications.
@@ -370,12 +419,91 @@ Furthermore, applications *should* encourage users to use the hierarchy that exi
 Additionally, a survey of existing online and desktop tools suggested that most are storing a hierarchy of jurisdictions but are not storing (or are storing internally but not exposing) the meaning of each level in the hierarchy.
 Thus, from a practical adoption standpoint, the meaning of each level should be optional but recommended.
 
-A numeric latitute-longitude pair, such as that ptovided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
+A numeric latitute-longitude pair, such as that provided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
 Instead, imprecise coordinates should be supported, as for example by extension of the image region structure or the like.
 
 - read IPTC over EXIF
 - store GPS in IPTC
 - store `Iptc4xmpExt:LocationShown` bag of `exif:GPSLatitute`, `exif:GPSLongitude`, `Iptx4xmpExt:LocationName` (AltLang)
+
+
+## Guidelines
+
+### Interpretation
+
+An image may depict more than one location; for example, an image of people standing with a landmark in the background might be coded with either where the people are standing or where the landmark is located as the location, or both.
+
+GPS coordinates fail to capture that locations may be regions, not points. For example, a picture of the city of Dubai might be coded as being a point in Dubai such as 25.2047397, 55.2707065, even if that specific point (where Al Safa Street crosses over Sheikh Zayed Road) is not visible in the image.
+
+GPS coordinates fail to capture that locations may be approximate. For example, a picture of a headstone in the Sleepy Hollow cemetery in Sleepy Hollow New York may be coded as 41.089715, -73.862005 (the main entrance to the cemetery) if the coordinates of the specific headstone is not known.
+
+The coordinates of a conceptual location change over time by nature of plate tectonics. For example, an earthquake on 11 March 2011 moved portions of Japan 2.4 meters (about 0.000025° longitude) and regions of the sea floor ten times that far. It is generally considered best practice to represent current, not historical, coordinates when possible.
+
+Place names generally fit into some kind of jurisdictional hierarchy, but the levels and their names vary by region and change over time. It is recommended that the full place name be given, in smallest to largest region order, with jurisdiction titles and the date at which the names applied, in the free-text "`LocationName`". Specific metadata fields for some jurisdiction types (such as "city" and "state") are provided in some metadata standards, but are inadequate for the general case so the `LocationName` should be used even if those other fields are populated.
+
+The number of digits provided for a coordinate should not be taken to imply accuracy or region size.
+
+### Other metadata of interest
+
+- `Iptc4xmpExt:LocationId` is permitted inside locations; we expect to recommend its use in a future version of this specification.
+- IPTC also has a structure for the location of the camera as well as the location of the scene.
+- IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
+- EXIF also stores an entire structure for GPS information with 32 distinct data components. Of particular note are `GPSLatitudeRef`, `GPSLatitude`, `GPSLongitudeRef`, and `GPSLongitude` which together provide the main GPS coordinate of the camera.
+
+### Resolving conflicting metadata
+
+It is recommended that missing location data be filled in the following order if `Iptc4xmpExt:LocationShown`'s GPS coordinates are missing:
+
+- geocode `Iptc4xmpExt:LocationShown`'s address components
+- geocode IPTC legacy location fields (`photoshop:City` etc)
+- `Iptc4xmpExt:LocationCreated`'s GPS coordinates
+- geocode `Iptc4xmpExt:LocationCreated`'s address components
+- EXIF's `GPSLatitude` and `GPSLongitude`, as modified by `GPSLatitudeRef` and `GPSLongitudeRef`
+
+It is recommended that EXIF's GPS coordinates be updated any time the `LocationSown` is updated so that tools reading EXIF will correctly locate the image.
+
+Although IPTC unambiguously defines latitude and longitude to store decimal numbers, several tools instead store them as numbers followed by a letter: `N` or `S` for latitude, `E` or `W` for longitude.
+If `N` or `E` is present, it may be discarded; if `S` or `W` is present, it should be removed and the sign of the number flipped.
+
+## Example
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
+  <Iptc4xmpExt:LocationShown>
+   <rdf:Bag>
+    <rdf:li rdf:parseType='Resource'>
+     <Iptc4xmpExt:LocationName>
+      <rdf:Alt>
+       <rdf:li xml:lang='en'>Salt Lake City (city), Utah (state), USA (nation) as of 2020-07-24</rdf:li>
+      </rdf:Alt>
+     </Iptc4xmpExt:LocationName>
+     <exif:GPSLatitude>40.7596198</exif:GPSLatitude>
+     <exif:GPSLongitude>-111.8867975</exif:GPSLongitude>
+    </rdf:li>
+   </rdf:Bag>
+  </Iptc4xmpExt:LocationShown>
+ </rdf:Description>
+</rdf:RDF>
+```
+
+## Future extensions
+
+There is a known desire to store location information that IPTC cannot:
+
+- approximate coordinates, with roughly how approximate they are
+- coordinate regions
+
+IPTC does allow location data inside image regions. The complexity of these was deemed too involved for this release, but may be recommended in a future release.
+
+There is a known desire to add structured but versatile place name metadata; an example spec might look like
+
+- an ordered list, from smallest to largest, of
+- component names, each containing
+- the name (e.g. "New York") and the name of the type of region being named (e.g. "City")
+- ... all coupled with an "as of" date
+
+There are multiple other proposals for such historical place hierarchies under consideration.
 
 # Objects and People
 
