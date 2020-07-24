@@ -359,6 +359,85 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 
 # Event
 
+## What this metadata stores
+
+Free-text description in any language of the event during which the depicted scene occurred.
+
+## What this metadata does not store
+
+Any structured event information, such as
+
+- The duration of the event
+- The location of the event
+- The cause of the event
+
+## What other standards does this use
+
+- Defined by by IPTC <https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description>
+- Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
+- With language tags defined in IETF BCP 47 <https://tools.ietf.org/rfc/bcp/bcp47.txt>
+
+## Formal Specification
+
+### XMP structure
+
+\item From IPTC Extension schema
+\item Each image has a {\scriptsize \tt Iptc4xmpExt:Event} with description of the event during which the depicted scene occurred
+\item Not stage 1:
+    \nest
+    \item Event metadata
+    \unnest
+\item Also read:
+    \nest \small
+    \item none
+
+
+Using the prefixes
+
+- `rdf` for `http://www.w3.org/1999/02/22-rdf-syntax-ns#`
+- `Iptc4xmpExt` for `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`
+
+the event is encoded as
+
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `Iptc4xmpExt:Event`
+- which shall contain 1 `rdf:Alt`
+- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+- each of which shall contain a free-text description of the event in the given human language
+
+## Guidelines
+
+### Interpretation
+
+No interpretation guidelines have been identified.
+
+### Other metadata of interest
+
+No other event-relevant metadata is known.
+
+### Resolving conflicting metadata
+
+No conflicting metadata is known.
+
+## Example
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
+  <Iptc4xmpExt:Event>
+   <rdf:Alt>
+    <rdf:li xml:lang='eng'>The 1973 Jones family reunion</rdf:li>
+   </rdf:Alt>
+  </Iptc4xmpExt:Event>
+ </rdf:Description>
+</rdf:RDF>
+```
+
+## Future extensions
+
+No unfilled requirements related to events have been identified.
+
+
 # Location
 
 ## What this metadata stores
