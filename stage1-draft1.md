@@ -373,7 +373,9 @@ Thus, from a practical adoption standpoint, the meaning of each level should be 
 A numeric latitute-longitude pair, such as that ptovided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
 Instead, imprecise coordinates should be supported, as for example by extension of the image region structure or the like.
 
-
+- read IPTC over EXIF
+- store GPS in IPTC
+- store `Iptc4xmpExt:LocationShown` bag of `exif:GPSLatitute`, `exif:GPSLongitude`, `Iptx4xmpExt:LocationName` (AltLang)
 
 # Objects and People
 
