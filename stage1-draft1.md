@@ -456,7 +456,7 @@ No unfilled requirements related to events have been identified.
 
 - GPS coordinates are defined in EXIF ([CIPA DC-X008](http://www.cipa.jp/std/documents/e/DC-X008-Translation-2019-E.pdf))
 - XMP embedding of EXIF data is defined in EXIF Metadaa for XMP ([CIPA DC-X010](http://www.cipa.jp/std/documents/download_e.html?DC-X010-2020))
-- The location structure and description is defined by XMP (<https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata>)
+- The location structure and description are defined by IPTC (<https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata>)
 - Embedded within XMP <https://www.adobe.com/devnet/xmp.html>
 
 ## Formal Specification
