@@ -458,6 +458,7 @@ It is recommended that missing location data be filled in the following order if
 - geocode IPTC legacy location fields (`photoshop:City` etc)
 - `Iptc4xmpExt:LocationCreated`'s GPS coordinates
 - geocode `Iptc4xmpExt:LocationCreated`'s address components
+- geocode IPTC IIM address (2:90 city, 2:92 sub-location, 2:95 province/state, etc)
 - EXIF's `GPSLatitude` and `GPSLongitude`, as modified by `GPSLatitudeRef` and `GPSLongitudeRef`
 
 It is recommended that EXIF's GPS coordinates be updated any time the `LocationSown` is updated so that tools reading EXIF will correctly locate the image.
