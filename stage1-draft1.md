@@ -23,7 +23,7 @@ Table of contents (links only for drafted sections)
 - [Album](#album)
 - [Caption](#caption)
 - [Date](#date)
-- Event
+- [Event](#event)
 - [Location](#location)
 - [Object](#objects-and-people)
 - [People](#objects-and-people)
