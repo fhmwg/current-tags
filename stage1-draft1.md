@@ -469,7 +469,9 @@ If `N` or `E` is present, it may be discarded; if `S` or `W` is present, it shou
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
- <rdf:Description xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
+ <rdf:Description 
+    xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'
+    xmlns:exif='http://ns.adobe.com/exif/1.0/'>
   <Iptc4xmpExt:LocationShown>
    <rdf:Bag>
     <rdf:li rdf:parseType='Resource'>
