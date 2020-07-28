@@ -1,0 +1,415 @@
+\documentclass{article}
+\usepackage{calc}
+\usepackage[paperwidth=12.8in,paperheight=7.2in,margin=0.5in]{geometry}
+\usepackage{microtype}
+\usepackage{xifthen,eso-pic,multirow}
+
+\usepackage{xcolor}
+\definecolor{faded}{gray}{0.667}
+\definecolor{full}{gray}{0.0}
+\definecolor{none}{gray}{1.0}
+
+
+\usepackage{ifpdf}
+\ifpdf
+   \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+   \graphicspath{{../img/}{./}{./img}}
+   \DeclareGraphicsExtensions{.pdf,.png,.eps}
+\else
+   \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+   \graphicspath{{../img}{./}{./img}}
+   \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+\usepackage{fontspec,unicode-math}
+\defaultfontfeatures{Scale=MatchLowercase} 
+\defaultfontfeatures{Ligatures=TeX} 
+%\setmainfont{Linux Libertine O}
+%\setsansfont{Mentor Std}
+%\setmonofont{LMMono12-Regular}
+
+\setmainfont{Mentor Sans Std}
+%\setmainfont{Ubuntu}
+%\setmathfont{XITS Math}
+%\setmonofont{Ubuntu Mono}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{\hspace*{-0.4in}{\tiny Luther Tychonievich}}
+\cfoot{}
+\rfoot{{\tiny \thepage\ of \pageref{lastpage}}\hspace*{-0.4in}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+
+
+\newenvironment{slide*}[1][]{
+	\def\inset{\leftmargin=0.5ex}
+	\clearpage
+	\ifthenelse{\isempty{#1}}{}{\vspace*{-0.75in}\begin{center}\raggedright{\bf #1\textcolor{none}{j}\hrule}\vspace{0.5ex}\end{center}}
+	\def\nest{\begin{list}{$^{_\bullet}$ }{\inset\def\inset{\leftmargin=1.5ex}\itemindent=0ex}}
+	\def\unnest{\end{list}}
+}{
+}
+\newenvironment{slide}[1][]{
+	\begin{slide*}[#1]\nest
+}{
+	\unnest\end{slide*}
+}
+
+\newlength\nsbase
+\setlength\nsbase{0.06\paperheight}
+\def\Large{\fontsize{1.44\nsbase}{1.728\nsbase}\selectfont}
+\def\large{\fontsize{1.2\nsbase}{1.44\nsbase}\selectfont}
+\def\normalsize{\fontsize{\nsbase}{1.2\nsbase}\selectfont}
+\def\small{\fontsize{0.8333\nsbase}{\nsbase}\selectfont}
+\def\scriptsize{\fontsize{0.6944\nsbase}{0.8333\nsbase}\selectfont}
+\def\tiny{\fontsize{0.5788\nsbase}{0.6944\nsbase}\selectfont}
+
+
+\begin{document}%\boldmath
+\raggedright
+
+
+~\vfill
+\begin{center}
+{\large \bf FHMWG Tech Discussion 1}
+\vfill
+{\tiny Dr.\ Luther Tychonievich\\FHMWG Board\\University of Virginia\\~}
+\end{center}
+~\vfill
+
+
+\begin{slide}[Outline]
+\item Stage 1 goals
+\item Stage 1 process
+\item Common threads
+\item Specific recommendations
+\item Open questions
+\end{slide}
+
+
+
+\begin{slide}[Stage 1 Goals]
+\item Use existing metadata standards
+\item Document core metadata fields
+\item Clarify use in Family History space
+\end{slide}
+
+\begin{slide*}[Stage 1 Summary]
+
+\centering
+\begin{tabular}{l@{\hspace{1em}}l}
+\textbf{Topic} & \textbf{Recommendation} \\\hline
+Album   & Name \& ID of albums image is in  \\
+Caption & Free-text catch-all           \\
+Date    & Datetime of depicted scene    \\
+Event   & Free-text description         \\
+Location& GPS and free-text             \\
+Person  & Name and image region         \\
+Object  & Title and image region        \\
+\end{tabular}
+
+\nest
+\item Sources: option suited to genealogy not found
+\item Rights: IPTC just text, PLUS too complex
+\unnest
+\end{slide*}
+
+\begin{slide}[Stage 1 Process]
+\item Board identifies key areas
+\item Teams review options, draft recommendations
+\item \textbf{Technical feedback}
+\item Revised recommendation
+\item Stakeholder feedback
+\item Release
+\end{slide}
+
+
+\begin{slide}[Common Threads]
+\item Piecemeal support OK
+    \nest
+    \item \dots\ as long as unsupported parts not removed
+    \unnest
+\item One place to write
+    \nest
+    \item Described in detail
+    \item If present, read this too
+    \unnest
+\item Optional places to read
+    \nest
+    \item Mentioned with links
+    \item Can be used as fallbacks
+    \unnest
+\item Write XMP
+    \nest
+    \item \dots\ each team's conclusion; IPTC IIM, EXIF also reviewed
+    \unnest
+\end{slide}
+
+
+\begin{slide}[Albums]
+\item From {\tt metadataworkinggroup.com} -- now defunct
+\item Each image has {\scriptsize \tt mwg-coll:Collections} containing any number of albums it belongs to
+\item Each album has a name and/or URI
+    %\nest
+    %\item A {\scriptsize \tt mwg-coll:Collections} with an {\scriptsize \tt rdf:Bag} of resources, each with a {\scriptsize \tt mwg-coll:CollectionName} and/or {\scriptsize \tt mwg-coll:CollectionURI}
+    %\unnest
+\item Not stage 1:
+    \nest
+    \item Ordinal in album, album nesting, album metadata
+    \unnest
+%\item Also read:
+    %\nest
+    %\item None
+    %\unnest
+\end{slide}
+
+\begin{slide}[Caption]
+\item From {\tt dublincore.org}, endorsed by XMP and IPTC
+\item Each image has a {\scriptsize \tt dc:description}
+\item Not stage 1:
+    \nest
+    \item Text markup, links to other metadata, caption metadata
+    \unnest
+%\item Also read:
+    %\nest
+    %\item 
+    %EXIF~ImageDescription~(0x10E); 
+    %EXIF~UserComment~(0x9286); 
+    %{\scriptsize \tt photoshop:Headline};
+    %{\scriptsize \tt dc:title};
+    %file~name~of~image~file;
+    %{\scriptsize \tt photoshop:title}
+    %\unnest
+\end{slide}
+
+\begin{slide}[Date]
+\item From {\tt http://ns.adobe.com/photoshop/}, endorsed by IPTC
+\item Each image has a {\scriptsize \tt photoshop:DateCreated} with date of the depicted scene
+\item Not stage 1:
+    \nest
+    \item Approximate dates, date intervals, dates BCE
+    \item Dates of any other image-related event
+    \unnest
+%\item Also read:
+    %\nest \small
+    %\item 
+    %IPTC~2:55~and~2:60; 
+    %EXIF~DateTimeOriginal~(0x9003); 
+    %{\scriptsize \tt dc:date};
+    %EXIF~DateTimeDigitized~(0x9004); 
+    %IPTC~2:62~and~2:63; 
+    %{\scriptsize \tt xmp:CreateDate}
+    %\item almost 100 more known...
+    %\unnest
+\end{slide}
+
+\begin{slide}[Event]
+\item From IPTC Extension schema
+\item Each image has a {\scriptsize \tt Iptc4xmpExt:Event} with an description
+\item Not stage 1:
+    \nest
+    \item Event metadata
+    \unnest
+%\item Also read:
+    %\nest \small
+    %\item none
+    %\unnest
+\end{slide}
+
+\begin{slide}[Location]
+\item From IPTC Extension schema, referencing EXIF
+\item Each image has a {\scriptsize \tt Iptc4xmpExt:LocationShown} containing any number of locations
+\item Each location has a GPS coordinate and/or name and/or URI
+    %\nest
+    %\item A {\scriptsize \tt Iptc4xmpExt:LocationShown} with an {\scriptsize \tt rdf:Bag} of resources, each with a {\scriptsize \tt exif:GPSLatitude}, {\scriptsize \tt exif:GPSLongitude}, and/or {\scriptsize \tt Iptc4xmpExt:LocationName}%  {\scriptsize \tt Iptc4xmpExt:LocationId}
+    %\unnest
+\item Not stage 1:
+    \nest
+    \item Jurisdiction hierarchy (City/State etc inadequate)
+    \item GPS regions and/or precision
+    \unnest
+%\item Also read:
+    %\nest \small
+    %\item Other IPTC and Exif addresses and coordiantes (many)
+    %\unnest
+\end{slide}
+
+\begin{slide}[Objects and People]
+\item Decision: use IPTC 2019.1 image regions
+\item Limit complexity:
+    \nest
+    \item Require regions ({\small\tt Iptc4xmpExt:ImageRegion})
+    \item One person or object per region
+        \nest
+        \item {\small\tt Iptc4xmpExt:PersonInImageWDetails} with name, description, and/or URI
+        \item {\small\tt Iptc4xmpExt:ArtworkOrObject} with title
+        \unnest
+    \item Use ``whole-image'' region if region unknown
+    \unnest
+
+%\end{slide}\begin{slide}[Objects and People]
+
+%\item Each region has either a {\small\tt Iptc4xmpExt:PersonInImageWDetails} or a {\small\tt Iptc4xmpExt:ArtworkOrObject}.
+    %\nest
+    %\item A {\small\tt Iptc4xmpExt:PersonInImageWDetails} contains
+        %\nest
+        %\item a {\small\tt Iptc4xmpExt:PersonName} containing an AltLang;
+        %\item optionally a {\small\tt Iptc4xmpExt:PersonDescription}
+    %and/or {\small\tt Iptc4xmpExt:PersonId}
+        %\unnest
+    %\item A {\small\tt Iptc4xmpExt:ArtworkOrObject} contains
+        %\nest
+        %\item A {\small\tt Iptc4xmpExt:AOTitle} containing an AltLang
+        %\unnest
+    %\unnest
+
+\end{slide}\begin{slide}[Objects and People]
+
+\item Not stage 1:
+    \nest
+    \item Other person metadata
+    \item Recommendation re non-person non-objects, like animals
+    \item Distinction between ``unknown location'' and ``relevant but not depicted''
+    \unnest
+%\item Also read:
+    %\nest \small
+    %\item {\small\tt dc:creator}, IPTC IIM 2:80 By-Line, {\small\tt plus:ImageCreator}, {\small\tt Iptc4xmpExt:PersonInImage}, EXIF 0x13B Artist
+    %\item Person, object metadata outside of any region
+    %\unnest
+\end{slide}
+
+
+\begin{slide}[Outline]
+\item Stage 1 goals
+\item Stage 1 process
+\item Common threads
+\item Specific recommendations
+\item \textbf{Open questions}
+\end{slide}
+
+\begin{slide}[Use of URI]
+\item Albums and People both admit URI
+    \nest
+    \item Unique identifier to allow matching
+    \item URL to allow linking to DB
+    \unnest
+\item Should we recommend using these?
+    \nest
+    \item Pro: more functionality
+    \item Con: possiblity of malicious links
+        \nest
+        \item Possible: sanitize to hash-based UUID
+            \nest
+            \item e.g., {\tt\small https://www.familysearch.org/tree/person/LC32-HZ6}
+            becomes {\tt\small urn:uuid:da3fac6c-a2e5-59d7-936b-1124707fd3ef}
+            \unnest
+        \unnest
+    \unnest
+\end{slide}
+
+
+\begin{slide}[One or Several?]
+\item Can tools handle one image with
+    \nest
+    \item multiple image regions
+    \item multiple people per region
+    \item multiple locations
+    \item multiple albums
+    \item multiple languages (see next slide)
+    \unnest
+\item If some cannot, should we recommend
+    \nest
+    \item store only one
+    \item first/last takes precedence
+    \item custom ``primary" attribute
+    \unnest
+\end{slide}
+
+\begin{slide}[Handling AltLang]
+\item IPTC text fields have AltLang values:
+    \nest
+    \item Multiple (language, text) pairs; e.g. \\{\scriptsize\begin{verbatim}<rdf:Alt>
+    <rdf:li xml:lang='en'>Gordon Clarke</rdf:li>
+    <rdf:li xml:lang='ja-Latn'>Kurāku Gōdon</rdf:li>
+</rdf:Alt>\end{verbatim}}
+    \unnest
+\item Should we recommend
+    \nest
+    \item Full support for AltLang
+    \item Handling one language per field
+    \item Handling one language per image file
+    \unnest
+\end{slide}
+
+
+\begin{slide}[Free-form vs canonical RDF]
+\item XMP is encoded as RDF/XML
+    \nest
+    \item can represent arbitrary property graph
+    \item many ways to serialize same data
+    \unnest
+\item All common XMP vocabularies are trees
+    \nest
+    \item Tree-structured RDF's XML has nested-element normalized form
+    \unnest
+\item Do we say ``use nested form'' or ``use RDF toolchain''?
+    \nest
+    \item Nested: much less code to implement
+    \item RDF: guaranteed to read any tool's output
+    \unnest
+\end{slide}
+
+\begin{slide}[How much should we standardize?]
+\item Handling secondary fields
+    \nest
+    \item ``shall read these other fields''
+    \item ``shall keep these 2 fields in sync''
+    \item ``if main field missing, default to this other''
+        \nest
+        \item ``\dots with this conversion algorithm''
+        \unnest
+    \unnest
+\item UI guidelines
+    \nest
+    \item ``call it this''
+        \nest
+        \item ``\dots in each of these human languages''
+        \unnest
+    \item ``present it in this order''
+    \unnest
+\item Techniques for censuring/sanitizing/dropping metadata
+\end{slide}
+
+\begin{slide*}[Stage 1 Summary]
+
+\centering
+\begin{tabular}{l@{\hspace{1em}}l}
+\textbf{Topic} & \textbf{Recommendation} \\\hline
+Album   & Name \& ID of albums image is in  \\
+Caption & Free-text catch-all           \\
+Date    & Datetime of depicted scene    \\
+Event   & Free-text description         \\
+Location& GPS and free-text             \\
+Person  & Name and image region         \\
+Object  & Title and image region        \\
+\end{tabular}
+
+\nest
+\item Stage 2: Sources, Rights
+\item Questions: URI, Multiplicity, AltLang, RDF, secondary fields, UI/UX, sanitizing
+\unnest
+\end{slide*}
+
+
+\label{lastpage}
+\end{document}
