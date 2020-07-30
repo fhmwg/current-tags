@@ -28,6 +28,12 @@ Table of contents (links only for drafted sections)
 - [Object](#objects-and-people)
 - [People](#objects-and-people)
 
+> Note: We have multiple open questions and need to verify some data
+>
+> - AltLang
+> - UI Guidelines
+> - Verify when "0 or 1", when "a/one", and when "0 or more"
+> - Verify difference between `rdf:Bag` vs multiple resources
 
 # Album
 
@@ -41,6 +47,7 @@ Each collection is identified by one human-readable string and/or one URI.
 - Hierarchies of collections
 - Positions within a collection
 - Collections with more than one identifier
+- Album description (this is **included in the DTP** APIs as we should find a home for it)
 
 ## What other standards does this use
 
@@ -146,7 +153,9 @@ There is a known desire to store metadata about a collection, such as creator, p
 
 ## What this metadata stores
 
-Free-text description in any language containing any information the caption-writer wishes to add.
+A free-text description in any language containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
+
+Additionally, a free-text title in any language containing a human-readable shorthand title for the image.
 
 ## What this metadata does not store
 
@@ -173,9 +182,13 @@ image description is encoded as
 
 - The top-level `rdf:Description`
 - shall contain 0 or 1 `dc:description`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a free-text content in the given human language
+    - which shall contain 1 `rdf:Alt`
+    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+    - each of which shall contain a free-text content in the given human language
+- and shall contain 0 or 1 `dc:title`
+    - which shall contain 1 `rdf:Alt`
+    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+    - each of which shall contain a human-readable name for identifying this image
 
 To the degree possible, implementations should require users to have translations of the same content in each language they provide.
 
@@ -185,7 +198,7 @@ XMP does not provide a method for distinguishing the order of language alternati
 
 > Should stage 1 be limited to a single language only? Simpler, but also not fully compatible with some existing XMP.
 >
-> Perhaps it is enough to say something like "implementations that are not able to handle language alternatives *may* deiscard all but one language alternative."
+> Perhaps it is enough to say something like "implementations that are not able to handle language alternatives *may* discard all but one language alternative."
 
 ## Guidelines
 
@@ -236,6 +249,11 @@ Some existing generic metadata tools use the language tag `x-default`. This *sho
     <rdf:li xml:lang='eng'>My aunt Judy's pet rabbit</rdf:li>
    </rdf:Alt>
   </dc:description>
+  <dc:title>
+   <rdf:Alt>
+    <rdf:li xml:lang='eng'>Judy's Rabbit</rdf:li>
+   </rdf:Alt>
+  </dc:title>
  </rdf:Description>
 </rdf:RDF>
 ```
@@ -381,17 +399,6 @@ Any structured event information, such as
 
 ### XMP structure
 
-\item From IPTC Extension schema
-\item Each image has a {\scriptsize \tt Iptc4xmpExt:Event} with description of the event during which the depicted scene occurred
-\item Not stage 1:
-    \nest
-    \item Event metadata
-    \unnest
-\item Also read:
-    \nest \small
-    \item none
-
-
 Using the prefixes
 
 - `rdf` for `http://www.w3.org/1999/02/22-rdf-syntax-ns#`
@@ -481,6 +488,7 @@ image description is encoded as
         - which shall contain 1 `rdf:Alt`
         - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
         - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
+    - 1 `Iptc4xmpExt:LocationId` with a valid IRI as its content
 
 XMP defines a "number" to be either
 
@@ -505,7 +513,8 @@ Instead, imprecise coordinates should be supported, as for example by extension 
 
 ### Interpretation
 
-An image may depict more than one location; for example, an image of people standing with a landmark in the background might be coded with either where the people are standing or where the landmark is located as the location, or both.
+IPTC allows image metadata to include more than one location per image.
+The FHMWG recommends storing only a single location, which should be the location of the most important depicted elements (generally of the people in the foreground).
 
 GPS coordinates fail to capture that locations may be regions, not points. For example, a picture of the city of Dubai might be coded as being a point in Dubai such as 25.2047397, 55.2707065, even if that specific point (where Al Safa Street crosses over Sheikh Zayed Road) is not visible in the image.
 
@@ -519,7 +528,6 @@ The number of digits provided for a coordinate should not be taken to imply accu
 
 ### Other metadata of interest
 
-- `Iptc4xmpExt:LocationId` is permitted inside locations; we expect to recommend its use in a future version of this specification.
 - IPTC also has a structure for the location of the camera as well as the location of the scene.
 - IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
 - EXIF also stores an entire structure for GPS information with 32 distinct data components. Of particular note are `GPSLatitudeRef`, `GPSLatitude`, `GPSLongitudeRef`, and `GPSLongitude` which together provide the main GPS coordinate of the camera.
@@ -643,14 +651,17 @@ The `Iptc4xmpExt:RegionBoundary` shall contain
 X coordinates are measured with 0 as the left boundary of the image and either 1 (for `relative` units) or image width (for `pixel` units) as the right boundary.
 Y coordinates are measured with 0 as the top boundary of the image and either 1 (for `relative` units) or image height (for `pixel` units) as the bottom boundary.
 
-The `Iptc4xmpExt:PersonInImageWDetails` shall contain
+The `Iptc4xmpExt:PersonInImageWDetails` shall contain at least one of the following:
 
-- one `Iptc4xmpExt:PersonName`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a free-text content in the given human language, which *shall* be the persons name in that language.
-
-The `Iptc4xmpExt:PersonInImageWDetails` may additionally contain a `Iptc4xmpExt:PersonDescription` and/or `Iptc4xmpExt:PersonId`.
+- 0 or 1 `Iptc4xmpExt:PersonName`
+    - which shall contain 1 `rdf:Alt`
+    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+    - each of which shall contain a free-text content in the given human language, which *shall* be the persons name in that language.
+- 0 or 1 `Iptc4xmpExt:PersonDescription`
+    - which shall contain 1 `rdf:Alt`
+    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+    - each of which shall contain a free-text content in the given human language, which *shall* be a description of the person.
+- 0 or more `Iptc4xmpExt:PersonId`, each with a valid IRI as its content
 
 The `Iptc4xmpExt:ArtworkOrObject` shall contain
 
@@ -723,8 +734,6 @@ How and whether to reading these is left up to individual implementations.
 In addition to the `Iptc4xmpExt:PersonName`, each `Iptc4xmpExt:PersonInImageWDetails` may also include
 
 - `Iptc4xmpExt:PersonCharacteristic`, which is discouraged for family history use. Its' value is a set of elements from a controlled vocabulary (e.g., to aid in searching for images with particular characteristics from a library of stock images), and a suitable vocabulary for family history is not known.
-- `Iptc4xmpExt:PersonDescription`, which contains an `rdf:Alt` of `xml:lang`-tagged `rdf:li`, each being a description of the person in the given human language.
-- `Iptc4xmpExt:PersonId`, which contains an `rdf:Bag` of `rdf:li`, each being a URI identifying the person.
 
 Reading and writing `Iptc4xmpExt:PersonDescription` and `Iptc4xmpExt:PersonId` is encouraged.
 
