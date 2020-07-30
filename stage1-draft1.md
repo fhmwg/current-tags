@@ -34,6 +34,8 @@ Table of contents (links only for drafted sections)
 > - UI Guidelines
 > - Verify when "0 or 1", when "a/one", and when "0 or more"
 > - Verify difference between `rdf:Bag` vs multiple resources
+> - Should we provide LocationName microformat?
+> - Should we provide a cannonical Street/City/etc to LocationName mapping?
 
 # Album
 
@@ -546,7 +548,7 @@ It is recommended that missing location data be filled in the following order if
 It is recommended that EXIF's GPS coordinates be updated any time the `LocationSown` is updated so that tools reading EXIF will correctly locate the image.
 
 Although IPTC unambiguously defines latitude and longitude to store decimal numbers, several tools instead store them as numbers followed by a letter: `N` or `S` for latitude, `E` or `W` for longitude.
-If `N` or `E` is present, it may be discarded; if `S` or `W` is present, it should be removed and the sign of the number flipped.
+If `N` or `E` is present, it should be discarded; if `S` or `W` is present, it should be removed and the sign of the number flipped.
 
 ## Example
 
