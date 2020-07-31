@@ -11,6 +11,9 @@ author:
 
 # Vetting and censoring
 
+An application *must not* remove a field simply because it does not understand the meaning of the field.
+All metadata, understood or not, *shall* be perserved *unless* an application has reason to beleive it is inappropriate.
+
 There are various reasons why an application may wish to reject certain metadata.
 This section provides common rules for such cases.
 
@@ -24,9 +27,6 @@ Applications *must not* edit provided metadata except under the following four c
 4. Other cases specifically permitted for a particular field
 
 Applications may remove a metadata field entirely if it is deemed inappropriate and no edit is permitted under the four cases above. Note that removing a field is distinct from editing it to be the empty string: removing a field means removing its XMP element or EXIF key:value pair entirely.
-
-An application *should not* remove a field simply because it does not understand the meaning of the field.
-All metadata, understood or not, *should* be perserved unless an application has reason to beleive it is inappropriate.
 
 ## Malicious URLs
 
