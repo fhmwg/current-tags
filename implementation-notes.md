@@ -12,7 +12,7 @@ author:
 # Vetting and censoring
 
 An application *must not* remove a field simply because it does not understand the meaning of the field.
-All metadata, understood or not, *shall* be perserved *unless* an application has reason to beleive it is inappropriate.
+All metadata, understood or not, *shall* be perserved *unless* it violates an application's code of conduct.
 
 There are various reasons why an application may wish to reject certain metadata.
 This section provides common rules for such cases.
@@ -26,7 +26,7 @@ Applications *must not* edit provided metadata except under the following four c
 3. Whitespace-normalizing values identified as "line text"
 4. Other cases specifically permitted for a particular field
 
-Applications may remove a metadata field entirely if it is deemed inappropriate and no edit is permitted under the four cases above. Note that removing a field is distinct from editing it to be the empty string: removing a field means removing its XMP element or EXIF key:value pair entirely.
+Applications may remove a metadata field entirely if it violated an application's code of conduct and no edit is permitted under the four cases above. Note that removing a field is distinct from editing it to be the empty string: removing a field means removing its XMP element or EXIF key:value pair entirely.
 
 ## Malicious URLs
 
@@ -45,7 +45,8 @@ When used as an identifier, a URI and its corresponding version-5 UUID encoded a
 
 ## Inappropriate text
 
-Any free-text field might contain abusive or inappropriately-shared prviate content.
+Any free-text field might contain content that violates a site's code of conduct,
+such as abusive or inappropriately-shared prviate content.
 As with all fields, inappropriate text *must not* be edited without user involvement;
 if user involvement is unable to resolve the issue, the entire field *may* be removed.
 
