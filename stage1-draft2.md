@@ -19,9 +19,9 @@ author:
 ...
 
 
-# Overarching Principles
+# 1. Overarching Principles
 
-## Datatypes
+## 1.1. Datatypes
 
 The following datatypes are used to represent values:
 
@@ -49,7 +49,7 @@ The following datatypes are used to represent values:
 Whitespace normalization discards any leading or trailing whitespace, and replaces any other whitespace with a single space (U+0020) character, as specified by the W3C in [XML 1.1](https://www.w3.org/TR/xml11/).
 Whitespace in this context is a consecutive sequence of one or more characters from the set {tab (U+0009), newline (U+000A), carriage return (U+000D), space (U+0002)}.
 
-## Do not remove metadata
+## 1.2. Do not remove metadata
 
 An application shall not remove a metadata field simply because it does not understand the meaning of the field.
 All metadata, understood or not, shall be preserved unless it violates an application's code of conduct.
@@ -65,7 +65,7 @@ Applications must not edit provided metadata except under the following three ca
 Applications may remove a metadata field entirely if it violates an application's code of conduct and no edit is permitted under the three cases above.
 Note that removing a field is distinct from editing it to be the empty string: removing a field means removing its XMP element or EXIF key:value pair entirely.
 
-## Selective Implementation
+## 1.3. Selective Implementation
 
 If
     
@@ -80,12 +80,12 @@ An application that does not handle metadata at all, neither accepting nor remov
 An application that only tags the names of individuals in a photo and has no other metadata is compliant if it embeds that metadata according to the Person section and does not otherwise edit or remove metadata.
 Etc.
 
-## Going beyond this spec
+## 1.4. Going beyond this spec
 
 Applications may implement metadata beyond the scope of this recommendation, either by implementing other metadata standards or by designing their own metadata system.
 Note, however, that metadata that is covered by these recommendations must be embedded according to them, even if it is also embedded in additional ways.
 
-# Metadata to Write
+# 2. Metadata to Write
 
 This section uses the following prefixes:
 
@@ -98,9 +98,9 @@ This section uses the following prefixes:
 | `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
 | `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
 
-## Album
+## 2.1. Album
 
-### Summary
+### 2.1.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -108,7 +108,7 @@ This section uses the following prefixes:
 | `mwg-coll:CollectionName` | Line String | Name of one album |
 | `mwg-coll:CollectionURI` | IRI | Identifier of one album |
 
-### Details
+### 2.1.2. Details
 
 Album membership is encoded as
 
@@ -120,16 +120,16 @@ Album membership is encoded as
     - 1 `mwg-coll:CollectionName` with a line-text content
     - 1 `mwg-coll:CollectionURI` with a valid IRI as its content
 
-## Caption
+## 2.2. Caption
 
-### Summary
+### 2.2.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `dc:description` | AltLang block | Image caption |
 | `dc:title` | AltLang line | Image title |
 
-### Details
+### 2.1.2. Details
 
 Image description is encoded as
 
@@ -143,15 +143,15 @@ Image description is encoded as
     - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
     - each of which shall contain a human-readable name for identifying this image
 
-## Date
+## 2.3. Date
 
-### Summary
+### 2.3.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `photoshop:DateCreated` | DateTime | Date of depicted scene |
 
-### Details
+### 2.3.2. Details
 
 Date is encoded as
 
@@ -159,13 +159,15 @@ Date is encoded as
 - shall contain 0 or 1 `photoshop:DateCreated`
 - which shall contain a date or date-time string conforming to the subset of ISO 8601 format specified in <https://www.w3.org/TR/NOTE-datetime>
 
-## Event
+## 2.4. Event
+
+### 2.4.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:Event` | AltLang block | Description of event depicted scene is a part of |
 
-### Details
+### 2.4.2. Details
 
 Events are encoded as
 
@@ -175,9 +177,9 @@ Events are encoded as
 - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
 - each of which shall contain a free-text description of the event in the given human language
 
-## Location
+## 2.5. Location
 
-### Summary
+### 2.5.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -189,7 +191,7 @@ Events are encoded as
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
-### Details
+### 2.5.2. Details
 
 Location shown is encoded as
 
@@ -206,13 +208,13 @@ Location shown is encoded as
         - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
     - 1 `Iptc4xmpExt:LocationId` with a valid IRI as its content
 
-## Objects and People
+## 2.6. Objects and People
 
 Objects and people are stored inside image regions.
 
-### Image Region
+### 2.6.1. Image Region
 
-#### Summary
+#### 2.6.1.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -222,7 +224,7 @@ Objects and people are stored inside image regions.
 
 \* IPTC allows arbitrary content in regions, but the FHMWG recommends only one object or person per region
 
-#### Details
+#### 2.6.1.2. Details
 
 Image regions are encoded as
 
@@ -232,9 +234,9 @@ Image regions are encoded as
 - which shall contain 1 or more `rdf:li`, each with the `rdf:parseType='Resource'`
 - each of which shall contain one `Iptc4xmpExt:RegionBoundary` with `rdf:parseType='Resource'`, and one `Iptc4xmpExt:PersonInImageWDetails` or `Iptc4xmpExt:ArtworkOrObject`
 
-### Region Boundaries
+### 2.6.2. Region Boundaries
 
-#### Summary
+#### 2.6.2.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -250,7 +252,7 @@ Image regions are encoded as
 
 \* IPTC also allows "`pixel`", but the FHMWG recommends only "`relative`" be used
 
-#### Details
+#### 2.6.2.2. Details
 
 The `Iptc4xmpExt:RegionBoundary` shall contain
 
@@ -276,7 +278,7 @@ The `Iptc4xmpExt:RegionBoundary` shall contain
 X coordinates are measured with 0 as the left boundary of the image and either 1 (for `relative` units) or image width (for `pixel` units) as the right boundary.
 Y coordinates are measured with 0 as the top boundary of the image and either 1 (for `relative` units) or image height (for `pixel` units) as the bottom boundary.
 
-#### Whole-image Region
+#### 2.6.2.3. Whole-image Region
 
 A special region boundary is known as the "whole-image region boundary":
 a `relative` `rectangle` 
@@ -286,9 +288,9 @@ This special region shall be used for both of the following:
 - persons or objects depicted in the image but whose region is unknown
 - persons or objects directly related to the image but depicted in it
 
-### Object
+### 2.6.3. Object
 
-#### Summary
+#### 2.6.3.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -296,7 +298,7 @@ This special region shall be used for both of the following:
 | `Iptc4xmpExt:AOTitle` | AltLang block | The short descrition or title of the object |
 
 
-#### Details
+#### 2.6.3.2. Details
 
 The `Iptc4xmpExt:ArtworkOrObject` shall contain
 
@@ -306,9 +308,9 @@ The `Iptc4xmpExt:ArtworkOrObject` shall contain
 - each of which shall contain a free-text content in the given human language, which *shall* be the an identifying title for the object in that language.
 
 
-### Person
+### 2.6.4. Person
 
-#### Summary
+#### 2.6.4.1. Summary
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -319,7 +321,7 @@ The `Iptc4xmpExt:ArtworkOrObject` shall contain
 
 
 
-#### Details
+#### 2.6.4.2. Details
 
 The `Iptc4xmpExt:PersonInImageWDetails` shall contain at least one of the following:
 
@@ -340,11 +342,11 @@ The `Iptc4xmpExt:PersonInImageWDetails` shall contain at least one of the follow
 
 
 
-# Additional Considerations
+# 3. Additional Considerations
 
-## Field-specific recommendations
+## 3.1. Field-specific recommendations
 
-### Album
+### 3.1.1. Album
 
 FHMWG-recommended album metadata stores zero or more collections a given image belongs to.
 It does not store
@@ -374,11 +376,11 @@ Auto-generated names should not be exported as metadata.
 
 An album without a URI is ambiguous as to its identity, and that ambiguity should be displayed to the user in some way. If the user interface needs to guess if two non-URI albums with the same name are the same album or not, it is recommended that they be considered the same only if the (album name, providing user) pairs match.
 
-#### Other metadata of interest
+#### 3.1.1.1. Other metadata of interest
 
 The FHMWG is unaware of other widely-used album identifiers.
 
-#### Example
+#### 3.1.1.2. Example
 
 The following represents an image belonging to two albums, one with a URI and one without:
 
@@ -410,7 +412,7 @@ The following represents an image belonging to two albums, one with a URI and on
 
 ````
 
-#### Future extensions
+#### 3.1.1.3. Future extensions
 
 Albums are the only FHMWG-recommended textual metadata that does not support AltLang.
 AltLang support may be added in the future.
@@ -422,7 +424,7 @@ There is a known desire to store each image's ordinal within a collection. In ad
 There is a known desire to store metadata about a collection, such as creator, purpose, date, etc. This would require the collection itself to be an entity about which metadata can be recorded.
 
 
-### Caption
+### 3.1.2. Caption
 
 FHMWG-recommended caption metadata stores a title and a description, with the later containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
 It does not store structured information
@@ -434,7 +436,7 @@ for example, peopled portrayed in the image may be identified in person meatadat
 This inevitably leads to the possibility of conflicting information.
 Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
 
-#### Other metadata of interest
+#### 3.1.2.1. Other metadata of interest
 
 If the `dc:descrioption` is not present, it is recommended that the following be consulted instead:
 
@@ -447,7 +449,7 @@ If the `dc:title` is not present, it is recommended that the following be consul
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a caption. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
-#### Example
+#### 3.1.2.2. Example
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -466,7 +468,7 @@ IPTC also defines `photoshop:CaptionWriter`, which may be useful for application
 </rdf:RDF>
 ```
 
-#### Future extensions
+#### 3.1.2.3. Future extensions
 
 There is a known desire to store the following captions types separately:
 
@@ -482,7 +484,7 @@ There is a known desire to include links between portions of captions and other 
 
 
 
-### Date
+### 3.1.3. Date
 
 FHMWG-recommended date metadata stores the date of the depicted scene.
 Various other dates are sometimes present in metadata, but are of less interest from a family history perspective. These include
@@ -501,7 +503,7 @@ XMP recommends recording times using timezone offsets, as that provides more inf
 
 IPTC recommends truncating any unavailable information; for example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-15` or the like.
 
-#### Other metadata of interest
+#### 3.1.3.1. Other metadata of interest
 
 The following metadata are defined to store the following dates.
 Note that many user interfaces list these simply as "date" so the accuracy of these definitions may vary from one image to another.
@@ -526,7 +528,7 @@ Many other dates may also be present in metadata, such as copyright date, date o
 The IPTC IIM tags 2:55 (Date Created) and 2:60 (Time Created) were superseded by the current IPTC `photoshop:DateCreated`.
 If both an IIM field and `photoshop:DateCreated` are present, `photoshop:DateCreated` is most likely to be correct.
 
-#### Example
+#### 3.1.3.2. Example
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -536,7 +538,7 @@ If both an IIM field and `photoshop:DateCreated` are present, `photoshop:DateCre
 </rdf:RDF>
 ```
 
-#### Future extensions
+#### 3.1.3.3. Future extensions
 
 There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
 
@@ -546,7 +548,7 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 - dates with time information but without tome zone information
 
 
-### Event
+### 3.1.4. Event
 
 FHMWG-recommended caption metadata stores a free-text description of the event during which the depicted scene occurred.
 It does not store any structured event information, such as
@@ -555,11 +557,11 @@ It does not store any structured event information, such as
 - The location of the event
 - The cause of the event
 
-#### Other metadata of interest
+#### 3.1.4.1. Other metadata of interest
 
 No other event-relevant metadata is known.
 
-#### Example
+#### 3.1.4.2. Example
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -573,13 +575,13 @@ No other event-relevant metadata is known.
 </rdf:RDF>
 ```
 
-## Future extensions
+#### 3.1.4.3. Future extensions
 
 No unfilled requirements related to events have been identified.
 
 
 
-### Location
+### 3.1.5. Location
 
 FHMWG-recommended location metadata stores GPS coordinates of a characteristic point within the depicted scene and a textual description of the location of the depicted scene.
 It does not store 
@@ -620,7 +622,7 @@ Although IPTC unambiguously defines latitude and longitude to store decimal numb
 If `N` or `E` is present, it should be discarded; if `S` or `W` is present, it should be removed and the sign of the number flipped.
 
 
-#### Other metadata of interest
+#### 3.1.5.1. Other metadata of interest
 
 It is recommended that missing location data be filled in the following order if `Iptc4xmpExt:LocationShown`'s GPS coordinates are missing:
 
@@ -635,7 +637,7 @@ It is recommended that EXIF's GPS coordinates be updated any time the `LocationS
 
 IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
 
-#### Example
+#### 3.1.5.2. Example
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -659,7 +661,7 @@ IPTC has many more location parts, including altitude and various region-specifi
 </rdf:RDF>
 ```
 
-#### Future extensions
+#### 3.1.5.3. Future extensions
 
 There is a known desire to store location information that IPTC cannot:
 
@@ -680,7 +682,7 @@ There are multiple other proposals for such historical place hierarchies under c
 
 
 
-### Person and Object
+### 3.1.6. Person and Object
 
 FHMWG-recommended person and object metadata stores objects, structures, etc directly depicted in the media; people directly depicted in the media; and people not depicted by who contributed to or were otherwise relevant to the depiction (e.g., a witness of the event such as the photographer, painter, drafter, etc.)
 It does not store other people involved in the provenance chain (digitizer, editor, metadata author, etc).
@@ -700,7 +702,7 @@ Implementations should assume that each entry is independent and valid unless a 
 Even having multiple regions with the same `Iptc4xmpExt:PersonId` is in generally permitted as a person may appear in multiple regions of an image (e.g., in a mirror, by having something else occlude part of them, by signing the document in multiple places, etc).
 
 
-#### Other metadata of interest
+#### 3.1.6.1. Other metadata of interest
 
 IPTC allows arbitrary content in regions, including regions with multiple people and objects, regions with other regions inside, etc.
 To limit complexity, this recommendation only permits a single person or object per region.
@@ -732,7 +734,7 @@ In addition to `Iptc4xmpExt:AOTitle`, each `Iptc4xmpExt:ArtworkOrObject` may als
 - `Iptc4xmpExt:AOCreator`, a description of who created the object
 - IPTC defines several other fields that apply to photographs of artwork
 
-#### Example
+#### 3.1.6.2. Example
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -778,7 +780,7 @@ In addition to `Iptc4xmpExt:AOTitle`, each `Iptc4xmpExt:ArtworkOrObject` may als
 </rdf:RDF>
 ```
 
-## Future extensions
+## 3.1.6.3. Future extensions
 
 There is a known desire to indicate name parts (given, preferred, family, patronymic, matronymic, honorific, etc).
 
@@ -786,13 +788,13 @@ There is a known desire to indicate relationships between people, familial and o
 
 There is a known desire to distinguish between "not depicted" and "depicted at an unknown location".
 
+There is a known desire to tag content that is neither a human nor an object, such as animals, visual phenomena, etc.
 
 
 
 
 
-
-## Handling Unicode and Languages
+## 3.2. Handling Unicode and Languages
 
 All XMP data is written in Unicode, and use of Unicode-aware programming APIs are recommended.
 At a minimum, it is important to know that
@@ -825,7 +827,7 @@ It is an error to include the same language tag in an AltLang more than once.
 There is no known way to indicate one value as the original language and others as translations thereof.
 
 
-## XML namespaces
+## 3.3. XML namespaces
 
 XMP is encoded as RDF/XML, and XML uses namespaces to name its elements.
 Namespace prefixes used are given in the XML, and are not semanitcally significant.
@@ -851,7 +853,7 @@ Despite this, incomplete XML parsers are common that treat namespaces as signifi
 To maximize compatibility with such systems,
 it is recommended to always export data using the default namespaces given in the beginning of [Metadata to Write].
 
-## Treating XMP as RDF/XML
+## 3.4. Treating XMP as RDF/XML
 
 XMP is officially [RDF/XML](https://www.w3.org/TR/rdf-syntax-grammar/): that is, RDF expressed in XML.
 RDF is a very flexible data format, including the ability to encode cyclic graphs and other data that cannot be trivially represented in nested structures.
