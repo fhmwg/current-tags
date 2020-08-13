@@ -381,7 +381,7 @@ It does not store
 - Hierarchies of collections
 - Positions within a collection
 - Collections with more than one identifier
-- Album description (this is **included in the DTP** APIs as we should find a home for it)
+- Description of collection
 
 "Collection" or "Album" are both suitable names for user interface components describing this metadata.
 "Name" and "Title" are suitable terms for the name of an album.
