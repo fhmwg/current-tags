@@ -274,7 +274,7 @@ Image regions are encoded as
 | `rbY` | Number | (from top edge) top of rectangle; center of circle; or coordinate of a vertex |
 | `rbW` | Number | width of rectangle |
 | `rbH` | Number | height of rectangle |
-| `rbBx` | Number | radius of circle in x-axis coordinates |
+| `rbRx` | Number | radius of circle in x-axis coordinates |
 | `rbVertices` | `rdf:Seq` | sequence of vertexes of polygon |
 
 \* IPTC also allows "`pixel`", but the FHMWG recommends only "`relative`" be used
