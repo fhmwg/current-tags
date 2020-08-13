@@ -22,29 +22,29 @@ author:
 # Contents
 
 
-1. [Overarching Principles](#1)   
-1. [Metadata to Write](#2)   
-    1. [Album](#2.1)   
-    1. [Caption](#2.2)   
-    1. [Date](#2.3)   
-    1. [Event](#2.4)   
-    1. [Location](#2.5)   
-    1. [Objects and People](#2.6)   
-        1. [Image Region](#2.6.1)   
-        1. [Region Boundaries](#2.6.2)   
-        1. [Object](#2.6.3)   
-        1. [Person](#2.6.4)   
-1. [Additional Considerations](#3)   
-    1. [Field-specific recommendations](#3.1)   
-        1. [Album](#3.1.1)   
-        1. [Caption](#3.1.2)   
-        1. [Date](#3.1.3)   
-        1. [Event](#3.1.4)   
-        1. [Location](#3.1.5)   
-        1. [Person and Object](#3.1.6)   
-    1. [Handling Unicode and Languages](#3.2)   
-    1. [XML namespaces](#3.3)   
-    1. [Treating XMP as RDF/XML](#3.4)   
+1. [Overarching Principles](#1)
+1. [Metadata to Write](#2)
+    1. [Album](#2.1)
+    1. [Caption](#2.2)
+    1. [Date](#2.3)
+    1. [Event](#2.4)
+    1. [Location](#2.5)
+    1. [Objects and People](#2.6)
+        1. [Image Region](#2.6.1)
+        1. [Region Boundaries](#2.6.2)
+        1. [Object](#2.6.3)
+        1. [Person](#2.6.4)
+1. [Additional Considerations](#3)
+    1. [Field-specific recommendations](#3.1)
+        1. [Album](#3.1.1)
+        1. [Caption](#3.1.2)
+        1. [Date](#3.1.3)
+        1. [Event](#3.1.4)
+        1. [Location](#3.1.5)
+        1. [Person and Object](#3.1.6)
+    1. [Handling Unicode and Languages](#3.2)
+    1. [XML namespaces](#3.3)
+    1. [Treating XMP as RDF/XML](#3.4)
 
 # 1. Overarching Principles   <a name="1"></a>
 
@@ -57,9 +57,9 @@ The following datatypes are used to represent values:
     Language tags are defined by the IETF in [BPC 47](https://tools.ietf.org/rfc/bcp/bcp47.txt).
     The special value `x-default` is used to mean `und-i-default`,
     as introduced in [a Google Webmaster blog post](https://webmasters.googleblog.com/2013/04/x-default-hreflang-for-international-pages.html) and adopted by several XMP toolchains.
-    
+
     Two AltLang variants are used:
-    
+
     - **AltLang line**: may be whitespace-normalized
     - **AltLang block**: may not be whitespace-normalized
 
@@ -83,7 +83,7 @@ All metadata, understood or not, shall be preserved unless it violates an applic
 
 Applications must not edit provided metadata except under the following three cases:
 
-1. User-moderated editing is permitted, including 
+1. User-moderated editing is permitted, including
     1. user-initiated edits and
     2. application-initiated edits presented to the user for approval.
 2. Converting non-IRI values to unicode normal forms C or D.
@@ -95,8 +95,8 @@ Note that removing a field is distinct from editing it to be the empty string: r
 ## 1.3. Selective Implementation   <a name="1.3"></a>
 
 If
-    
-- a user provides additional metadata about an image, and 
+
+- a user provides additional metadata about an image, and
 - the metadata provided is of a type covered in this recommendation, and
 - the user does not request that the metadata be kept private
 
@@ -287,7 +287,7 @@ The `Iptc4xmpExt:RegionBoundary` shall contain
 - one `Iptc4xmpExt:rbUnit` with being one of the following exact strings: "`pixel`" or "`relative`". All applications *should* use `relative`; support for reading `pixel` is *optional*.
 - additional fields dependent on shape
     - a `rectangle` has an `rbX`, `rbY`, `rbW`, and `rbH`
-        
+
         The rectangle's top-left corner is at (`rbX`, `rbY`)
         and it is `rbW` wide and `rbH` tall.
     - a `circle` has `rbX`, `rbY`, and `rbRx`
@@ -299,7 +299,7 @@ The `Iptc4xmpExt:RegionBoundary` shall contain
         - an `rdf:Seq`, which containts
         - 3 ore more `rdf:li` with `rdf:parseType='Resource'`, each of which contain
         - an `rbX` and an `rbY`, one of the vertices of the polygon
-        
+
         IPTC does not define the meaning of a self-intersecting polygonal region, and neither does the FHMWG. Implementations *should* avoid them where possible.
 
 X coordinates are measured with 0 as the left boundary of the image and either 1 (for `relative` units) or image width (for `pixel` units) as the right boundary.
@@ -308,7 +308,7 @@ Y coordinates are measured with 0 as the top boundary of the image and either 1 
 #### 2.6.2.3. Whole-image Region   <a name="2.6.2.3"></a>
 
 A special region boundary is known as the "whole-image region boundary":
-a `relative` `rectangle` 
+a `relative` `rectangle`
 with `rbX` = 0, `rbY` = 0, `rbW` = 1, and `rbH` = 1.
 This special region shall be used for both of the following:
 
@@ -419,18 +419,18 @@ The following represents an image belonging to two albums, one with a URI and on
 
 ````xml
 <rdf:RDF xmlns:rdf=“http://www.w3.org/1999/02/22-rdf-syntax-ns#”>
-<rdf:Description xmlns:mwg-coll=“http://www.metadataworkinggroup.com/schemas/collections/”> 
+<rdf:Description xmlns:mwg-coll=“http://www.metadataworkinggroup.com/schemas/collections/”>
     <mwg-coll:Collections>
       <rdf:Bag>
 
 <rdf:li rdf:parseType=“Resource”>
-<mwg-coll:CollectionName>My Vacation Photos</mwg-coll:CollectionName> 
-<mwg-coll:CollectionURI>http://www.flickr.com/photos/myvacation</mwg-coll:CollectionURI> 
+<mwg-coll:CollectionName>My Vacation Photos</mwg-coll:CollectionName>
+<mwg-coll:CollectionURI>http://www.flickr.com/photos/myvacation</mwg-coll:CollectionURI>
 </rdf:li>
 
-<rdf:li rdf:parseType=“Resource”> 
+<rdf:li rdf:parseType=“Resource”>
 <mwg-coll:CollectionName>Beautiful Sunset Set</mwg-coll:CollectionName>
-</rdf:li> 
+</rdf:li>
 
       </rdf:Bag>
     </mwg-coll:Collections>
@@ -611,7 +611,7 @@ No unfilled requirements related to events have been identified.
 ### 3.1.5. Location   <a name="3.1.5"></a>
 
 FHMWG-recommended location metadata stores GPS coordinates of a characteristic point within the depicted scene and a textual description of the location of the depicted scene.
-It does not store 
+It does not store
 
 - GPS precision
 - GPS regions
@@ -668,7 +668,7 @@ IPTC has many more location parts, including altitude and various region-specifi
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
- <rdf:Description 
+ <rdf:Description
     xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'
     xmlns:exif='http://ns.adobe.com/exif/1.0/'>
   <Iptc4xmpExt:LocationShown>
