@@ -620,17 +620,9 @@ It does not store
 
 IPTC clarifies that latitude and longitude are defined per WGS 84 (also called WGS 1984 or EPSG:4326), meaning positive latitudes are north of the equator and positive longitudes are east of the meridian.
 
-The location team has recommended that both geographic (e.g., GPS) and jusrisdictional data be used. However, they have recommended against the fields provided for this in existing standards.
+Place names generally fit into some kind of jurisdictional hierarchy, but the levels and their names vary by region and change over time. It is recommended that the full place name be given, in smallest to largest region order, with jurisdiction titles and the date at which the names applied, in the free-text "`LocationName`". Specific metadata fields for some jurisdiction types (such as "city" and "state") are provided in some metadata standards, but are inadequate for the general case so the `LocationName` should be used even if those other fields are populated.
 
-A fixed hierarchy of jurisdictions, such as that provided by IPTC, leads to misleading historical data and should not be used in family history applications.
-Instead, a custom hierarchy of jurisdictions should be permitted for each location.
-Furthermore, applications *should* encourage users to use the hierarchy that existing at the time of the depicted event.
-
-Additionally, a survey of existing online and desktop tools suggested that most are storing a hierarchy of jurisdictions but are not storing (or are storing internally but not exposing) the meaning of each level in the hierarchy.
-Thus, from a practical adoption standpoint, the meaning of each level should be optional but recommended.
-
-A numeric latitute-longitude pair, such as that provided by IPTC, leads to misleading understanding of location precision and should not be used in family history applications.
-Instead, imprecise coordinates should be supported, as for example by extension of the image region structure or the like.
+Applications should encourage users to use the location description that existed at the time of the depicted event.
 
 IPTC allows image metadata to include more than one location per image.
 The FHMWG recommends storing only a single location, which should be the location of the most important depicted elements (generally of the people in the foreground).
@@ -640,8 +632,6 @@ GPS coordinates fail to capture that locations may be regions, not points. For e
 GPS coordinates fail to capture that locations may be approximate. For example, a picture of a headstone in the Sleepy Hollow cemetery in Sleepy Hollow New York may be coded as 41.089715, -73.862005 (the main entrance to the cemetery) if the coordinates of the specific headstone is not known.
 
 The coordinates of a conceptual location change over time by nature of plate tectonics. For example, an earthquake on 11 March 2011 moved portions of Japan 2.4 meters (about 0.000025° longitude) and regions of the sea floor ten times that far. It is generally considered best practice to represent current, not historical, coordinates when possible.
-
-Place names generally fit into some kind of jurisdictional hierarchy, but the levels and their names vary by region and change over time. It is recommended that the full place name be given, in smallest to largest region order, with jurisdiction titles and the date at which the names applied, in the free-text "`LocationName`". Specific metadata fields for some jurisdiction types (such as "city" and "state") are provided in some metadata standards, but are inadequate for the general case so the `LocationName` should be used even if those other fields are populated.
 
 The number of digits provided for a coordinate should not be taken to imply accuracy or region size.
 
