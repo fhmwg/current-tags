@@ -116,7 +116,7 @@ Album membership is encoded as
 - shall contain 0 or 1 `mwg-coll:Collections`
 - which shall contain 1 `rdf:Bag`
 - which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
-- each of which shall contain either or both of
+- each of which shall contain at least one of
     - 1 `mwg-coll:CollectionName` with a line-text content
     - 1 `mwg-coll:CollectionURI` with a valid IRI as its content
 
@@ -198,7 +198,7 @@ Location shown is encoded as
 - which shall contain 1 `rdf:Bag`
 - which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
     - However, support for more than one `rdf:li` in this `rdf:Bag` is optional; implementations *should* create a single primary location where possible, but *must not* remove additional locations without user input.
-- each of which shall contain either or both of
+- each of which shall contain at least one of
     - 1 `exif:GPSLongitude` and ` `exif:GPSLatitude`, each containing a number
     - 1 `Iptc4xmpExt:LocationName`
         - which shall contain 1 `rdf:Alt`
@@ -279,19 +279,8 @@ Y coordinates are measured with 0 as the top boundary of the image and either 1 
 #### Whole-image Region
 
 A special region boundary is known as the "whole-image region boundary":
-a `relative` `rectangle` covering the entire image.
-
-```xml
-<Iptc4xmpExt:RegionBoundary rdf:parseType='Resource'>
-  <Iptc4xmpExt:rbShape>rectangle</Iptc4xmpExt:rbShape>
-  <Iptc4xmpExt:rbUnit>relative</Iptc4xmpExt:rbUnit>
-  <Iptc4xmpExt:rbX>0</Iptc4xmpExt:rbX>
-  <Iptc4xmpExt:rbY>0</Iptc4xmpExt:rbY>
-  <Iptc4xmpExt:rbW>1</Iptc4xmpExt:rbW>
-  <Iptc4xmpExt:rbH>1</Iptc4xmpExt:rbH>
-</Iptc4xmpExt:RegionBoundary>
-```
-
+a `relative` `rectangle` 
+with `rbX` = 0, `rbY` = 0, `rbW` = 1, and `rbH` = 1.
 This special region shall be used for both of the following:
 
 - persons or objects depicted in the image but whose region is unknown
