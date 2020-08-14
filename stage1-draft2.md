@@ -315,8 +315,8 @@ a `relative` `rectangle`
 with `rbX` = 0, `rbY` = 0, `rbW` = 1, and `rbH` = 1.
 This special region shall be used for both of the following:
 
-- persons or objects depicted in the image but whose region is unknown
-- persons or objects directly related to the image but depicted in it
+- persons or objects depicted in the image but whose regions are unknown
+- persons or objects directly related to the image but not depicted in it
 
 ### 2.6.3. Object   <a name="2.6.3"></a>
 
