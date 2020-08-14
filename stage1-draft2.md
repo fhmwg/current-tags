@@ -48,6 +48,9 @@ author:
 
 # 1. Overarching Principles   <a name="1"></a>
 
+All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html).
+Within XMP, many FHMWG recommendations are aligned with the [IPTC standard](https://iptc.org/standards/photo-metadata/iptc-standard/).
+
 ## 1.1. Datatypes   <a name="1.1"></a>
 
 The following datatypes are used to represent values:
