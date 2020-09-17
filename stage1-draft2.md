@@ -71,7 +71,7 @@ The following datatypes are used to represent values:
 
 - **IRI**: An Internationalized Resource Identifier, as defined by the IETC in [RFC 3987](https://tools.ietf.org/html/rfc3987).
 
-- **Number**: An integer or decimal number in base 10 using U+002E (`.`, the period of full stop) as the floating point with no thousands-separators, as defined in [XMP Part 1 §8.2.1.4](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf#G5.869673).
+- **Number**: An integer or decimal number in base 10 using U+002E (`.`, the period or full stop) as the floating point with no thousands-separators, as defined in [XMP Part 1 §8.2.1.4](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf#G5.869673).
 
 - **DateTime**: A date in the proleptic Gregorian calendar, optionally with time in a 24-hour clock, conforming to the subset of ISO 8601 format specified by the W3C in [NOTE-datetime](https://www.w3.org/TR/NOTE-datetime).
 
