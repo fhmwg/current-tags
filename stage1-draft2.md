@@ -78,7 +78,7 @@ The following datatypes are used to represent values:
 - **Closed set**: One of a fixed set of options, given in the specification.
 
 Whitespace normalization discards any leading or trailing whitespace, and replaces any other whitespace with a single space (U+0020) character, as specified by the W3C in [XML 1.1](https://www.w3.org/TR/xml11/).
-Whitespace in this context is a consecutive sequence of one or more characters from the set {tab (U+0009), newline (U+000A), carriage return (U+000D), space (U+0002)}.
+Whitespace in this context is a consecutive sequence of one or more characters from the set {tab (U+0009), newline (U+000A), carriage return (U+000D), space (U+0020)}.
 
 ## 1.2. Do not remove metadata   <a name="1.2"></a>
 
