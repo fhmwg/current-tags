@@ -250,8 +250,8 @@ Objects and people are stored inside image regions.
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:ImageRegion` | `rdf:Bag` | Any number of image regions |
-| `rdf:li` |  | One region boundary and one\* person or object |
-| `Iptc4xmpExt:ArtworkOrObject` |  | An object |
+| `rdf:li` | *nested XML elements* | One region boundary and one\* person or object |
+| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
 
 \* IPTC allows arbitrary content in regions, but the FHMWG recommends only one object or person per region
 
@@ -271,7 +271,7 @@ Image regions are encoded as
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:RegionBoundary` |  | A region boundary |
+| `Iptc4xmpExt:RegionBoundary` | *nested XML elements* | A region boundary |
 | `Iptc4xmpExt:rbShape` | Closed set | "`rectangle`" or "`circle`" or "`polygon`" |
 | `Iptc4xmpExt:rbUnit` | Closed set | "`relative`"\*
 | `rbX` | Number | (from left edge) left of rectangle; center of circle; or coordinate of a vertex |
@@ -325,7 +325,7 @@ This special region shall be used for both of the following:
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:ArtworkOrObject` | | A person |
+| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | A person |
 | `Iptc4xmpExt:AOTitle` | AltLang block | The short descrition or title of the object |
 
 
@@ -345,7 +345,7 @@ The `Iptc4xmpExt:ArtworkOrObject` shall contain
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonInImageWDetails` | | A person |
+| `Iptc4xmpExt:PersonInImageWDetails` | *nested XML elements* | A person |
 | `Iptc4xmpExt:PersonName` | AltLang line | The name of one person |
 | `Iptc4xmpExt:PersonDescription` | AltLang block | The description of one person |
 | `Iptc4xmpExt:PersonId` | IRI | An identifier of one person |
