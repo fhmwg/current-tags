@@ -484,6 +484,7 @@ image description is encoded as
 - shall contain 0 or 1 `Iptc4xmpExt:LocationShown`
 - which shall contain 1 `rdf:Bag`
 - which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
+    - However, support for more than one `rdf:li` in this `rdf:Bag` is optional; implementations *should* create a single primary location where possible, but *must not* remove additional locations without user input.
 - each of which shall contain either or both of
     - 1 `exif:GPSLongitude` and ` `exif:GPSLatitude`, each containing a number
     - 1 `Iptc4xmpExt:LocationName`
