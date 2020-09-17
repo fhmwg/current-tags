@@ -45,6 +45,7 @@ author:
     1. [Handling Unicode and Languages](#3.2)
     1. [XML namespaces](#3.3)
     1. [Treating XMP as RDF/XML](#3.4)
+    1. [Length Limits](#3.5)
 
 # 1. Overarching Principles   <a name="1"></a>
 
@@ -885,3 +886,9 @@ To that end, implementations that chose to use a full RDF toolchain for XMP data
 The RDF toolchains known to the authors of this document use that representation by the default.
 Those that don't should provide settings or flag to select it (relevant rules in the RDF/XML specification include "omitting blank nodes" and "omitting nodes").
 
+## 3.5. Length Limits   <a name="3.5"></a>
+
+Neither XMP nor IPTC impose any limits on the length of string payloads, and neither does the FHMWG.
+Implementations should be prepared to store and display strings of arbitrary lengths.
+
+In particular, [captions](#2.2) often contain many distinct pieces of information in somewhat verbose prose and may extend into tens of thousands of characters or more.
