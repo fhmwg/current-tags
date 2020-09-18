@@ -24,17 +24,11 @@ This recommendation makes use of XMP, a standard produced by Adobe for storing R
 An image can belong to any number of albums.
 Each album has a name, an IRI, or both.
 
-The relevant vocabulary prefix is `http://www.metadataworkinggroup.com/schemas/collections/`;
-the relevant structure names are `Collections`, `CollectionName`, and `CollectionURI`.
-
 ### Caption
 
 An image may have a title and/or a description.
 The title should be a short descriptive title of the image itself.
 The description may be of any length and contain any information the user cares to add.
-
-The relevant vocabulary is the Dublin Core, with prefix `http://purl.org/dc/elements/1.1/`;
-the relevant structure names are `title`, `description`.
 
 ### Date
 
@@ -44,16 +38,10 @@ while those may be the same for photographs, they generally differ for illustrat
 
 Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the date of the depicted scene.
 
-The relevant vocabulary is Adobe Photoshop's schema, with prefix `http://ns.adobe.com/photoshop/1.0/`;
-the relevant structure name is `DateCreated`.
-
 ### Event
 
 An image can identify one event, a scene of which the image depicts.
 Events are stored as free text with no internal structure.
-
-The relevant vocabulary is the IPTC Extensions schema, with prefix `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`;
-the relevant structure name is `Event`.
 
 ### Location
 
@@ -65,13 +53,6 @@ Many other location properties exist in the IPTC standard, such as the political
 IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
-
-Locations use terms from two vocabularies.
-The IPTC Extensions schema, with prefix `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`,
-provides structure names `LocationShown`, which contains `LocationName` and `LocationId` as well as GPS coordinates.
-The EXIF schema, with prefix `http://ns.adobe.com/exif/1.0/`,
-provides structure names `GPSLatitude` and `GPSLongitude`.
-
 
 ### Objects and People
 
