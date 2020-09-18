@@ -75,4 +75,94 @@ provides structure names `GPSLatitude` and `GPSLongitude`.
 
 ### Objects and People
 
-**TO DO: resume writing here**
+The FHMWG recommends that when tagging people or objects in an image, each be tagged with a region of the image. IPTC provides a daunting level of flexibility in region tagging; the FHMWG recommends a simple subset of this, where each person or object is inside its own region. A special "whole image" region is defined for tools that lack regional tagging functionality and for tagging people and objects relevant to, but not depicted within, the image.
+
+An image can identify any number of image regions.
+Each region should have either one person or one object.
+Each object has a short free-text description.
+Each person has a name and/or a description and/or any number of IRIs.
+
+## Metadata fields
+
+The key metadata fields used in this recommendation are listed below.
+The full XML of the XMP metadata contains a variety of RDF/XML structures to help represent concepts like "any number of" substructures and "human language of" strings, which are not included in this summary.
+
+What follows uses the following namespace abbreviations:
+
+| Prefix        | URI                                                        |
+| :------------ | :--------------------------------------------------------- |
+| `dc`          | `http://purl.org/dc/elements/1.1/`                         |
+| `Iptc4xmpExt` | `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`              |
+| `mwg-coll`    | `http://www.metadataworkinggroup.com/schemas/collections/` |
+| `photoshop`   | `http://ns.adobe.com/photoshop/1.0/`                       |
+| `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
+| `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
+
+
+### Album
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `mwg-coll:Collections` | *nested elements* | Any number of albums |
+| `mwg-coll:CollectionName` | Text | Name of one album |
+| `mwg-coll:CollectionURI` | IRI | Identifier of one album |
+
+### Caption
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `dc:description` | Text | Image caption |
+| `dc:title` | Text| Image title |
+
+### Date
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `photoshop:DateCreated` | DateTime | Date of depicted scene |
+
+### Event
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:Event` | Text | Description of event depicted scene is a part of |
+
+### Location
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location |
+| `exif:GPSLatitude` | Number | Degrees north of equator of one location |
+| `exif:GPSLongitude` | Number | Degrees east of prime meridian of one location  |
+| `Iptc4xmpExt:LocationName` | Text | Full name of one location |
+| `Iptc4xmpExt:LocationId` | IRI | Identifier of one location |
+
+### Objects and People
+
+#### Image Regions
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:ImageRegion` | *nested elements* | Any number of image regions |
+| `Iptc4xmpExt:RegionBoundary` | *nested elements* | A region boundary |
+
+
+#### Objects
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:ArtworkOrObject` | *nested elements* | An object |
+| `Iptc4xmpExt:AOTitle` | Text | The short descrition or title of the object |
+
+#### People
+
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:PersonInImageWDetails` | *nested elements* | A person |
+| `Iptc4xmpExt:PersonName` | Text | The name of one person |
+| `Iptc4xmpExt:PersonDescription` | Test | The description of one person |
+| `Iptc4xmpExt:PersonId` | IRI | An identifier of one person |
+
+
+
+
+

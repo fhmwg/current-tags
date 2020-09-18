@@ -251,7 +251,9 @@ Objects and people are stored inside image regions.
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:ImageRegion` | `rdf:Bag` | Any number of image regions |
 | `rdf:li` | *nested XML elements* | One region boundary and one\* person or object |
+| `Iptc4xmpExt:RegionBoundary` | *nested XML elements* | A region boundary |
 | `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
+| `Iptc4xmpExt:PersonInImageWDetails` | *nested XML elements* | A person |
 
 \* IPTC allows arbitrary content in regions, but the FHMWG recommends only one object or person per region
 
@@ -325,7 +327,7 @@ This special region shall be used for both of the following:
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | A person |
+| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
 | `Iptc4xmpExt:AOTitle` | AltLang block | The short descrition or title of the object |
 
 
