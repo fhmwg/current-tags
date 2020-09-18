@@ -46,7 +46,7 @@ Events are stored as free text with no internal structure.
 ### Location
 
 An image can identify one location where the primary focus of the depicted scene is found.
-A location may have a latitude/longitude pair, a name, and/or an ID.
+A location may have a latitude/longitude pair, a name, and/or an IRI.
 
 Many other location properties exist in the IPTC standard, such as the political jurisdictional hierarchy of city/state/country, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the GPS coordinates, name, and ID of a location.
 
