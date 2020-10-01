@@ -1,4 +1,9 @@
-# FHMWG REC 1 — Summary
+# FHMWG REC 1 — Technical Summary
+
+This document is a technical summary of the full normative specification
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1-draft2.md>.
+
+There is also an executive summary in draft which will be linked form here when it is publicly published.
 
 ## Purpose
 
@@ -54,14 +59,22 @@ IPTC allows storing more than one location in a single image's metadata. Because
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
-### Objects and People
+### Image Regions
 
 The FHMWG recommends that when tagging people or objects in an image, each be tagged with a region of the image. IPTC provides a daunting level of flexibility in region tagging; the FHMWG recommends a simple subset of this, where each person or object is inside its own region. A special "whole image" region is defined for tools that lack regional tagging functionality and for tagging people and objects relevant to, but not depicted within, the image.
 
-An image can identify any number of image regions.
-Each region should have either one person or one object.
-Each object has a short free-text description.
-Each person has a name and/or a description and/or any number of IRIs.
+An image can identify any number of image regions,
+each of which should have either one person or one object.
+
+### Objects
+
+Each object is in a region (which may be the whole image region)
+and has a short free-text description.
+
+### People
+
+Each person is in a region (which may be the whole image region)
+and has a name and/or a description and/or any number of IRIs.
 
 ## Metadata fields
 
