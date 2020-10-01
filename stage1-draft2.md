@@ -46,6 +46,7 @@ author:
     1. [XML namespaces](#3.3)
     1. [Treating XMP as RDF/XML](#3.4)
     1. [Length Limits](#3.5)
+    1. [Archival quality](#3.6)
 
 # 1. Overarching Principles   <a name="1"></a>
 
@@ -894,3 +895,12 @@ Neither XMP nor IPTC impose any limits on the length of string payloads, and nei
 Implementations should be prepared to store and display strings of arbitrary lengths.
 
 In particular, [captions](#2.2) often contain many distinct pieces of information in somewhat verbose prose and may extend into tens of thousands of characters or more.
+
+## 3.6. Archival quality <a name="3.6"></a>
+
+It should be noted that this document permits editing metadata in a destructive way (i.e., without preserving its previous content).
+It is thus not an archival standard.
+However, it is our intent that an implementation can be compliant with both this recommendation
+and with archival standards by not permitting users to modify existing metadata.
+
+There is a known desire to add append-only edit logs or other archival-quality metadata editing.
