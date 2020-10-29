@@ -2,7 +2,7 @@ The technical material has been created by the coordinated work of many people, 
 
 **Technical director and document author**
 
-- Luther Tychonievich, [FHISO](https://fhiso.org) and [UVA](https://www.cs.virginia.edu)
+- Luther Tychonievich
 
 **People, Objects, and Image Regions team**
 
