@@ -238,7 +238,7 @@ Location shown is encoded as
         - which shall contain 1 `rdf:Alt`
         - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
         - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
-    - 1 `Iptc4xmpExt:LocationId` with a valid IRI as its content
+    - 1 or more `Iptc4xmpExt:LocationId` with a valid IRI as its content
 
 ## 2.6. Objects and People   <a name="2.6"></a>
 
