@@ -60,9 +60,16 @@ The following datatypes are used to represent values:
 - **AltLang**: a set of language-tagged translations of the same text.
 
     Language tags are defined by the IETF in [BPC 47](https://tools.ietf.org/rfc/bcp/bcp47.txt).
-    The special value `x-default` is used to mean `und-i-default`,
-    as introduced in [a Google Webmaster blog post](https://webmasters.googleblog.com/2013/04/x-default-hreflang-for-international-pages.html) and adopted by several XMP toolchains.
-
+    
+    The default language to display when a locale-specific language is not available is defined in two ways by XMP.
+    Quoting from [the XMP specification part 1, pages 22 and 23](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf#G5.860493):
+    
+    > A default value, if known, should be the first array item. The order of other array items is not specified by this document.
+    >
+    > An xml:lang value of "x-default" may be used to explicitly denote a default item. If used, the "x-default" item shall be first in the array and its simple text value should be repeated in another item in which xml:lang specifies its actual language. However, an "x-default" item may be the only item, in which case there is only a default value in no defined language.
+    
+    Notably, XMP does not use the BCP 47 standard `i-default` language subtag. It is recommended that every AltLang have an `x-default` entry. 
+    
     Two AltLang variants are used:
 
     - **AltLang line**: may be whitespace-normalized
@@ -238,7 +245,7 @@ Location shown is encoded as
         - which shall contain 1 `rdf:Alt`
         - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
         - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
-    - 1 `Iptc4xmpExt:LocationId` with a valid IRI as its content
+    - 1 or more `Iptc4xmpExt:LocationId` with a valid IRI as its content
 
 ## 2.6. Objects and People   <a name="2.6"></a>
 
@@ -490,12 +497,13 @@ IPTC also defines `photoshop:CaptionWriter`, which may be useful for application
  <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
   <dc:description>
    <rdf:Alt>
-    <rdf:li xml:lang='eng'>My aunt Judy's pet rabbit</rdf:li>
+    <rdf:li xml:lang='x-default'>My aunt Judy's pet rabbit</rdf:li>
+    <rdf:li xml:lang='en'>My aunt Judy's pet rabbit</rdf:li>
    </rdf:Alt>
   </dc:description>
   <dc:title>
    <rdf:Alt>
-    <rdf:li xml:lang='eng'>Judy's Rabbit</rdf:li>
+    <rdf:li xml:lang='x-default'>Judy's Rabbit</rdf:li>
    </rdf:Alt>
   </dc:title>
  </rdf:Description>
@@ -602,7 +610,7 @@ No other event-relevant metadata is known.
  <rdf:Description xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
   <Iptc4xmpExt:Event>
    <rdf:Alt>
-    <rdf:li xml:lang='eng'>The 1973 Jones family reunion</rdf:li>
+    <rdf:li xml:lang='x-default'>The 1973 Jones family reunion</rdf:li>
    </rdf:Alt>
   </Iptc4xmpExt:Event>
  </rdf:Description>
@@ -673,7 +681,7 @@ IPTC has many more location parts, including altitude and various region-specifi
     <rdf:li rdf:parseType='Resource'>
      <Iptc4xmpExt:LocationName>
       <rdf:Alt>
-       <rdf:li xml:lang='en'>Salt Lake City (city), Utah (state), USA (nation) as of 2020-07-24</rdf:li>
+       <rdf:li xml:lang='x-default'>Salt Lake City (city), Utah (state), USA (nation) as of 2020-07-24</rdf:li>
       </rdf:Alt>
      </Iptc4xmpExt:LocationName>
      <exif:GPSLatitude>40.7596198</exif:GPSLatitude>
@@ -780,6 +788,7 @@ In addition to `Iptc4xmpExt:AOTitle`, each `Iptc4xmpExt:ArtworkOrObject` may als
         </Iptc4xmpExt:PersonId>
         <Iptc4xmpExt:PersonName>
          <rdf:Alt>
+          <rdf:li xml:lang='x-default'>Gordon Clarke</rdf:li>
           <rdf:li xml:lang='en-US'>Gordon Clarke</rdf:li>
           <rdf:li xml:lang='ja'>クラーク・ゴードン</rdf:li>
          </rdf:Alt>
