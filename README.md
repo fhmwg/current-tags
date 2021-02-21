@@ -3,11 +3,11 @@
 Stage 1 of the Family History Metadata Working Group (FHMWG) standards process is the drafting of recommendations about the use of existing metadata tags for family history purposes.
 
 - The stage 1 recommendations were discussed and approved by the FHMWG and are believed to be final;
-    they may be found in [stage1.md](blob/master/stage1.md).
+    they may be found in [stage1.md](stage1.md).
 - A technical summary of that recommendations
-    is in [stage1-overview.md](blob/master/stage1-overview.md)
+    is in [stage1-overview.md](stage1-overview.md)
 - A reference public-domain implementation using the Adobe XMP Toolkit
-    can be found in the [cpp-code repository](/fhmwg/cpp-code)
+    can be found in the [cpp-code repository](https://github.com/fhmwg/cpp-code)
 
 FHMWG has a larger mission, but this initial project is limited to the use of existing photo embedded metatdata tags.
 See <https://fhmwg.org/> for more about the FHMWG
