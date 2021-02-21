@@ -1,3 +1,7 @@
+# Outdated draft
+
+This document has been superseded by [stage1.md](stage1.md).
+
 # A guide to image metadata
 
 This is a **preliminary draft** representing my personal first-pass reading and has not been tested to ensure it is accurate.

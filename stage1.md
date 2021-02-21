@@ -1,10 +1,26 @@
-# Outdated draft
+---
 
-This document has been superseded by [stage1.md](stage1.md).
+title: FHMWG Recommendation 1
 
-----
+author:
+
+  - Luther Tychonievich
+  - Gordon Clarke
+  - Peter Krogh
+  - Maureen Taylor
+  - Robert Friedman
+  - Christopher Desmond
+  - Jeff Looman
+  - James Tanner
+  - Nancy Desmond
+  - Michael Felts
+  - Russell Lynch
+
+...
+
 
 # Contents
+
 
 1. [Overarching Principles](#1)
 1. [Metadata to Write](#2)
@@ -320,7 +336,7 @@ This special region shall be used for both of the following:
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
-| `Iptc4xmpExt:AOTitle` | AltLang block | The short descrition or title of the object |
+| `Iptc4xmpExt:AOTitle` | AltLang block | The short description or title of the object |
 
 
 #### 2.6.3.2. Details   <a name="2.6.3.2"></a>
@@ -831,11 +847,12 @@ which consist of one or more language subtags, as defined in the [IANA Language 
 and can can indicate many things about text including language, script, dialect, and more.
 The language subtag registry is frequently updated with new languages, but maintained in a way that ensures old tags never lose their meaning.
 
-A special quasi-language-tag `x-default` was introduced by Google in 2013 to mean "the default language".
-Semantically, this means the same thing as the standard tag `und-i-default`: an undetermined language to be shown by default.
+A special quasi-language-tag `x-default` was introduced by the XMP standard ([Part 1, section 8.2.2.4](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP SDK Release cc-2016-08/XMPSpecificationPart1.pdf#G5.860493)) to mean "a default item",
+with a special requirement that if present it be first item in the array of language alternatives and a recommendation that its payload be duplicated in a second language-tagged alternative.
+Semantically, `x-default` means the same thing as the standard tag `und-i-default`: an undetermined language to be shown by default.
 Some applications are known to only edit the specific language tag `x-default`, so it is recommended that it always be provided.
 
-As with other metadata, conformant application must not discard or edit language-tagged data in an AltLang simply because the language it unknown to the application.
+As with other metadata, a conformant application must not discard or edit language-tagged data in an AltLang simply because the language is unknown to the application.
 Users should be asked to indicate the language in which they are working;
 if they do not do so, user-edited values should be given the `x-default` language tag.
 
@@ -874,13 +891,21 @@ it is recommended to always export data using the default namespaces given in th
 
 XMP is officially [RDF/XML](https://www.w3.org/TR/rdf-syntax-grammar/): that is, RDF expressed in XML.
 RDF is a very flexible data format, including the ability to encode cyclic graphs and other data that cannot be trivially represented in nested structures.
-However, all common XMP vocabularies use tree-structured data that has a canonical nested representation in RDF/XML.
-That canonical structure is given in the descriptions of this document rather than the more general RDF description.
+However, all common XMP vocabularies use tree-structured data that can be represented as nested XML without identifiers and pointers.
 
-The FHMWG wishes to support applications that parse XMP as XML without understanding RDF/XML.
-To that end, implementations that chose to use a full RDF toolchain for XMP data should ensure that the XMP data is exported in the nested representation described in this document.
-The RDF toolchains known to the authors of this document use that representation by the default.
-Those that don't should provide settings or flag to select it (relevant rules in the RDF/XML specification include "omitting blank nodes" and "omitting nodes").
+Despite this pointer-free simplicity of XMP compared to general RDF/XML, it is unfortunately the case that each of the major XMP processing toolchains uses a slightly different representation of the XMP when writing to a file.
+For example,
+
+- some will split the data into several different `rdf:RDF` elements, while others will merge them;
+- some will represent an element with `rdf:parseType='Resource'` as an element without that attribute containing a nested `rdf:Description` element;
+- some will convert text-valued sub-elements of an `rdf:Description` element into attributes of that element instead
+
+These and other variations in representation are all allowed by RDF/XML, and thus by XMP, without change in the meaning of metadata being represented. Further, many XMP toolchains do not provide the ability for the user to select the representation variation to use during output.
+
+Because of this, metadata parsers should use a fully-compliant RDF/XML parser.
+Metadata producers may bypass this by providing the nested XML described in [Metadata to Write], or may produce any equivalent RDF/XML.
+If possible, it is recommended that metdata producers match the structure listed above as closely as their XMP toolset allows;
+relevant rules to apply in the RDF/XML specification include "omitting blank nodes" and "omitting nodes."
 
 ## 3.5. Length Limits   <a name="3.5"></a>
 

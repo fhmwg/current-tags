@@ -1,24 +1,12 @@
----
+# Outdated draft
 
-title: FHMWG Stage 1 Recommendations
+This document has been superseded by [stage1.md](stage1.md).
 
-author:
+----
 
-  - Luther Tychonievich
-  - Gordon Clarke
-  - Peter Krogh
-  - Maureen Taylor
-  - Robert Friedman
-  - Christopher Desmond
-  - Jeff Looman
-  - James Tanner
-  - Nancy Desmond
-  - Michael Felts
-  - Russell Lynch
+# Table of contents
 
-...
-
-Table of contents (links only for drafted sections)
+(links only for drafted sections)
 
 - [Album](#album)
 - [Caption](#caption)

@@ -1,9 +1,7 @@
-# FHMWG REC 1 — Technical Summary
+# FHMWG Recommendation 1 — Technical Summary
 
 This document is a technical summary of the full normative specification
-which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1-draft2.md>.
-
-There is also an executive summary in draft which will be linked form here when it is publicly published.
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1.md>.
 
 ## Purpose
 
@@ -20,7 +18,7 @@ This recommendation makes use of XMP, a standard produced by Adobe for storing R
 
 2. **At Least These Fields**. There are hundreds of date fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
 
-3. **IDs are IRIs**. Internationalized Resource Identifiers (IRIs) are a polyglot extension to URIs, themselves an extension to URLs to allow storing identifiers that are not web pages. Since names, dates, etc are not enough to uniquely identify people and places, IRIs are recommended to make matching people between multiple images less error-prone. Because URLs are valid IRIs, they also allow linking to external resources.
+3. **IDs are IRIs**. Internationalized Resource Identifiers (IRIs) are a polyglot extension to URIs, themselves an extension to URLs to allow storing identifiers that are not web pages. Since names, dates, etc are not enough to uniquely identify people and places, IRIs are recommended to make matching people between multiple images less error-prone. Because URLs are valid IRIs, IRIs also allow linking to external resources.
 
 ## Summary of recommendation
 
@@ -45,7 +43,7 @@ Many other date fields exist in other metadata, such as image creation dates, im
 
 ### Event
 
-An image can identify one event, a scene of which the image depicts.
+An image can identify one event; the image depicts a part of that event.
 Events are stored as free text with no internal structure.
 
 ### Location
@@ -130,6 +128,8 @@ What follows uses the following namespace abbreviations:
 | `Iptc4xmpExt:LocationName` | Text | Full name of one location |
 | `Iptc4xmpExt:LocationId` | IRI | Identifier of one location |
 
+\* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
+
 ### Objects and People
 
 #### Image Regions
@@ -145,7 +145,7 @@ What follows uses the following namespace abbreviations:
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:ArtworkOrObject` | *nested elements* | An object |
-| `Iptc4xmpExt:AOTitle` | Text | The short descrition or title of the object |
+| `Iptc4xmpExt:AOTitle` | Text | The short description or title of the object |
 
 #### People
 

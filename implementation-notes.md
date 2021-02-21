@@ -1,12 +1,11 @@
----
-title: FHMWG Stage 1 Recommendations
-author:
-    - Luther Tychonievich
-    - Gordon Clarke
-    - Peter Krogh
-    - Maureen Taylor
-...
+# Outdated draft
 
+This document has been superseded by [stage1.md](stage1.md).
+
+Portions of this document have been incorporated into and updated by the Stage 1 recommendation;
+other portions, while potentially useful to some parties, have been determined not to belong in the recommendation itself.
+
+----
 
 
 # Vetting and censoring
