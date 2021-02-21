@@ -847,10 +847,15 @@ which consist of one or more language subtags, as defined in the [IANA Language 
 and can can indicate many things about text including language, script, dialect, and more.
 The language subtag registry is frequently updated with new languages, but maintained in a way that ensures old tags never lose their meaning.
 
-A special quasi-language-tag `x-default` was introduced by the XMP standard ([Part 1, section 8.2.2.4](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP SDK Release cc-2016-08/XMPSpecificationPart1.pdf#G5.860493)) to mean "a default item",
-with a special requirement that if present it be first item in the array of language alternatives and a recommendation that its payload be duplicated in a second language-tagged alternative.
-Semantically, `x-default` means the same thing as the standard tag `und-i-default`: an undetermined language to be shown by default.
-Some applications are known to only edit the specific language tag `x-default`, so it is recommended that it always be provided.
+The quasi-language-tag `x-default` used by XMP
+
+- is optional
+- if present, must be the first alternative in the AltLang
+- if present, is recommended to have an alternative with the same payload
+- is semantically equivalent to the standard tag `und-i-default`: an undetermined language to be shown by default
+- is the only tag edited by some generic metadata editing programs
+
+Because of the last point above, it is recommended that `x-default` be used in evert AltLang.
 
 As with other metadata, a conformant application must not discard or edit language-tagged data in an AltLang simply because the language is unknown to the application.
 Users should be asked to indicate the language in which they are working;
@@ -885,7 +890,7 @@ Thus the following two XMP datasets are semantically identical:
 
 Despite this, incomplete XML parsers are common that treat namespaces as significant and would fail to parse the second of the above examples.
 To maximize compatibility with such systems,
-it is recommended to always export data using the default namespaces given in the beginning of [Metadata to Write].
+it is recommended to always export data using the default namespaces given in the beginning of [Metadata to Write](#2).
 
 ## 3.4. Treating XMP as RDF/XML   <a name="3.4"></a>
 
