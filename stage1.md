@@ -587,7 +587,7 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 - approximate dates
 - date ranges (for depictions of events that covered multiple days)
 - dates before 0001-01-01
-- dates with time information but without tome zone information
+- dates with time information but without time zone information
 
 
 ### 3.1.4. Event   <a name="3.1.4"></a>
@@ -844,7 +844,7 @@ See [unicode.org](https://home.unicode.org) for more.
 All human-readable IPTC strings use AltLang structures to provide a set of alternative presentations in different languages.
 Languages are expressed by language tags, as defined in [BCP 47](https://tools.ietf.org/rfc/bcp/bcp47.txt),
 which consist of one or more language subtags, as defined in the [IANA Language Subtag Registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry),
-and can can indicate many things about text including language, script, dialect, and more.
+and can indicate many things about text including language, script, dialect, and more.
 The language subtag registry is frequently updated with new languages, but maintained in a way that ensures old tags never lose their meaning.
 
 The quasi-language-tag `x-default` used by XMP
