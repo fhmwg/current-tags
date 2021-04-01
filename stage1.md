@@ -182,6 +182,8 @@ Image description is encoded as
     - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
     - each of which shall contain a human-readable name for identifying this image
 
+Additionally, the `dc:title` may be displayed in a way that occludes all but the first few dozen characters, and should be structured so that first characters contain the most important information. See [§3.1.2](#3.1.2) for more.
+
 ## 2.3. Date   <a name="2.3"></a>
 
 ### 2.3.1. Summary   <a name="2.3.1"></a>
@@ -476,6 +478,21 @@ It is common for captions to replicate some information included elsewhere in th
 for example, peopled portrayed in the image may be identified in person meatadata and also in the caption so that the caption may discuss the relationships between the people or the like.
 This inevitably leads to the possibility of conflicting information.
 Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
+
+The title is intended to be a short descriptive title of the image as a whole.
+To better serve this purpose, implementations may chose to
+
+- Present only the first few characters of the title.
+    It is recommended that at least 30 characters in alphabetic scripts,
+    15 characters in syllabic scripts,
+    or 10 characters in ideographic scripts be displayed.
+    
+    Note this is for display only. Implementations must not truncate existing longer titles upon export.
+
+- Chose not to display and/or prevent user entry of non-linguistic content like emoji in the title.
+
+    Note this is for display and new entry only. Implementations must not filter characters in existing titles upon export.
+
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
@@ -918,6 +935,8 @@ Neither XMP nor IPTC impose any limits on the length of string payloads, and nei
 Implementations should be prepared to store and display strings of arbitrary lengths.
 
 In particular, [captions](#2.2) often contain many distinct pieces of information in somewhat verbose prose and may extend into tens of thousands of characters or more.
+
+The [title](#2.2) is intended to be a short descriptive title and may be truncated for display, but should not be truncated in the preserved metadata itself. See [§3.1.2](#3.1.2) for more.
 
 ## 3.6. Archival quality <a name="3.6"></a>
 
