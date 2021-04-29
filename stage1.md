@@ -472,6 +472,8 @@ It does not store structured information
 
 Where possible, implementations should encourage placing information in other metadata fields.
 
+The title field is intended to be short and displayable as a line or two of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
+
 It is common for captions to replicate some information included elsewhere in the metadata;
 for example, peopled portrayed in the image may be identified in person meatadata and also in the caption so that the caption may discuss the relationships between the people or the like.
 This inevitably leads to the possibility of conflicting information.
