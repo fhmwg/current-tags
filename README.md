@@ -9,7 +9,7 @@ Stage 1 of the Family History Metadata Working Group (FHMWG) standards process i
 - A reference public-domain implementation using the Adobe XMP Toolkit
     can be found in the [cpp-code repository](https://github.com/fhmwg/cpp-code)
 
-FHMWG has a larger mission, but this initial project is limited to the use of existing photo embedded metatdata tags.
+FHMWG has a larger mission, but this initial project is limited to the use of existing photo embedded metadata tags.
 See <https://fhmwg.org/> for more about the FHMWG
 
 # Stage 2 and Beyond
