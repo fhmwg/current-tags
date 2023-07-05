@@ -1,7 +1,7 @@
 # FHMWG Essential Metadata Recommendation 1 — Technical Summary
 
 This document is a technical summary of the full normative specification
-which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1.md>.  The Album, Event, Image Region and Object has been removed from the FHMWG Recommendation Stage 1.  Other minor change have been changes to accomodate People and Location using more popular methodology. 
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/essential.md>.  The Album, Event, Image Region and Object has been removed from the FHMWG Recommendation Stage 1.  Other minor change have been changes to accomodate People and Location using more popular methodology. 
 
 ## Purpose
 
