@@ -1,14 +1,14 @@
-# FHMWG Recommendation 1 — Technical Summary
+# FHMWG Essential Metadata Recommendation 1 — Technical Summary
 
 This document is a technical summary of the full normative specification
-which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1.md>.
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage1.md>.  The Album, Event, Image Region and Object has been removed from the FHMWG Recommendation Stage 1.  Other minor change have been changes to accomodate People and Location using more popular methodology. 
 
 ## Purpose
 
-This is a standard for embedded metadata in images:
+This is a minimum standard for embedded family history metadata in images:
 that is, data about what the image depicts that are stored in machine-readable (non-visual) format within the image file itself.
 
-There are thousands of metadata fields in the use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing fields which we recommend as core to family history applications of metadata.
+There are thousands of metadata fields in the use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing fields which we recommend as core to family history applications of metadata that already have some popularity.
 
 This recommendation makes use of XMP, a standard produced by Adobe for storing RDF/XML in image metadata; and IPTC, which provides one of the more popular RDF vocabularies for XMP. Because those are complicated and nuanced technologies, we describe the resulting standard only in terms of XML; it is our intent that a full understanding of RDF, XMP, and IPTC is not necessary to implement these recommendations.
 
@@ -22,16 +22,15 @@ This recommendation makes use of XMP, a standard produced by Adobe for storing R
 
 ## Summary of recommendation
 
-### Albums
+### Title
 
-An image can belong to any number of albums.
-Each album has a name, an IRI, or both.
-
-### Caption
-
-An image may have a title and/or a description.
+An image may have a title.
 The title should be a short descriptive title of the image itself.
-The description may be of any length and contain any information the user cares to add.
+
+### Description/Caption
+
+An image may have a description.
+The description may be of any length and contain any information the user cares to add. The description could also include a caption for the image.
 
 ### Date
 
@@ -41,38 +40,35 @@ while those may be the same for photographs, they generally differ for illustrat
 
 Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the date of the depicted scene.
 
-### Event
+The readability of two other dates are are required if the XMP is not found. These additional dates would be a IIM value and a EXIF value.
+On read: read the XMP value, if not there then read the IIM value, if not there read the EXIF value.  If the user changes the date created, it is written to all three places.  This would maintain backwards compatibility and interoperability between older and new formats and software.
 
-An image can identify one event; the image depicts a part of that event.
-Events are stored as free text with no internal structure.
 
-### Location
 
-An image can identify one location where the primary focus of the depicted scene is found.
-A location may have a latitude/longitude pair, a name, and/or an IRI.
+### Location Text
 
-Many other location properties exist in the IPTC standard, such as the political jurisdictional hierarchy of city/state/country, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the GPS coordinates, name, and ID of a location.
+An image can identify one location where the primary focus of the depicted scene is found. The location text is the name.  The location latitude/longitude pair would be stored in the Location GeoTags.
 
-IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
+
+Many other location properties exist in the IPTC standard, such as the political jurisdictional hierarchy of city/state/country, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the LocationShown,Location, City, State, Country, and Country Code.
+
+IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple location
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
-### Image Regions
+### Location GeoTags
 
-The FHMWG recommends that when tagging people or objects in an image, each be tagged with a region of the image. IPTC provides a daunting level of flexibility in region tagging; the FHMWG recommends a simple subset of this, where each person or object is inside its own region. A special "whole image" region is defined for tools that lack regional tagging functionality and for tagging people and objects relevant to, but not depicted within, the image.
+An image can identify one location where the primary focus of the depicted scene is found.   The location latitude/longitude pair would be stored in the Location GeoTags.
 
-An image can identify any number of image regions,
-each of which should have either one person or one object.
+GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
-### Objects
+### Person In Image (Person Name)
 
-Each object is in a region (which may be the whole image region)
-and has a short free-text description.
+Each person referenced with this tag will need a Person Face Tag by a region with a region structure.
 
-### People
 
-Each person is in a region (which may be the whole image region)
-and has a name and/or a description and/or any number of IRIs.
+### Person Face Tag
+Referencing a person withing a image will need a Person Face Tag and a Person Name
 
 ## Metadata fields
 
@@ -91,72 +87,57 @@ What follows uses the following namespace abbreviations:
 | `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
 
 
-### Album
+
+### Title
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `mwg-coll:Collections` | *nested elements* | Any number of albums |
-| `mwg-coll:CollectionName` | Text | Name of one album |
-| `mwg-coll:CollectionURI` | IRI | Identifier of one album |
+| `dc:title` | Text| Image title |
 
-### Caption
+### Description
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `dc:description` | Text | Image caption |
-| `dc:title` | Text| Image title |
 
 ### Date
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `photoshop:DateCreated` | DateTime | Date of depicted scene |
+| `EXIF:DateTimeOriginal` | DateTime | Date of depicted scene |
+| `IIM:DateTimeCreated` | DateTime | Date of depicted scene |
 
-### Event
 
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:Event` | Text | Description of event depicted scene is a part of |
-
-### Location
+### Location Name
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location |
-| `exif:GPSLatitude` | Number | Degrees north of equator of one location |
-| `exif:GPSLongitude` | Number | Degrees east of prime meridian of one location  |
-| `Iptc4xmpExt:LocationName` | Text | Full name of one location |
-| `Iptc4xmpExt:LocationId` | IRI | Identifier of one location |
+| `ptc4xmpCore:Location` | Text | Location name of one location |
+| `photoshop:City` | Text | City name of one location  |
+| `photoshop:State` | Text | State name of one location |
+| `photoshop:Country` | Text| Country name of one location |
+| `Iptc4xmpCore:CountryCode` | Number | Country Code of one location |
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
-### Objects and People
-
-#### Image Regions
+### Location GeoTag
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:ImageRegion` | *nested elements* | Any number of image regions |
-| `Iptc4xmpExt:RegionBoundary` | *nested elements* | A region boundary |
+| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location |
+| `EXIF GPS longitude` | Number | Location longitude of one location |
+| `EXIF GPS latitude` | Number | Location longitude of one location |
 
-
-#### Objects
-
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:ArtworkOrObject` | *nested elements* | An object |
-| `Iptc4xmpExt:AOTitle` | Text | The short description or title of the object |
-
-#### People
+#### Person In Image (Person Name)
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonInImageWDetails` | *nested elements* | A person |
-| `Iptc4xmpExt:PersonName` | Text | The name of one person |
-| `Iptc4xmpExt:PersonDescription` | Test | The description of one person |
-| `Iptc4xmpExt:PersonId` | IRI | An identifier of one person |
+| ` Iptc4xmpExt:PersonInImage` | *nested elements* | A person |
 
+#### Person Face Tag
 
-
-
-
+| Field | Type | Stores |
+| :---- | :--- | :----- |
+| ` mwg-rs:Regions` | *nested elements* | with RegionStuct |
