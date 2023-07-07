@@ -187,7 +187,7 @@ References:
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
-#### Person In Image (Person Name)
+### Person In Image (Person Name)
 
 Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#person-shown-in-the-image)
 
@@ -195,10 +195,10 @@ Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/s
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
 
-#### Person Face Tag
+### Person Face Tag
 
-Reference:  [MWG Region Structs](https://exiv2.org/tags-xmp-mwg-rs.html)
+Reference:  [Metadata Working Group Regions schema](https://exiv2.org/tags-xmp-mwg-rs.html)
 
 | Property | Type | Stores |
 | :---- | :--- | :----- |
-| `mwg-rs:Regions` | *nested elements* | with RegionStuct |
+| `mwg-rs:Regions` | *nested elements* | list of coordinates and names for face tags in image |
