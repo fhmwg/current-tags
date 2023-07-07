@@ -74,8 +74,8 @@ What follows uses the following namespace abbreviations:
 | `Iptc4xmpCore`    | `http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/`              |
 | `mwg-rs`          | `http://www.metadataworkinggroup.com/schemas/regions/`     |
 | `dc`          | `http://purl.org/dc/elements/1.1/`                         |
-| `iim`          | [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/) |
-| `exif`          | [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf ) |
+| `IIM`          | [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/) |
+| `EXIF`          | [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf ) |
 
 
 ### Title
@@ -105,8 +105,8 @@ References:
 | Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
-| `iim:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | Date of depicted scene |
-| `exif:DateTimeOriginal` | 0x9003 DateTimeOriginal, 0x9011 OffsetTimeOriginal | Date of depicted scene |
+| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | Date of depicted scene |
+| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | Date of depicted scene |
 
 
 ### Location Shown In the Image
@@ -118,18 +118,29 @@ References:
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
 
-| Property | Type | Stores |
+| Property | XMP Spec | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
-| `nested Location Structure` | *nested elements* | One location structure |
-| `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
-| `   LocationShown:City` | Iptc4xmpExt:City | name of city |
-| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
-| `Iptc4xmpCore:Location` | Text | Location name of one location |
-| `photoshop:City` | Text | City name of one location  |
-| `photoshop:State` | Text | State name of one location |
-| `photoshop:Country` | Text| Country name of one location |
-| `Iptc4xmpCore:CountryCode` | Number | Country Code of one location |
+| `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
+| `    LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
+| `    LocationShown:City` | Iptc4xmpExt:City | name of city |
+| `    LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
+| `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
+| `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
+| `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
+| `    LocationShown:GPS-Latitude` | exif:GPSLatitude | Exif GPSCoordinate <External> |
+| `    LocationShown:GPS-Longitude` | exif:GPSLongitude | Exif GPSCoordinate <External>|
+| `Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` | sync with LocationShown:Sublocation |
+| `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | sync with LocationShown:City |
+| `Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | sync with LocationShown:ProvinceState |
+| `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | sync with LocationShown:CountryName |
+| `IIM:Sublocation`  | `2:92` | sync with Iptc4xmpCore:Sublocation (legacy) |
+| `IIM:City`  | `2:90` | sync with Iptc4xmpCore:City (legacy) |
+| `IIM:Province/State`  | `2:95` | sync with Iptc4xmpCore:Province or State (legacy) |
+| `IIM:Country/Primary Location Name`  | `2:101` | sync with Iptc4xmpCore:Country (legacy) |
+| `EXIF:gps latitude`  | `2:101` | sync with LocationShown:GPS-Latitude |
+| `EXIF:gps longitude`  | `2:101` | sync with LocationShown:GPS-Longitude |
+
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
