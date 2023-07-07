@@ -109,8 +109,13 @@ References:
 | Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
-| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | Date of depicted scene |
-| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | Date of depicted scene |
+
+Semantically equivalent IIM and EXIF fields to sync
+
+| Property | Specification | Sync with |
+| :---- | :--- | :----- |
+| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | `Iptc4xmpCore:DateCreated` |
+| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | `Iptc4xmpCore:DateCreated` |
 
 
 ### Location Shown In the Image
@@ -127,7 +132,7 @@ References:
 
 
 | Property | Type | Stores |
-| :---- | :--- | :----- |
+| :------------------------------------------ | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
 | `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
 | `    LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
@@ -140,6 +145,7 @@ References:
 Semantically equivalent XMP, IIM and EXIF fields to sync
 
 References:
+
 [IPTC Core 7.24. Sublocation (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#sublocation-legacy)
 
 [IPTC Core 7.2. City (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#city-legacy)
