@@ -118,7 +118,7 @@ References:
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
 
-| Property | XMP Spec | Stores |
+| Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
 | `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
@@ -134,29 +134,25 @@ References:
 | `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | sync with LocationShown:City |
 | `Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | sync with LocationShown:ProvinceState |
 | `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | sync with LocationShown:CountryName |
-| `IIM:Sublocation`  | `2:92` | sync with Iptc4xmpCore:Sublocation (legacy) |
+| `IIM:Sublocation`  | `2:92 Sublocation` | sync with Iptc4xmpCore:Sublocation (legacy) |
 | `IIM:City`  | `2:90` | sync with Iptc4xmpCore:City (legacy) |
-| `IIM:Province/State`  | `2:95` | sync with Iptc4xmpCore:Province or State (legacy) |
-| `IIM:Country/Primary Location Name`  | `2:101` | sync with Iptc4xmpCore:Country (legacy) |
-| `EXIF:gps latitude`  | `2:101` | sync with LocationShown:GPS-Latitude |
-| `EXIF:gps longitude`  | `2:101` | sync with LocationShown:GPS-Longitude |
+| `IIM:Province/State`  | `2:95 Province/State` | sync with Iptc4xmpCore:Province or State (legacy) |
+| `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name` | sync with Iptc4xmpCore:Country (legacy) |
+| `EXIF:GPSLatitudeRef`  | `0x0001` GPSLatitudeRef  | (North/South) sync with LocationShown:GPS-Latitude|
+| `EXIF:GPSLatitude`  | `0x0002 GPSLatitude ` | sync with LocationShown:GPS-Latitude |
+| `EXIF:GPSLongitudeRef`  | `0x0003` GPSLongitudeRef  | (East/West) sync with LocationShown:GPS-Longitude|
+| `EXIF:GPSLongitude`  | `0x0004 GPSLongitude ` | sync with LocationShown:GPS-Longitude |
+
+There is also an XMP exif field for latitude and longitude -- do we need to synch there also?
 
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
-
-### Location GeoTag
-
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location |
-| `EXIF GPS longitude` | Number | Location longitude of one location |
-| `EXIF GPS latitude` | Number | Location longitude of one location |
 
 #### Person In Image (Person Name)
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonInImage` | *nested elements* | A person |
+| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image |
 
 #### Person Face Tag
 
