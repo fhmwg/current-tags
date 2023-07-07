@@ -68,11 +68,15 @@ The full XML of the XMP metadata contains a variety of RDF/XML structures to hel
 
 What follows uses the following namespace abbreviations:
 
-| Prefix            | URI                                                        |
+| Prefix            | URI or Reference                                                        |
 | :------------     | :--------------------------------------------------------- | 
 | `Iptc4xmpExt`     | `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`              |
-| `Iptc4xmpCore`    | `http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/`     
-| `mwg-rs`          | `http://www.metadataworkinggroup.com/schemas/regions/`                             |
+| `Iptc4xmpCore`    | `http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/`              |
+| `mwg-rs`          | `http://www.metadataworkinggroup.com/schemas/regions/`     |
+| `dc`          | `http://purl.org/dc/elements/1.1/`                         |
+| `iim`          | [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/) |
+| `exif`          | [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf ) |
+
 
 ### Title
 
@@ -80,29 +84,46 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 
 | Property             | Type | Stores |
 | :------------------- | :--- | :----- |
-| `Iptc4xmpCore:Title` | Text | Image title |
+| `Iptc4xmpCore:Title` | `dc:title` | Image title |
 
 
 ### Description
 
-| Field | Type | Stores |
+Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
+
+
+| Property | Type | Stores |
 | :---- | :--- | :----- |
-| `dc:description` | Text | Image description |
+| `Iptc4xmpCore:Description`| `dc:description` | Image description |
 
 ### Date
 
-| Field | Type | Stores |
+References: 
+[IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
+   
+| Property | Type | Stores |
 | :---- | :--- | :----- |
-| `photoshop:DateCreated` | DateTime | Date of depicted scene |
-| `EXIF:DateTimeOriginal` | DateTime | Date of depicted scene |
-| `IIM:DateTimeCreated` | DateTime | Date of depicted scene |
+| `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
+| `iim:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | Date of depicted scene |
+| `exif:DateTimeOriginal` | 0x9003 DateTimeOriginal, 0x9011 OffsetTimeOriginal | Date of depicted scene |
 
 
-### Location Name
+### Location Shown In the Image
 
-| Field | Type | Stores |
+References:
+[IPTC Extension 11.22. Location Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-shown-in-the-image)
+[IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
+
+
+| Property | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location |
+| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
+| `nested Location Structure` | *nested elements* | One location structure |
+| `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
+| `   LocationShown:City` | Iptc4xmpExt:City | name of city |
+| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
+
+
 | `Iptc4xmpCore:Location` | Text | Location name of one location |
 | `photoshop:City` | Text | City name of one location  |
 | `photoshop:State` | Text | State name of one location |
