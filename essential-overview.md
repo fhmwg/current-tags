@@ -98,7 +98,8 @@ Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/spe
 
 ### Date
 
-References: 
+References:
+ 
 [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
 | Property | Type | Stores |
@@ -111,7 +112,9 @@ References:
 ### Location Shown In the Image
 
 References:
+
 [IPTC Extension 11.22. Location Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-shown-in-the-image)
+
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
 
@@ -122,8 +125,6 @@ References:
 | `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
 | `   LocationShown:City` | Iptc4xmpExt:City | name of city |
 | `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
-
-
 | `Iptc4xmpCore:Location` | Text | Location name of one location |
 | `photoshop:City` | Text | City name of one location  |
 | `photoshop:State` | Text | State name of one location |
