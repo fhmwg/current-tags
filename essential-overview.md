@@ -41,10 +41,9 @@ while those may be the same for photographs, they generally differ for scanned i
 Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the date of the depicted scene.
 
 
-### Location Shown in Image
+### Location Shown in the Image (Names and GeoTags)
 
 An image can identify one location where the primary focus of the depicted scene is found. A location can have a full name, identifier, sublocation, city, state, country, and GPS coordinates.
-
 
 Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the full name, identifier, sublocation, city, state, country, and GPS coordinates.
 
@@ -52,12 +51,13 @@ IPTC allows storing more than one location in a single image's metadata. Because
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
-### Person In Image (Person Name)
+
+### Person Names
 
 An image may depict persons either visually or by close association (i.e. my grandpa's house is associated with my grandpa even though grandpa is not visually in the photo). The image may have a list of person names associated with the image.
 
 
-### Person Face Tag
+### Person Face Tags
 A person in an image may be referenced by a face tag (coordinates within the image).  In addition to the face tag, the person name should be added to the list of persons in the image.
 
 
@@ -66,7 +66,7 @@ A person in an image may be referenced by a face tag (coordinates within the ima
 The key metadata properties used in this recommendation are listed below.
 The full XML of the XMP metadata contains a variety of RDF/XML structures to help represent concepts like "any number of" substructures and "human language of" strings, which are not included in this summary.
 
-What follows uses the following namespace abbreviations:
+What follows uses the following namespace abbreviations for XMP metadata :
 
 | Prefix            | URI or Reference                                                        |
 | :------------     | :--------------------------------------------------------- | 
@@ -74,6 +74,10 @@ What follows uses the following namespace abbreviations:
 | `Iptc4xmpCore`    | `http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/`              |
 | `mwg-rs`          | `http://www.metadataworkinggroup.com/schemas/regions/`     |
 | `dc`          | `http://purl.org/dc/elements/1.1/`                         |
+| `exif`  |  `http://ns.adobe.com/exif/1.0/` |
+
+In addition to the XMP metadata, there are semantically equivalent properties in the Information Interchange Model (IIM) and Exchange Image File Format (EXIF) sections which may be kept in sync with the XMP data.  The following abbreviations are used for IIM and EXIF metadata.
+
 | `IIM`          | [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/) |
 | `EXIF`          | [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf ) |
 
@@ -118,6 +122,10 @@ References:
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
 
+
+#### Location Shown in the Image - Names and Identifier
+
+
 | Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
@@ -128,34 +136,69 @@ References:
 | `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
 | `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
 | `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
+
+Semantically equivalent XMP, IIM and EXIF fields to sync
+
+References:
+[IPTC Core 7.24. Sublocation (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#sublocation-legacy)
+
+[IPTC Core 7.2. City (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#city-legacy)
+
+[IPTC Core 7.19. Province or State (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#province-or-state-legacy)
+
+[IPTC Core 7.4. Country (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#country-legacy)
+
+
+| Property | Specification | Sync with |
+| :---- | :--- | :----- |
+| `Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` | LocationShown:Sublocation |
+| `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | LocationShown:City |
+| `Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | LocationShown:ProvinceState |
+| `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | LocationShown:CountryName |
+| `IIM:Sublocation`  | `2:92 Sublocation` | Iptc4xmpCore:Sublocation (legacy) |
+| `IIM:City`  | `2:90` | Iptc4xmpCore:City (legacy) |
+| `IIM:Province/State`  | `2:95 Province/State` | Iptc4xmpCore:Province or State (legacy) |
+| `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name` | Iptc4xmpCore:Country (legacy) |
+
+#### Location Shown in the Image - Geo Tags
+
+| Property | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
+| `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
 | `    LocationShown:GPS-Latitude` | exif:GPSLatitude | Exif GPSCoordinate <External> |
 | `    LocationShown:GPS-Longitude` | exif:GPSLongitude | Exif GPSCoordinate <External>|
-| `Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` | sync with LocationShown:Sublocation |
-| `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | sync with LocationShown:City |
-| `Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | sync with LocationShown:ProvinceState |
-| `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | sync with LocationShown:CountryName |
-| `IIM:Sublocation`  | `2:92 Sublocation` | sync with Iptc4xmpCore:Sublocation (legacy) |
-| `IIM:City`  | `2:90` | sync with Iptc4xmpCore:City (legacy) |
-| `IIM:Province/State`  | `2:95 Province/State` | sync with Iptc4xmpCore:Province or State (legacy) |
-| `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name` | sync with Iptc4xmpCore:Country (legacy) |
-| `EXIF:GPSLatitudeRef`  | `0x0001` GPSLatitudeRef  | (North/South) sync with LocationShown:GPS-Latitude|
-| `EXIF:GPSLatitude`  | `0x0002 GPSLatitude ` | sync with LocationShown:GPS-Latitude |
-| `EXIF:GPSLongitudeRef`  | `0x0003` GPSLongitudeRef  | (East/West) sync with LocationShown:GPS-Longitude|
-| `EXIF:GPSLongitude`  | `0x0004 GPSLongitude ` | sync with LocationShown:GPS-Longitude |
 
-There is also an XMP exif field for latitude and longitude -- do we need to synch there also?
+Semantically equivalent XMP and EXIF fields to sync
+
+References:
+
+[XMP Namespaces > exif](https://developer.adobe.com/xmp/docs/XMPNamespaces/exif/)
+
+| Property | Specification | Sync with |
+| :---- | :--- | :----- |
+| `exif:GPSLatitude`   | `exif:GPSLatitude` | LocationShown:GPS-Latitude |
+| `exif:GPSLongitude`   | `exif:GPSLongitude` | LocationShown:GPS-Longitude |
+| `EXIF:GPSLatitudeRef`  | `Tag 0x0001` GPSLatitudeRef  | LocationShown:GPS-Latitude|
+| `EXIF:GPSLatitude`  | `Tag 0x0002 GPSLatitude ` | LocationShown:GPS-Latitude |
+| `EXIF:GPSLongitudeRef`  | `Tag 0x0003` GPSLongitudeRef  | LocationShown:GPS-Longitude|
+| `EXIF:GPSLongitude`  | `0x0004 GPSLongitude ` | LocationShown:GPS-Longitude |
 
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
 #### Person In Image (Person Name)
 
-| Field | Type | Stores |
+Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#person-shown-in-the-image)
+
+| Property | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image |
+| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
 
 #### Person Face Tag
 
-| Field | Type | Stores |
+Reference:  [MWG Region Structs](https://exiv2.org/tags-xmp-mwg-rs.html)
+
+| Property | Type | Stores |
 | :---- | :--- | :----- |
 | `mwg-rs:Regions` | *nested elements* | with RegionStuct |
