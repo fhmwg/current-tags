@@ -52,13 +52,11 @@ Many other location properties exist in the IPTC standard. As with all metadata,
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
 
-### Person Names
+### People (Names and Face Tags)
 
 An image may depict persons either visually or by close association (i.e. my grandpa's house is associated with my grandpa even though grandpa is not visually in the photo). The image may have a list of person names associated with the image.
 
-
-### Person Face Tags
-A person in an image may be referenced by a face tag (coordinates within the image). Person face tags are encouraged, but optional. In addition to the face tag, the person name should be added to the list of persons in the image.
+A person in an image may be referenced by a face tag (coordinates within the image). Person face tags are encouraged, but optional. In addition to the face tag, the person name must be added to the list of persons in the image.
 
 
 ## Metadata properties
@@ -119,7 +117,7 @@ Semantically equivalent IIM and EXIF fields to sync
 | `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | `Iptc4xmpCore:DateCreated` |
 
 
-### Location Shown In the Image
+### Location 
 
 References:
 
@@ -129,7 +127,7 @@ References:
 
 
 
-#### Location Shown in the Image - Names and Identifier
+#### Location - Names and Identifier
 
 
 | Property | Type | Stores |
@@ -167,7 +165,7 @@ References:
 | `IIM:Province/State`  | `2:95 Province/State` | Iptc4xmpCore:Province or State (legacy) |
 | `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name` | Iptc4xmpCore:Country (legacy) |
 
-#### Location Shown in the Image - Geo Tags
+#### Location - Geo Tags
 
 | Property | Type | Stores |
 | :---- | :--- | :----- |
@@ -194,7 +192,9 @@ References:
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
-### Person In Image (Person Name)
+### People (Names and Face Tag)
+
+#### Person Names
 
 Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#person-shown-in-the-image)
 
@@ -202,7 +202,7 @@ Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/s
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
 
-### Person Face Tag
+#### Person Face Tag
 
 Reference:  [Metadata Working Group Regions schema](https://exiv2.org/tags-xmp-mwg-rs.html)
 
