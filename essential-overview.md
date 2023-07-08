@@ -137,7 +137,7 @@ References:
 | `    LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
 | `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
 | `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
-| `    LocationShown:`  `     LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
+| `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
 
 Semantically equivalent XMP and IIM fields to sync
 
