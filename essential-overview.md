@@ -43,7 +43,7 @@ Many other date fields exist in other metadata, such as image creation dates, im
 
 ### Location (Names and GeoTags)
 
-An image can identify one location where the primary focus of the depicted scene is found. A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. Names are required, GPS coordinates are optional.
+An image can identify one location where the primary focus of the depicted scene is found. A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. Location names are required. Identifier and GPS coordinates are optional.
 
 IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
 
@@ -58,7 +58,7 @@ An image may depict persons either visually or by close association (i.e. my gra
 
 
 ### Person Face Tags
-A person in an image may be referenced by a face tag (coordinates within the image).  In addition to the face tag, the person name should be added to the list of persons in the image.
+A person in an image may be referenced by a face tag (coordinates within the image). Person face tags are encouraged, but optional. In addition to the face tag, the person name should be added to the list of persons in the image.
 
 
 ## Metadata properties
