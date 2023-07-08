@@ -68,7 +68,7 @@ The full XML of the XMP metadata contains a variety of RDF/XML structures to hel
 
 What follows uses the following namespace abbreviations for XMP metadata :
 
-| Prefix            | URI or Reference                                                        |
+| Prefix            | Namespace URI                                              |
 | :------------     | :--------------------------------------------------------- | 
 | `Iptc4xmpExt`     | `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`              |
 | `Iptc4xmpCore`    | `http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/`              |
@@ -77,7 +77,8 @@ What follows uses the following namespace abbreviations for XMP metadata :
 | `exif`  |  `http://ns.adobe.com/exif/1.0/` |
 
 In addition to the XMP metadata, there are semantically equivalent properties in the Information Interchange Model (IIM) and Exchange Image File Format (EXIF) sections which may be kept in sync with the XMP data.  The following abbreviations are used for IIM and EXIF metadata.
-
+| Prefix            | Reference   |
+| :------------     | :--------------------------------------------------------- |    
 | `IIM`          | [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/) |
 | `EXIF`          | [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf ) |
 
