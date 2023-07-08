@@ -101,7 +101,7 @@ Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/spe
 
 ### Date
 
-Reference:  IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
+Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
 | Property | Type | Stores |
 | :---- | :--- | :----- |
@@ -137,9 +137,9 @@ References:
 | `    LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
 | `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
 | `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
-| `    LocationShown: LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
+| `    LocationShown:      LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
 
-Semantically equivalent XMP, IIM and EXIF fields to sync
+Semantically equivalent XMP and IIM fields to sync
 
 References:
 
