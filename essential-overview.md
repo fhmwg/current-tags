@@ -10,7 +10,7 @@ that is, data about what the image depicts that are stored in machine-readable (
 
 There are thousands of metadata fields in the use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing metadata fields that already have some popularity which we recommend as core to family history applications.
 
-This recommendation makes use of XMP, a standard produced by Adobe for storing RDF/XML in image metadata; and IPTC, which provides one of the more popular RDF vocabularies for XMP. Because those are complicated and nuanced technologies, we describe the resulting standard only in terms of XML; it is our intent that a full understanding of RDF, XMP, and IPTC is not necessary to implement these recommendations.
+This recommendation makes use of XMP, a standard produced by Adobe for storing RDF/XML in image metadata; and IPTC, which provides one of the more popular RDF vocabularies for XMP. In addition to XMP, there are some metadata properties that are synchronized with Information Interchange Model (IIM) and Exchange Image File Format (EXIF) data. References to these standards are provided for further information.
 
 ## Overarching principles
 
