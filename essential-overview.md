@@ -41,13 +41,13 @@ while those may be the same for photographs, they generally differ for scanned i
 Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the date of the depicted scene.
 
 
-### Location Shown in the Image (Names and GeoTags)
+### Location (Names and GeoTags)
 
-An image can identify one location where the primary focus of the depicted scene is found. A location can have a full name, identifier, sublocation, city, state, country, and GPS coordinates.
-
-Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the full name, identifier, sublocation, city, state, country, and GPS coordinates.
+An image can identify one location where the primary focus of the depicted scene is found. A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. Names are required, GPS coordinates are optional.
 
 IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
+
+Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the full name, identifier, sublocation, city, state, country, and GPS coordinates and semantically equivalent properties.
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
 
