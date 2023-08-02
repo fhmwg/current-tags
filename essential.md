@@ -24,16 +24,12 @@ author:
 
 1. [Overarching Principles](#1)
 1. [Metadata to Write](#2)
-    1. [Album](#2.1)
-    1. [Caption](#2.2)
+    1. [Title](#2.1)
+    1. [Description](#2.2)
     1. [Date](#2.3)
-    1. [Event](#2.4)
-    1. [Location](#2.5)
-    1. [Objects and People](#2.6)
-        1. [Image Region](#2.6.1)
-        1. [Region Boundaries](#2.6.2)
-        1. [Object](#2.6.3)
-        1. [Person](#2.6.4)
+    1. [Location](#2.4)
+    1. [People Names](#2.5)
+    1. [People Faces](#2.6)
 1. [Additional Considerations](#3)
     1. [Field-specific recommendations](#3.1)
         1. [Album](#3.1.1)
@@ -137,36 +133,27 @@ This section uses the following prefixes:
 | `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
 | `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
 
-## 2.1. Album   <a name="2.1"></a>
+## 2.1. Title   <a name="2.1"></a>
 
 ### 2.1.1. Summary   <a name="2.1.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `mwg-coll:Collections` | `rdf:Bag` | Any number of albums |
-| `mwg-coll:CollectionName` | Line String | Name of one album |
-| `mwg-coll:CollectionURI` | IRI | Identifier of one album |
+| `Iptc4xmpCore:Title` | `dc:title` | Image title |
 
 ### 2.1.2. Details   <a name="2.1.2"></a>
 
-Album membership is encoded as
+Title is encoded as
 
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `mwg-coll:Collections`
-- which shall contain 1 `rdf:Bag`
-- which shall contain 0 or more `rdf:li` with `rdf:parseType="Resource"`
-- each of which shall contain at least one of
-    - 1 `mwg-coll:CollectionName` with a line-text content
-    - 1 `mwg-coll:CollectionURI` with a valid IRI as its content
+- 
 
-## 2.2. Caption   <a name="2.2"></a>
+## 2.2. Description   <a name="2.2"></a>
 
 ### 2.2.1. Summary   <a name="2.2.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `dc:description` | AltLang block | Image caption |
-| `dc:title` | AltLang line | Image title |
+| `Iptc4xmpCore:Description` | `dc:description`| Image description |
 
 ### 2.1.2. Details   <a name="2.1.2"></a>
 
@@ -188,7 +175,7 @@ Image description is encoded as
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `photoshop:DateCreated` | DateTime | Date of depicted scene |
+| `Iptc4xmpCore:DateCreated` | `photoshop:DateCreated` | Date of depicted scene |
 
 ### 2.3.2. Details   <a name="2.3.2"></a>
 
@@ -198,27 +185,9 @@ Date is encoded as
 - shall contain 0 or 1 `photoshop:DateCreated`
 - which shall contain a date or date-time string conforming to the subset of ISO 8601 format specified in <https://www.w3.org/TR/NOTE-datetime>
 
-## 2.4. Event   <a name="2.4"></a>
+## 2.4. Location   <a name="2.5"></a>
 
-### 2.4.1. Summary   <a name="2.4.1"></a>
-
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:Event` | AltLang block | Description of event depicted scene is a part of |
-
-### 2.4.2. Details   <a name="2.4.2"></a>
-
-Events are encoded as
-
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `Iptc4xmpExt:Event`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a free-text description of the event in the given human language
-
-## 2.5. Location   <a name="2.5"></a>
-
-### 2.5.1. Summary   <a name="2.5.1"></a>
+### 2.4.1. Summary   <a name="2.5.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
@@ -230,7 +199,7 @@ Events are encoded as
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
 
-### 2.5.2. Details   <a name="2.5.2"></a>
+### 2.4.2. Details   <a name="2.5.2"></a>
 
 Location shown is encoded as
 
@@ -247,134 +216,44 @@ Location shown is encoded as
         - each of which shall contain a free-text content in the given human language, which *shall* be a description of the depicted location.
     - 1 or more `Iptc4xmpExt:LocationId` with a valid IRI as its content
 
-## 2.6. Objects and People   <a name="2.6"></a>
 
-Objects and people are stored inside image regions.
 
-### 2.6.1. Image Region   <a name="2.6.1"></a>
+### 2.5. Person Name   <a name="2.5"></a>
 
-#### 2.6.1.1. Summary   <a name="2.6.1.1"></a>
+#### 2.5.1. Summary   <a name="2.5.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:ImageRegion` | `rdf:Bag` | Any number of image regions |
-| `rdf:li` | *nested XML elements* | One region boundary and one\* person or object |
-| `Iptc4xmpExt:RegionBoundary` | *nested XML elements* | A region boundary |
-| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
-| `Iptc4xmpExt:PersonInImageWDetails` | *nested XML elements* | A person |
+| `Iptc4xmpExt:PersonShownInTheImage` | `Bag of Iptc4xmpExt:PersonInImage` | list of names of persons in image, including those with face tags |
 
-\* IPTC allows arbitrary content in regions, but the FHMWG recommends only one object or person per region
 
-#### 2.6.1.2. Details   <a name="2.6.1.2"></a>
 
-Image regions are encoded as
+#### 2.5.2. Details   <a name="2.5.2"></a>
 
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `Iptc4xmpExt:ImageRegion`
-- which shall contain 1 `rdf:Bag`
-- which shall contain 1 or more `rdf:li`, each with the `rdf:parseType='Resource'`
-- each of which shall contain one `Iptc4xmpExt:RegionBoundary` with `rdf:parseType='Resource'`, and one `Iptc4xmpExt:PersonInImageWDetails` or `Iptc4xmpExt:ArtworkOrObject`
+The `Iptc4xmpExt:PersonShownInTheImage` shall contain at least one of the following:
 
-### 2.6.2. Region Boundaries   <a name="2.6.2"></a>
+- 
+- 
+- 
 
-#### 2.6.2.1. Summary   <a name="2.6.2.1"></a>
+
+### 2.6. Person Face   <a name="2.6"></a>
+
+#### 2.6.1. Summary   <a name="2.6.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:RegionBoundary` | *nested XML elements* | A region boundary |
-| `Iptc4xmpExt:rbShape` | Closed set | "`rectangle`" or "`circle`" or "`polygon`" |
-| `Iptc4xmpExt:rbUnit` | Closed set | "`relative`"\*
-| `rbX` | Number | (from left edge) left of rectangle; center of circle; or coordinate of a vertex |
-| `rbY` | Number | (from top edge) top of rectangle; center of circle; or coordinate of a vertex |
-| `rbW` | Number | width of rectangle |
-| `rbH` | Number | height of rectangle |
-| `rbRx` | Number | radius of circle in x-axis coordinates |
-| `rbVertices` | `rdf:Seq` | sequence of vertexes of polygon |
-
-\* IPTC also allows "`pixel`", but the FHMWG recommends only "`relative`" be used
-
-#### 2.6.2.2. Details   <a name="2.6.2.2"></a>
-
-The `Iptc4xmpExt:RegionBoundary` shall contain
-
-- one `Iptc4xmpExt:rbShape` with content being one of the following exact strings: "`rectangle`", "`circle`", or "`polygon`"
-- one `Iptc4xmpExt:rbUnit` with being one of the following exact strings: "`pixel`" or "`relative`". All applications *should* use `relative`; support for reading `pixel` is *optional*.
-- additional fields dependent on shape
-    - a `rectangle` has an `rbX`, `rbY`, `rbW`, and `rbH`
-
-        The rectangle's top-left corner is at (`rbX`, `rbY`)
-        and it is `rbW` wide and `rbH` tall.
-    - a `circle` has `rbX`, `rbY`, and `rbRx`
-
-        The circle's center is at (`rbX`, `rbY`)
-        and it is radius is `rbRx`, as measured in the X-axis coordinates.
-        Note that for non-square images the area is still a circle, not an ellipse.
-    - a `polygon` has a `rbVertices`, which contains
-        - an `rdf:Seq`, which containts
-        - 3 ore more `rdf:li` with `rdf:parseType='Resource'`, each of which contain
-        - an `rbX` and an `rbY`, one of the vertices of the polygon
-
-        IPTC does not define the meaning of a self-intersecting polygonal region, and neither does the FHMWG. Implementations *should* avoid them where possible.
-
-X coordinates are measured with 0 as the left boundary of the image and either 1 (for `relative` units) or image width (for `pixel` units) as the right boundary.
-Y coordinates are measured with 0 as the top boundary of the image and either 1 (for `relative` units) or image height (for `pixel` units) as the bottom boundary.
-
-#### 2.6.2.3. Whole-image Region   <a name="2.6.2.3"></a>
-
-A special region boundary is known as the "whole-image region boundary":
-a `relative` `rectangle`
-with `rbX` = 0, `rbY` = 0, `rbW` = 1, and `rbH` = 1.
-This special region shall be used for both of the following:
-
-- persons or objects depicted in the image but whose regions are unknown
-- persons or objects directly related to the image but not depicted in it
-
-### 2.6.3. Object   <a name="2.6.3"></a>
-
-#### 2.6.3.1. Summary   <a name="2.6.3.1"></a>
-
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:ArtworkOrObject` | *nested XML elements* | An object |
-| `Iptc4xmpExt:AOTitle` | AltLang block | The short description or title of the object |
-
-
-#### 2.6.3.2. Details   <a name="2.6.3.2"></a>
-
-The `Iptc4xmpExt:ArtworkOrObject` shall contain
-
-- one `Iptc4xmpExt:AOTitle`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a free-text content in the given human language, which *shall* be the an identifying title for the object in that language.
-
-
-### 2.6.4. Person   <a name="2.6.4"></a>
-
-#### 2.6.4.1. Summary   <a name="2.6.4.1"></a>
-
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonInImageWDetails` | *nested XML elements* | A person |
-| `Iptc4xmpExt:PersonName` | AltLang line | The name of one person |
-| `Iptc4xmpExt:PersonDescription` | AltLang block | The description of one person |
-| `Iptc4xmpExt:PersonId` | IRI | An identifier of one person |
+| `mwg-rs:Regions` | `nested elements` | list of coordinates and names for face tags in image |
 
 
 
-#### 2.6.4.2. Details   <a name="2.6.4.2"></a>
+#### 2.6.2. Details   <a name="2.6.2"></a>
 
-The `Iptc4xmpExt:PersonInImageWDetails` shall contain at least one of the following:
+The `mwg-rs:Regions` shall contain at least one of the following:
 
-- 0 or 1 `Iptc4xmpExt:PersonName`
-    - which shall contain 1 `rdf:Alt`
-    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-    - each of which shall contain a free-text content in the given human language, which *shall* be the persons name in that language.
-- 0 or 1 `Iptc4xmpExt:PersonDescription`
-    - which shall contain 1 `rdf:Alt`
-    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-    - each of which shall contain a free-text content in the given human language, which *shall* be a description of the person.
-- 0 or more `Iptc4xmpExt:PersonId`, each with a valid IRI as its content
+- 
+- 
+- 
 
 
 
