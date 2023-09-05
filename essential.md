@@ -127,11 +127,12 @@ This section uses the following prefixes:
 | Prefix        | URI                                                        |
 | :------------ | :--------------------------------------------------------- |
 | `dc`          | `http://purl.org/dc/elements/1.1/`                         |
+| `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
 | `Iptc4xmpExt` | `http://iptc.org/std/Iptc4xmpExt/2008-02-29/`              |
-| `mwg-coll`    | `http://www.metadataworkinggroup.com/schemas/collections/` |
+| `mwg-rs`      | `http://www.metadataworkinggroup.com/schemas/regions/`     |
 | `photoshop`   | `http://ns.adobe.com/photoshop/1.0/`                       |
 | `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
-| `exif`        | `http://ns.adobe.com/exif/1.0/`                            |
+| `stArea`      | `http://ns.adobe.com/xmp/sTypeArea#`                       |
 
 ## 2.1. Title   <a name="2.1"></a>
 
@@ -145,7 +146,12 @@ This section uses the following prefixes:
 
 Title is encoded as
 
-- 
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `dc:title`
+- which shall contain 1 `rdf:Alt`
+- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+- each of which shall contain a human-readable name for identifying this image
+
 
 ## 2.2. Description   <a name="2.2"></a>
 
@@ -161,13 +167,9 @@ Image description is encoded as
 
 - The top-level `rdf:Description`
 - shall contain 0 or 1 `dc:description`
-    - which shall contain 1 `rdf:Alt`
-    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-    - each of which shall contain a free-text content in the given human language
-- and shall contain 0 or 1 `dc:title`
-    - which shall contain 1 `rdf:Alt`
-    - which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-    - each of which shall contain a human-readable name for identifying this image
+- which shall contain 1 `rdf:Alt`
+- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
+- each of which shall contain a free-text content in the given human language
 
 ## 2.3. Date   <a name="2.3"></a>
 
@@ -224,17 +226,19 @@ Location shown is encoded as
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonShownInTheImage` | `Bag of Iptc4xmpExt:PersonInImage` | list of names of persons in image, including those with face tags |
-
-
+| `Iptc4xmpExt:PersonInImage` | `rdf:Bag` of Line Strings | list of names of persons in image |
 
 #### 2.5.2. Details   <a name="2.5.2"></a>
 
-The `Iptc4xmpExt:PersonShownInTheImage` shall contain at least one of the following:
+Person name is encoded as 
 
-- 
-- 
-- 
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `Iptc4xmpExt:PersonInImage`
+- which shall contain 1 `rdf:Bag`
+- which shall contain 1 or more `rdf:li`
+- each of which shall contain the name of one person in the image
+
+Note that `Iptc4xmpExt:PersonInImage` does not support language tags or AltLangs.
 
 
 ### 2.6. Person Face   <a name="2.6"></a>
@@ -243,20 +247,47 @@ The `Iptc4xmpExt:PersonShownInTheImage` shall contain at least one of the follow
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
-| `mwg-rs:Regions` | `nested elements` | list of coordinates and names for face tags in image |
-
+| `mwg-rs:Regions` | nested elements | one RegionList |
+| `mwg-rs:RegionList` | `rdf:Bag` | one more more Regions |
+| `mwg-rs:Type` | Closed set | FHMWG supports `Face`; mwg-rs also allows `Pet`, `BarCode`, and `Focus` |
+| `mwg-rs:Title` | Line string | A short descriptive title of the contents of the region; preferably the name of the person |
+| `mwg-rs:Description` | Block string | A longer description of the contents of the region |
+| `mwg-rs:Type` | Closed set | FHMWG supports `Face`; mwg-rs also allows `Pet`, `BarCode`, and `Focus` |
+| `mwg-rs:Area` | nested elements | a region as a center point and extents |
+| `stArea:unit` | Closed set | always the string `normalized` |
+| `stArea:x` | Number | Center of region, in relative horizontal units between 0 and 1 |
+| `stArea:y` | Number | Center of region, in relative vertical units between 0 and 1 |
+| `stArea:w` | Number | Width of region, in relative horizontal units between 0 and 1 |
+| `stArea:h` | Number | Height of region, in relative vertical units between 0 and 1 |
+| `stArea:d` | Number | Diameter of region, in the smaller of the units of `stArea:w` and `stArea:h` |
 
 
 #### 2.6.2. Details   <a name="2.6.2"></a>
 
-The `mwg-rs:Regions` shall contain at least one of the following:
+Face regions are encoded as
 
-- 
-- 
-- 
+- The top-level `rdf:Description`
+- shall contain 0 or 1 `mwg-rs:Regions`
+- which shall contain 1 `mwg-rs:RegionList`
+- which shall contain 1 `rdf:Bag`
+- which shall contain 1 or more `rdf:li` with `rdf:parseType="Resource"`
+- which shall contain all of the following:
+    - `mwg-rs:Type` with line string value "`Face`"
+    - `mwg-rs:Title` with line string value naming the person in this region
+    - `mwg-rs:Area`, which shall contain
+        - `stArea:unit` with value "`normalized`"
+        - `stArea:x` with value of a number between 0 and 1; this represents the center of the area, with 0 as the left edge of the image and 1 as the right edge
+        - `stArea:y` with value of a number between 0 and 1; this represents the center of the area, with 0 as the top edge of the image and 1 as the bottom edge
+        - optionally, one of
+            - `stArea:d`, the diameter of a square or circular region, given in the smaller of the units of `stArea:x` and `stArea:y`
+            - both `stArea:w` and `stArea:h`, the width and height (respectively) of a rectangular or elliptical region, with `w` using the same coordiantes as `x` and `h` using the same coordinates as `y`
+    - optionally, `mwg-rs:Description` with a block string value giving a longer description of the person than does `mwg-rs:Title`
 
+Note that `mwg-rs:Title` and `mwg-rs:Description` do not support language tags or AltLangs.
 
-
+Although Person Face can store all the information that [Person Name](#2.5) stores,
+[Person Name](#2.5) is more widely supported;
+thus, applications should copy any `mwg-rs:Title` into a `Iptc4xmpExt:PersonInImage`.
 
 
 
@@ -266,95 +297,41 @@ The `mwg-rs:Regions` shall contain at least one of the following:
 
 ## 3.1. Field-specific recommendations   <a name="3.1"></a>
 
-### 3.1.1. Album   <a name="3.1.1"></a>
+### 3.1.1. Title   <a name="3.1.1"></a>
 
-FHMWG-recommended album metadata stores zero or more collections a given image belongs to.
-It does not store
+The title field is intended to be short and displayable as a line or two of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
-- Hierarchies of collections
-- Positions within a collection
-- Collections with more than one identifier
-- Description of collection
+#### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
-"Collection" or "Album" are both suitable names for user interface components describing this metadata.
-"Name" and "Title" are suitable terms for the name of an album.
-"URL" and "Identifier" are suitable terms for the ID of an album.
+If the `dc:title` is not present, it is recommended that the following be consulted instead:
 
-If an application believes it has access to all images in an album, it is recommended that an ID for that album be generated.
-A recommend path for album identifiers is
+1. XMP `photoshop:Headline`
+2. EXIF ImageDescription (tag 270/0x10E)
 
-- If a `mwg-coll:CollectionURI` was provided on import, use that
-- Otherwise, if the implementation or user provides a durable world-readable URL at which to access the album, use that
-- Otherwise, use a URL created as a UUID encoded as a URN, as specfiied in <https://tools.ietf.org/html/rfc4122>. Version 4 (random) UUIDs are *recommended*.
+#### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
-If two albums are identified with the same name but distinct URIs, they should be treated as distinct albums.
-
-If two albums are identified with the same URI but distinct names, they should be treated as a single album with multiple names.
-
-An album without a name may be presented using an auto-generated name such as "Untitled Album 3".
-Auto-generated names should not be exported as metadata.
-
-An album without a URI is ambiguous as to its identity, and that ambiguity should be displayed to the user in some way. If the user interface needs to guess if two non-URI albums with the same name are the same album or not, it is recommended that they be considered the same only if the (album name, providing user) pairs match.
-
-#### 3.1.1.1. Other metadata of interest   <a name="3.1.1.1"></a>
-
-The FHMWG is unaware of other widely-used album identifiers.
-
-#### 3.1.1.2. Example   <a name="3.1.1.2"></a>
-
-The following represents an image belonging to two albums, one with a URI and one without:
-
-| Album name | Album URI |
-|:-----------|:----------|
-| My Vacation Photos | `http://www.flickr.com/photos/myvacation` |
-| Beautiful Sunset Set | |
-
-
-````xml
-<rdf:RDF xmlns:rdf=“http://www.w3.org/1999/02/22-rdf-syntax-ns#”>
-<rdf:Description xmlns:mwg-coll=“http://www.metadataworkinggroup.com/schemas/collections/”>
-    <mwg-coll:Collections>
-      <rdf:Bag>
-
-<rdf:li rdf:parseType=“Resource”>
-<mwg-coll:CollectionName>My Vacation Photos</mwg-coll:CollectionName>
-<mwg-coll:CollectionURI>http://www.flickr.com/photos/myvacation</mwg-coll:CollectionURI>
-</rdf:li>
-
-<rdf:li rdf:parseType=“Resource”>
-<mwg-coll:CollectionName>Beautiful Sunset Set</mwg-coll:CollectionName>
-</rdf:li>
-
-      </rdf:Bag>
-    </mwg-coll:Collections>
-  </rdf:Description>
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
+  <dc:title>
+   <rdf:Alt>
+    <rdf:li xml:lang='x-default'>Judy's Rabbit</rdf:li>
+   </rdf:Alt>
+  </dc:title>
+ </rdf:Description>
 </rdf:RDF>
-
-````
-
-#### 3.1.1.3. Future extensions   <a name="3.1.1.3"></a>
-
-Albums are the only FHMWG-recommended textual metadata that does not support AltLang.
-AltLang support may be added in the future.
-
-There is a known desire to store album descriptions as well as album titles.
-
-There is a known desire to store each image's ordinal within a collection. In addition to requiring a new metadata field, this raises concerns about distinct elements claiming the same position.
-
-There is a known desire to store metadata about a collection, such as creator, purpose, date, etc. This would require the collection itself to be an entity about which metadata can be recorded.
+```
 
 
-### 3.1.2. Caption   <a name="3.1.2"></a>
+### 3.1.2. Description   <a name="3.1.2"></a>
 
-FHMWG-recommended caption metadata stores a title and a description, with the later containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
+FHMWG-recommended description may containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
 It does not store structured information
 
 Where possible, implementations should encourage placing information in other metadata fields.
 
-The title field is intended to be short and displayable as a line or two of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
-
-It is common for captions to replicate some information included elsewhere in the metadata;
-for example, peopled portrayed in the image may be identified in person meatadata and also in the caption so that the caption may discuss the relationships between the people or the like.
+It is common for descriptions to replicate some information included elsewhere in the metadata;
+for example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the description may discuss the relationships between the people or the like.
 This inevitably leads to the possibility of conflicting information.
 Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
 
@@ -364,12 +341,7 @@ If the `dc:descrioption` is not present, it is recommended that the following be
 
 1. EXIF UserComment (tag 0x9286)
 
-If the `dc:title` is not present, it is recommended that the following be consulted instead:
-
-1. XMP `photoshop:Headline`
-2. EXIF ImageDescription (tag 270/0x10E)
-
-IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a caption. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
+IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
@@ -382,11 +354,6 @@ IPTC also defines `photoshop:CaptionWriter`, which may be useful for application
     <rdf:li xml:lang='en'>My aunt Judy's pet rabbit</rdf:li>
    </rdf:Alt>
   </dc:description>
-  <dc:title>
-   <rdf:Alt>
-    <rdf:li xml:lang='x-default'>Judy's Rabbit</rdf:li>
-   </rdf:Alt>
-  </dc:title>
  </rdf:Description>
 </rdf:RDF>
 ```
@@ -471,40 +438,8 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 - dates with time information but without time zone information
 
 
-### 3.1.4. Event   <a name="3.1.4"></a>
 
-FHMWG-recommended caption metadata stores a free-text description of the event during which the depicted scene occurred.
-It does not store any structured event information, such as
-
-- The duration of the event
-- The location of the event
-- The cause of the event
-
-#### 3.1.4.1. Other metadata of interest   <a name="3.1.4.1"></a>
-
-No other event-relevant metadata is known.
-
-#### 3.1.4.2. Example   <a name="3.1.4.2"></a>
-
-```xml
-<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
- <rdf:Description xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
-  <Iptc4xmpExt:Event>
-   <rdf:Alt>
-    <rdf:li xml:lang='x-default'>The 1973 Jones family reunion</rdf:li>
-   </rdf:Alt>
-  </Iptc4xmpExt:Event>
- </rdf:Description>
-</rdf:RDF>
-```
-
-#### 3.1.4.3. Future extensions   <a name="3.1.4.3"></a>
-
-No unfilled requirements related to events have been identified.
-
-
-
-### 3.1.5. Location   <a name="3.1.5"></a>
+### 3.1.4. Location   <a name="3.1.4"></a>
 
 FHMWG-recommended location metadata stores GPS coordinates of a characteristic point within the depicted scene and a textual description of the location of the depicted scene.
 It does not store
@@ -535,7 +470,7 @@ Although IPTC unambiguously defines latitude and longitude to store decimal numb
 If `N` or `E` is present, it should be discarded; if `S` or `W` is present, it should be removed and the sign of the number flipped.
 
 
-#### 3.1.5.1. Other metadata of interest   <a name="3.1.5.1"></a>
+#### 3.1.4.1. Other metadata of interest   <a name="3.1.4.1"></a>
 
 It is recommended that missing location data be filled in the following order if `Iptc4xmpExt:LocationShown`'s GPS coordinates are missing:
 
@@ -550,7 +485,7 @@ It is recommended that EXIF's GPS coordinates be updated any time the `LocationS
 
 IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
 
-#### 3.1.5.2. Example   <a name="3.1.5.2"></a>
+#### 3.1.4.2. Example   <a name="3.1.4.2"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -574,7 +509,7 @@ IPTC has many more location parts, including altitude and various region-specifi
 </rdf:RDF>
 ```
 
-#### 3.1.5.3. Future extensions   <a name="3.1.5.3"></a>
+#### 3.1.4.3. Future extensions   <a name="3.1.4.3"></a>
 
 There is a known desire to store location information that IPTC cannot:
 
@@ -594,38 +529,21 @@ There are multiple other proposals for such historical place hierarchies under c
 
 
 
+### 3.1.5. Person Name   <a name="3.1.5"></a>
 
-### 3.1.6. Person and Object   <a name="3.1.6"></a>
-
-FHMWG-recommended person and object metadata stores objects, structures, etc directly depicted in the media; people directly depicted in the media; and people not depicted by who contributed to or were otherwise relevant to the depiction (e.g., a witness of the event such as the photographer, painter, drafter, etc.)
+FHMWG-recommended person name metadata stores people directly depicted in the media; people directly depicted in the media; and people not depicted by who contributed to or were otherwise relevant to the depiction (e.g., a witness of the event such as the photographer, painter, drafter, etc.)
 It does not store other people involved in the provenance chain (digitizer, editor, metadata author, etc).
 
-A person that is not in the depiction but is part of the original depiction event, such as a photographer or painter, shall use the whole-image region boundary.
-
-Implementations that do not have region-of-image support, or that have such support but are unable to determine the correct region for one or more persons, shall use the while-image region boundary for any people they add to the image metadata.
-
-A region should be selected such that an intelligent observer can identify which person is being indicated from the region. This may be mean that a region may include just part of the person and/or some content around the person.
-
-Multiple regions' boundaries may overlap.
-Multiple regions may have geometrically identical boundaries.
-
-Regions need not identify an image of the person directly; it is appropriate to identify, e.g., the image of a signature with the person who signed it.
-
 Implementations should assume that each entry is independent and valid unless a user makes a different decision.
-Even having multiple regions with the same `Iptc4xmpExt:PersonId` is in generally permitted as a person may appear in multiple regions of an image (e.g., in a mirror, by having something else occlude part of them, by signing the document in multiple places, etc).
+Even having multiple regions with the same name is generally permitted as a person may appear in multiple regions of an image (e.g., in a mirror, by having something else occlude part of them, by signing the document in multiple places, etc)
+or multiple people may have the same name.
+
+Person Face also stores the name of a person. Because Person Name is more widely supported, it is recommended that applications copy any `mwg-rs:Title` into a `Iptc4xmpExt:PersonInImage`.
 
 
-#### 3.1.6.1. Other metadata of interest   <a name="3.1.6.1"></a>
+#### 3.1.5.1. Other metadata of interest   <a name="3.1.5.1"></a>
 
-IPTC allows arbitrary content in regions, including regions with multiple people and objects, regions with other regions inside, etc.
-To limit complexity, this recommendation only permits a single person or object per region.
-Implementations understanding more complicated regions should convert them into one region per person or object.
-
-IPTC also allows persons outside of any region structure.
-To limit complexity, this recommendation only permits persons inside regions.
-Implementations understanding unregioned persons should convert them into one region per person or object, using the whole-image region boundary unless a smaller region can be identified.
-
-IPTC also allows the `Iptc4xmpExt:PersonInImage` field which contains only a person's name. These should be converted to `Iptc4xmpExt:PersonInImageWDetails`.
+IPTC also allows a `Iptc4xmpExt:PersonInImageWDetails` which has much more detail about each person, not just a single name.
 
 Information about people not depicted can be found in many other metadata fields, including but not limited to
 
@@ -636,73 +554,80 @@ Information about people not depicted can be found in many other metadata fields
 
 How and whether to reading these is left up to individual implementations.
 
-Each `Iptc4xmpExt:PersonInImageWDetails` may also include
-`Iptc4xmpExt:PersonCharacteristic`, which is discouraged for family history use. Its' value is a set of elements from a controlled vocabulary (e.g., to aid in searching for images with particular characteristics from a library of stock images), and a suitable vocabulary for family history is not known.
+#### 3.1.5.2. Example   <a name="3.1.5.2"></a>
 
-In addition to `Iptc4xmpExt:AOTitle`, each `Iptc4xmpExt:ArtworkOrObject` may also include
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description rdf:about=''
+  xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
+  <Iptc4xmpExt:PersonInImage>
+   <rdf:Bag>
+    <rdf:li>Gordon Clarke</rdf:li>
+    <rdf:li>クラーク・ゴードン</rdf:li>
+   </rdf:Bag>
+  </Iptc4xmpExt:PersonInImage>
+ </rdf:Description>
+</rdf:RDF>
+```
 
-- `Iptc4xmpExt:AOPhysicalDescription` a free-text desciption of the object's physical (not personal or historical) characterstics
-- `Iptc4xmpExt:AODateCreated` and/or `Iptc4xmpExt:AOCircaDateCreated`, both describing the date the object was created (one as an ISO 8601 datetime, the other as free text)
-- `Iptc4xmpExt:AOContentDescription`, only appropriate for an object that is itself a depiction of something else, such as a family portrait in the background of a scene
-- `Iptc4xmpExt:AOCreator`, a description of who created the object
-- IPTC defines several other fields that apply to photographs of artwork
+#### 3.1.5.3. Future extensions   <a name="3.1.5.3"></a>
+
+There is a known desire to indicate name parts (given, preferred, family, patronymic, matronymic, honorific, etc).
+
+There is a known desire to indicate relationships between people, familial and otherwise.
+
+
+### 3.1.6. Person Face   <a name="3.1.6"></a>
+
+Person Face is only for persons depicted in the image. A person that is not in the depiction but is part of the original depiction event, such as a photographer or painter, should use the Person Name instead.
+
+Person Face may be used to mark persons who are visible in the image, but whose faces are not visible. In that case, the region should indicate the most identifiable part of the person.
+
+Because regions are given in relative units to the size of the image, they need to be updated if the image is cropped or padded but do not need to be updated if the image is scaled or resized.
+
+Regions may also extend off the edge of the image; if so, they should be cropped to the image bounds.
+
+Multiple regions may overlap.
+
+Regions do not distinguish between circular and square regions, nor between rectangular and elliptical regions. Each application may decide which to use in displaying regions to the user.
+
+Person Face also stores the name of a person. Because Person Name is more widely supported, it is recommended that applications copy any `mwg-rs:Title` into a `Iptc4xmpExt:PersonInImage`.
+
+
+#### 3.1.6.1. Other metadata of interest   <a name="3.1.6.1"></a>
+
+IPTC has a separate region specification, `Iptc4xmpExt:ImageRegion`. This is both more flexible and less widely supported.
 
 #### 3.1.6.2. Example   <a name="3.1.6.2"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
  <rdf:Description rdf:about=''
-  xmlns:Iptc4xmpExt='http://iptc.org/std/Iptc4xmpExt/2008-02-29/'>
-
-  <Iptc4xmpExt:ImageRegion>
-   <rdf:Bag>
-
-    <rdf:li rdf:parseType='Resource'>
-     <Iptc4xmpExt:PersonInImageWDetails>
-      <rdf:Bag>
-       <rdf:li rdf:parseType='Resource'>
-        <Iptc4xmpExt:PersonId>
-         <rdf:Bag>
-          <rdf:li>https://www.familysearch.org/blog/en/author/gordonclarke/</rdf:li>
-          <rdf:li>http://example.com/FHMWG/Clarke,Gordon</rdf:li>
-         </rdf:Bag>
-        </Iptc4xmpExt:PersonId>
-        <Iptc4xmpExt:PersonName>
-         <rdf:Alt>
-          <rdf:li xml:lang='x-default'>Gordon Clarke</rdf:li>
-          <rdf:li xml:lang='en-US'>Gordon Clarke</rdf:li>
-          <rdf:li xml:lang='ja'>クラーク・ゴードン</rdf:li>
-         </rdf:Alt>
-        </Iptc4xmpExt:PersonName>
-       </rdf:li>
-      </rdf:Bag>
-     </Iptc4xmpExt:PersonInImageWDetails>
-     <Iptc4xmpExt:RegionBoundary rdf:parseType='Resource'>
-      <Iptc4xmpExt:rbShape>rectangle</Iptc4xmpExt:rbShape>
-      <Iptc4xmpExt:rbUnit>relative</Iptc4xmpExt:rbUnit>
-      <Iptc4xmpExt:rbX>0.6</Iptc4xmpExt:rbX>
-      <Iptc4xmpExt:rbY>0.2</Iptc4xmpExt:rbY>
-      <Iptc4xmpExt:rbW>0.3</Iptc4xmpExt:rbW>
-      <Iptc4xmpExt:rbH>0.8</Iptc4xmpExt:rbH>
-     </Iptc4xmpExt:RegionBoundary>
-    </rdf:li>
-
-   </rdf:Bag>
-  </Iptc4xmpExt:ImageRegion>
-
+  xmlns:mwg-rs='http://www.metadataworkinggroup.com/schemas/regions/'
+  xmlns:stArea='http://ns.adobe.com/sType/Area#'>
+  <mwg-rs:Regions rdf:parseType=“Resource”>
+   <mwg-rs:RegionList>
+    <rdf:Bag>
+     <rdf:li rdf:parseType=“Resource”>
+      <mwg-rs:Area stArea:x=“0.4” stArea:y=“0.3” stArea:w=“0.06” stArea:h=“0.09” stArea:unit=“normalized”/>
+      <mwg-rs:Type>Face</mwg-rs:Type>
+      <mwg-rs:Title>Chris Desmond</mwg-rs:Title>
+     </rdf:li>
+     <rdf:li rdf:parseType=“Resource”>
+      <mwg-rs:Area stArea:x=“0.6” stArea:y=“0.4” stArea:d=“0.1” stArea:unit=“normalized”/>
+      <mwg-rs:Type>Face</mwg-rs:Type>
+      <mwg-rs:Title>Maureen Taylor</mwg-rs:Title>
+     </rdf:li>
+    </rdf:Bag>
+   </mwg-rs:RegionList>
+  </mwg-rs:Regions>
  </rdf:Description>
 </rdf:RDF>
 ```
 
 #### 3.1.6.3. Future extensions   <a name="3.1.6.3"></a>
 
-There is a known desire to indicate name parts (given, preferred, family, patronymic, matronymic, honorific, etc).
-
-There is a known desire to indicate relationships between people, familial and otherwise.
-
 There is a known desire to distinguish between "not depicted" and "depicted at an unknown location".
-
-There is a known desire to tag content that is neither a human nor an object, such as animals, visual phenomena, etc.
 
 
 
