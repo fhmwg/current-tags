@@ -362,7 +362,7 @@ Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interop
  </rdf:Description>
 </rdf:RDF>
 ```
-##### 3.1.2.2.1 Example Exiftool Commands to Write Description Metadata <a name="3.1.2.2.1"></a>
+##### 3.1.2.2.1 Example Exiftool Command to Write Description Metadata <a name="3.1.2.2.1"></a>
 
 | Property | Exiftool Command |
 |:------ | :------ |
