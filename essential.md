@@ -367,8 +367,6 @@ Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interop
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
-| IIM Caption/Abstract| exiftool -Caption-Abstract="My aunt Judy's pet rabbit" <filename>|
-
 
 #### 3.1.2.3. Future extensions   <a name="3.1.2.3"></a>
 
