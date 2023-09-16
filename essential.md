@@ -32,7 +32,7 @@ author:
     1. [People Faces](#2.6)
 1. [Additional Considerations](#3)
     1. [Field-specific recommendations](#3.1)
-        1. [Album](#3.1.1)
+        1. [Title](#3.1.1)
         1. [Caption](#3.1.2)
         1. [Date](#3.1.3)
         1. [Event](#3.1.4)
@@ -304,13 +304,13 @@ The title field is intended to be short and displayable as a line or two of text
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
-If the `dc:title` is not present, the data may be read from  
+If `dc:title` is not present,  it is recommended that the following semantically equivalent field be consulted: 
 
-IIM 2:05 Object Name
+| Property | Specification |
+| :---- | :--- |
+| IIM Object Name| 2:05 Object Name|
 
-which is the filename.
-
-Note: IPTC Interoperability Test will flag the Title as "Not in Sync" if the title and IIM field are not both present.  
+Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
@@ -325,6 +325,11 @@ Note: IPTC Interoperability Test will flag the Title as "Not in Sync" if the tit
  </rdf:Description>
 </rdf:RDF>
 ```
+#### 3.1.2.2.1 Example Exiftool Commands to Write Title Metadata  <a name="3.1.2.2.1"></a>
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
+| IIM Object Name| exiftool -ObjectName="Judy's Rabbit" <filename>|
 
 
 ### 3.1.2. Description   <a name="3.1.2"></a>
