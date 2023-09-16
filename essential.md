@@ -46,7 +46,7 @@ author:
 
 # 1. Overarching Principles   <a name="1"></a>
 
-All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html) and synching semantically equalivent data with IIM and EXIF data for optimum interoperability.
+All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html) and syncing semantically equalivent data with IIM and EXIF data for optimum interoperability.
 Within XMP, many FHMWG recommendations are aligned with the [IPTC standard](https://iptc.org/standards/photo-metadata/iptc-standard/).
 We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
