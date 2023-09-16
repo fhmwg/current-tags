@@ -325,15 +325,15 @@ If the `dc:title` is not present, it is recommended that the following be consul
 
 ### 3.1.2. Description   <a name="3.1.2"></a>
 
-FHMWG-recommended description may containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
+FHMWG-recommended description may containing any information the description-writer wishes to add. The intent is to capture any metadata that other structured metadata fields cannot.
 It does not store structured information.  
 
-Where possible, implementations should encourage placing information in other metadata fields as well.
+Where possible, implementations should encourage placing information in other metadata fields.
 
 It is common for descriptions to replicate some information included elsewhere in the metadata.  Since the description is generally searchable by most applications, users may want to include dates, locations, and people in a non-structured format in the desription as well as in the appropriate structured fields.  
 For example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the people in the photo are more widely searchable.  Most applications will search the desription, but not all applications search the person metadata.
 
-This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
+This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
@@ -341,12 +341,12 @@ If the `dc:description` is not present, it is recommended that the following sem
 
 | Property | Specification |
 | :---- | :--- |
-| `IIM Caption/Abstract| 2:120 Caption/Abstract|
+| IIM Caption/Abstract| 2:120 Caption/Abstract|
 
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
-Note:  Although the IPTC Interoperability Test will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
+Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
@@ -364,9 +364,10 @@ Note:  Although the IPTC Interoperability Test will flag Description as "Not in 
 ```
 Exiftool Commands to Write Description Metadata
 
-|Property| Exiftool Command |
-|XMP dc:Description|exiftool -Description=My aunt Judy's pet rabbit <filename>|
-|IIM Caption/Abstract|exiftool -Caption-Abstract=My aunt Judy's pet rabbit <filename>|
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:Description| exiftool -Description=My aunt Judy's pet rabbit <filename>|
+| IIM Caption/Abstract| exiftool -Caption-Abstract=My aunt Judy's pet rabbit <filename>|
 
 
 #### 3.1.2.3. Future extensions   <a name="3.1.2.3"></a>
