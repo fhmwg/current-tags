@@ -33,7 +33,7 @@ author:
 1. [Additional Considerations](#3)
     1. [Field-specific recommendations](#3.1)
         1. [Album](#3.1.1)
-        1. [Caption](#3.1.2)
+        1. [Description](#3.1.2)
         1. [Date](#3.1.3)
         1. [Event](#3.1.4)
         1. [Location](#3.1.5)
