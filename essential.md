@@ -46,8 +46,9 @@ author:
 
 # 1. Overarching Principles   <a name="1"></a>
 
-All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html).
+All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html) and synching semantically equalivent data with IIM and EXIF data for optimum interoperability.
 Within XMP, many FHMWG recommendations are aligned with the [IPTC standard](https://iptc.org/standards/photo-metadata/iptc-standard/).
+We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
 ## 1.1. Datatypes   <a name="1.1"></a>
 
@@ -303,10 +304,13 @@ The title field is intended to be short and displayable as a line or two of text
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
-If the `dc:title` is not present, it is recommended that the following be consulted instead:
+If the `dc:title` is not present, the data may be read from  
 
-1. XMP `photoshop:Headline`
-2. EXIF ImageDescription (tag 270/0x10E)
+IIM 2:05 Object Name
+
+which is the filename.
+
+Note: IPTC Interoperability Test will flag the Title as "Not in Sync" if the title and IIM field are not both present.  
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
