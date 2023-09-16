@@ -329,8 +329,6 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
-| IIM Object Name| exiftool -ObjectName="Judy's Rabbit" <filename>|
-
 
 ### 3.1.2. Description   <a name="3.1.2"></a>
 
