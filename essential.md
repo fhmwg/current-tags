@@ -33,7 +33,7 @@ author:
 1. [Additional Considerations](#3)
     1. [Field-specific recommendations](#3.1)
         1. [Title](#3.1.1)
-        1. [Caption](#3.1.2)
+        1. [Description](#3.1.2)
         1. [Date](#3.1.3)
         1. [Event](#3.1.4)
         1. [Location](#3.1.5)
@@ -332,23 +332,28 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 
 ### 3.1.2. Description   <a name="3.1.2"></a>
 
-FHMWG-recommended description may containing any information the caption-writer wishes to add. The intent is for this to capture any metadata that other structured metadata fields cannot.
-It does not store structured information
+FHMWG-recommended description may containing any information the description-writer wishes to add. The intent is to capture any metadata that other structured metadata fields cannot.
+It does not store structured information.  
 
 Where possible, implementations should encourage placing information in other metadata fields.
 
-It is common for descriptions to replicate some information included elsewhere in the metadata;
-for example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the description may discuss the relationships between the people or the like.
-This inevitably leads to the possibility of conflicting information.
-Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between captions and other metadata.
+It is common for descriptions to replicate some information included elsewhere in the metadata.  Since the description is generally searchable by most applications, users may want to include dates, locations, and people in a non-structured format in the desription as well as in the appropriate structured fields.  
+For example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the people in the photo are more widely searchable.  Most applications will search the desription, but not all applications search the person metadata.
+
+This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
-If the `dc:descrioption` is not present, it is recommended that the following be consulted instead:
+If the `dc:description` is not present, it is recommended that the following semantically equivalent field be consulted:
 
-1. EXIF UserComment (tag 0x9286)
+| Property | Specification |
+| :---- | :--- |
+| IIM Caption/Abstract| 2:120 Caption/Abstract|
+
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
+
+Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
@@ -364,6 +369,11 @@ IPTC also defines `photoshop:CaptionWriter`, which may be useful for application
  </rdf:Description>
 </rdf:RDF>
 ```
+##### 3.1.2.2.1 Example Exiftool Command to Write Description Metadata <a name="3.1.2.2.1"></a>
+
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
 
 #### 3.1.2.3. Future extensions   <a name="3.1.2.3"></a>
 
@@ -488,7 +498,7 @@ It is recommended that missing location data be filled in the following order if
 5. geocode IPTC IIM address (2:90 city, 2:92 sub-location, 2:95 province/state, etc)
 6. EXIF's `GPSLatitude` and `GPSLongitude`, as modified by `GPSLatitudeRef` and `GPSLongitudeRef`
 
-It is recommended that EXIF's GPS coordinates be updated any time the `LocationSown` is updated so that tools reading EXIF will correctly locate the image.
+It is recommended that EXIF's GPS coordinates be updated any time the `LocationShown` is updated so that tools reading EXIF will correctly locate the image.
 
 IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
 
