@@ -32,7 +32,7 @@ author:
     1. [People Faces](#2.6)
 1. [Additional Considerations](#3)
     1. [Field-specific recommendations](#3.1)
-        1. [Album](#3.1.1)
+        1. [Title](#3.1.1)
         1. [Description](#3.1.2)
         1. [Date](#3.1.3)
         1. [Event](#3.1.4)
@@ -46,8 +46,9 @@ author:
 
 # 1. Overarching Principles   <a name="1"></a>
 
-All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html).
+All FHMWG recommendations relate to reading and writing [XMP-encoded metadata](https://www.adobe.com/devnet/xmp.html) and syncing semantically equalivent data with IIM and EXIF data for optimum interoperability.
 Within XMP, many FHMWG recommendations are aligned with the [IPTC standard](https://iptc.org/standards/photo-metadata/iptc-standard/).
+We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
 ## 1.1. Datatypes   <a name="1.1"></a>
 
@@ -303,10 +304,13 @@ The title field is intended to be short and displayable as a line or two of text
 
 #### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
 
-If the `dc:title` is not present, it is recommended that the following be consulted instead:
+If `dc:title` is not present,  it is recommended that the following semantically equivalent field be consulted: 
 
-1. XMP `photoshop:Headline`
-2. EXIF ImageDescription (tag 270/0x10E)
+| Property | Specification |
+| :---- | :--- |
+| IIM Object Name| 2:05 Object Name|
+
+Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
 
 #### 3.1.2.2. Example   <a name="3.1.2.2"></a>
 
@@ -321,7 +325,10 @@ If the `dc:title` is not present, it is recommended that the following be consul
  </rdf:Description>
 </rdf:RDF>
 ```
-
+#### 3.1.2.2.1 Example Exiftool Command to Write Title Metadata  <a name="3.1.2.2.1"></a>
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
 
 ### 3.1.2. Description   <a name="3.1.2"></a>
 
