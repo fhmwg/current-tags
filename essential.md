@@ -481,7 +481,7 @@ It is recommended that missing location data be filled in the following order if
 5. geocode IPTC IIM address (2:90 city, 2:92 sub-location, 2:95 province/state, etc)
 6. EXIF's `GPSLatitude` and `GPSLongitude`, as modified by `GPSLatitudeRef` and `GPSLongitudeRef`
 
-It is recommended that EXIF's GPS coordinates be updated any time the `LocationSown` is updated so that tools reading EXIF will correctly locate the image.
+It is recommended that EXIF's GPS coordinates be updated any time the `LocationShown` is updated so that tools reading EXIF will correctly locate the image.
 
 IPTC has many more location parts, including altitude and various region-specific jurisdiction names.
 
