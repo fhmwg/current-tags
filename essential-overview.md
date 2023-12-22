@@ -9,17 +9,16 @@ This is a minimum standard for embedding family history metadata that enables th
 
 There are thousands of metadata fields in the use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning and consistent use of a small subset of these existing metadata fields that already have some popularity which we recommend as core to consistently sharing family history medatadata.
 
-The [International Press Telecommunications Council (IPTC)](https://iptc.org/) is the global standards body of the news media and publishes the [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/).  The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard.
+The [International Press Telecommunications Council (IPTC)](https://iptc.org/) is the global standards body of the news media and publishes the [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/).  The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard. The IPTC photo metadata is written in the XMP format.  Most of the metadata that is important to family historians is also core to the IPTC photo metadata and has semantically equivalent metadata properties in the IIM and EXIF format.  IPTC provides [guidelines for mapping](https://iptc.org/std/photometadata/documentation/mappingguidelines/) between its XMP data an the older IIM and EXIF formats.  Additonally, IPTC publishes [interopability tests](https://iptc.org/standards/photo-metadata/interoperability-tests/) to validate that the embedded metadata is written correctly and consistently to the IPT standards.
 
 In addition to the IPTC Photo Metadata Standard, this recommendation makes use of the following standards
-* Extensible Metadata Platform (XMP), an ISO standard for embedding metadata that allows it to be embedded, read, and interpreted consistently.
+* [Extensible Metadata Platform (XMP)](https://www.adobe.com/products/xmp.html), an ISO standard for embedding metadata in a format that cane be embedded, read, and interpreted consistently and is also extensible.
 * [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/), IPTC's first multi-media news exchange format. 
 * [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf), standards for devices (like cameras and scanners) that embed metadata. 
 
 The IPTC Photo Metadata Standard recommends synching XMP data with IIM or EXIF data if the properties are semantically equivalent, that is if the description of what the property should contain matches between the XMP and IIM or EXIF standards.
-In general, we require one XMP field and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.
+In general, we require one XMP property per element and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.
 
-Reference links to these standards are provided for further information.
 
 ## Overarching principles
 
