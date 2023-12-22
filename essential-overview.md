@@ -1,7 +1,7 @@
 # FHMWG Essential Metadata Recommendation 1 — Technical Summary
 
-This document is a technical summary of the full normative specification
-which may be found at <https://github.com/fhmwg/current-tags/blob/master/essential.md>.  The Album, Event, Image Region and Object has been removed from the FHMWG Recommendation Stage 1.  Other minor changes have been made to accomodate People and Location using more popular methodology. 
+This document is a technical summary of the essential metadata recommendations for family history media 
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/essential.md>.  
 
 ## Purpose
 
@@ -10,7 +10,18 @@ that is, data about what the image depicts that are stored in machine-readable (
 
 There are thousands of metadata fields in the use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing metadata fields that already have some popularity which we recommend as core to family history applications.
 
-This recommendation makes use of XMP, a standard produced by Adobe for storing RDF/XML in image metadata; and IPTC, which provides one of the more popular RDF vocabularies for XMP. In addition to XMP, there are some metadata properties that are synchronized with Information Interchange Model (IIM) and Exchange Image File Format (EXIF) data. References to these standards are provided for further information.
+The International Press Telecommunications Council (IPTC) is the global standards body of the news media.
+The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard.
+
+In addition to the IPTC Photo Metadata Standard, this recommendation makes use of the following standards
+Extensible Metadata Platform (XMP), an ISO standard for embedding metadata that allows it to be embedded, read, and interpreted consistently.
+Information Interchange Model (IIM), IPTC's first multi-media news exchange format. 
+Exchange Image File Format (EXIF), standards for devices (like cameras and scanners) that embed metadata. 
+
+The IPTC Photo Metadata Standard recommends synching XMP data with IIM or EXIF data if the properties are semantically equivalent, that is if the description of what the property should contain matches between the XMP and IIM or EXIF standards.
+In general, we require one XMP field and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.
+
+Reference links to these standards are provided for further information.
 
 ## Overarching principles
 
@@ -49,7 +60,7 @@ IPTC allows storing more than one location in a single image's metadata. Because
 
 Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the full name, identifier, sublocation, city, state, country, and GPS coordinates and semantically equivalent properties.
 
-GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located. Coordinate regions and imprecision may be added in a future version of this recommendation.
+GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey whether the GPS coordinates are exact or an approximation.
 
 
 ### People (Names and Face Tags)
@@ -62,7 +73,7 @@ A person in an image may be referenced by a face tag (coordinates within the ima
 ## Metadata properties
 
 The key metadata properties used in this recommendation are listed below.
-The full XML of the XMP metadata contains a variety of RDF/XML structures to help represent concepts like "any number of" substructures and "human language of" strings, which are not included in this summary.
+Low-level details are not provided in this summary, but reference links to the appropriate standards definition are provided for further information.
 
 What follows uses the following namespace abbreviations for XMP metadata :
 
@@ -89,6 +100,14 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 | :------------------- | :--- | :----- |
 | `Iptc4xmpCore:Title` | `dc:title` | Image title |
 
+Optional semantically equivalent IIM field to sync
+
+| Property | Specification | Sync with |
+| :---- | :--- | :----- |
+| `IIM:ObjectName` | 2:05 Object Name | `Iptc4xmpCore:Title` |
+
+
+
 
 ### Description
 
@@ -99,6 +118,15 @@ Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/spe
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:Description`| `dc:description` | Image description |
 
+Optional semantically equivalent IIM and EXIF fields to sync
+
+| Property | Specification | Sync with |
+| :---- | :--- | :----- |
+| `IIM:Caption-Abstract` | 2:120 Caption-Abstract | `Iptc4xmpCore:Descripion` |
+| `EXIF:ImageDescription` | 270/0x010E ImageDescription | `Iptc4xmpCore:Description` |
+
+
+
 ### Date
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
@@ -107,7 +135,7 @@ Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/sp
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
 
-Semantically equivalent IIM and EXIF fields to sync
+Recommended semantically equivalent IIM and EXIF fields to sync
 
 | Property | Specification | Sync with |
 | :---- | :--- | :----- |
@@ -123,9 +151,19 @@ References:
 
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
-
+The location is stored in a structure that contains a full name for the location, which may contain jurisdictions (such as county) that are not supported in the other jurisidiction name fields.
+There is only one location represented in the LocationShownInImage structure, so all the subfields should be consistent.  That is, GPS info, location names, and identifiers should represent the same physical location.
+Within the LocationShownInImage structure, a location may be defined by at least one of the following criteria
+the full name of the location in LocationName, 
+at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
+GPS coordinates.
 
 #### Location - Names and Identifier
+
+FamilySearch uses the LocationName and LocationId with its place authority standards. 
+If you are not using the LocationName, use the sublocation, city, state, and country fields in the location structure in LocationShownInImage and synch them to the approprioate IIM and EXIF fields.
+
+Required fields in LocationShownInImage LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields
 
 
 | Property | Type | Stores |
@@ -137,9 +175,9 @@ References:
 | `    LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
 | `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
 | `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
-| `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier, may have more than 1 |
+| `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier such as FamilySearch place identifer, may have more than 1 |
 
-Semantically equivalent XMP and IIM fields to sync
+Recommended semantically equivalent XMP and IIM fields to sync
 
 References:
 
@@ -165,6 +203,8 @@ References:
 
 #### Location - Geo Tags
 
+GPS coordinates always identify a specific point, however, many family photos do not have a specific address, just a city or state.  In this case, the location names fields may indicate the scope of the GPS coordinates.  For example, if only the state is known, the GPS coordinates will indicate a specific point in the state, but the jurisdictional names would not have a sublocation/address or city, indicating that only the state is known. Additionally using near or probably in the sublocation field would also indicate the intended precision of the GPS coordinates.
+
 | Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
@@ -172,7 +212,7 @@ References:
 | `    LocationShown:GPS-Latitude` | exif:GPSLatitude | Exif GPSCoordinate <External> |
 | `    LocationShown:GPS-Longitude` | exif:GPSLongitude | Exif GPSCoordinate <External>|
 
-Semantically equivalent XMP and EXIF fields to sync
+Recommended semantically equivalent EXIF fields to sync
 
 References:
 
@@ -207,3 +247,8 @@ Reference:  [Metadata Working Group Regions schema](https://exiv2.org/tags-xmp-m
 | Property | Type | Stores |
 | :---- | :--- | :----- |
 | `mwg-rs:Regions` | *nested elements* | list of coordinates and names for face tags in image |
+
+Recommended semantically equivalent XMP fields to sync
+| Property | Type | Stores |
+| :---- | :--- | :----- |
+| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
