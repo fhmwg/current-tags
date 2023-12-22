@@ -46,16 +46,19 @@ In general, we require one XMP property per element and recommend synching it to
 ### Title
 
 An image may have a title.
+
 The title should be a short human-readable name or reference for the digital file. 
 
 ### Description
 
 An image may have a description.
+
 The description may be of any length and contain any information the user cares to add. The description could also include a caption for the image.
 
 ### Date
 
 An image can record the date of the depicted scene.
+
 Note that this is the date of the scene, not the date of the image creation;
 while those may be the same for photographs, they generally differ for scanned images.
 
@@ -64,18 +67,22 @@ Many other date fields exist in other metadata, such as image creation dates, im
 
 ### Location (Names and GeoTags)
 
-An image can identify one location where the primary focus of the depicted scene is found. A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. Location names are required. Identifier and GPS coordinates are optional.
+An image can identify one location where the primary focus of the depicted scene is found. 
+
+A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. At least one of the location name elements are required. Location dentifier and GPS coordinates are optional.
 
 IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
 
-Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the full name, identifier, sublocation, city, state, country, and GPS coordinates and semantically equivalent properties.
+Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes fields in the IPTC locationShownInImage property. Best practices recommend synching the location elements with the appropriate core XMP properties as well as IIM and EXIF properties.
 
-GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey whether the GPS coordinates are exact or an approximation.
+GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey the scope of the GPS coordinates.
 
 
 ### People (Names and Face Tags)
 
-An image may depict persons either visually in the image or by close association (i.e. my grandpa's house is associated with my grandpa even though grandpa is not visually in the photo). The image may have a list of person names associated with the image.
+An image may depict persons either visually in the image or by close association (i.e. my grandpa's house is associated with my grandpa even though grandpa is not visually in the photo). 
+
+The image may have a list of person names associated with the image.
 
 A person in an image may be referenced by a face tag (coordinates within the image). Person face tags are encouraged, but optional. In addition to the face tag, the person name must be added to the list of persons in the image.
 
@@ -106,13 +113,13 @@ In addition to the XMP metadata, there are semantically equivalent properties in
 
 Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
-| Property             | Type | Stores |
+| Required Property             | Type | Stores |
 | :------------------- | :--- | :----- |
 | `Iptc4xmpCore:Title` | `dc:title` | Image title |
 
 Optional semantically equivalent IIM field to sync
 
-| Property | Specification | Sync with |
+| Optional Property | Specification | Sync with |
 | :---- | :--- | :----- |
 | `IIM:ObjectName` | 2:05 Object Name | `Iptc4xmpCore:Title` |
 
@@ -124,13 +131,13 @@ Optional semantically equivalent IIM field to sync
 Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
 
 
-| Property | Type | Stores |
+| Required Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:Description`| `dc:description` | Image description |
 
 Optional semantically equivalent IIM and EXIF fields to sync
 
-| Property | Specification | Sync with |
+| Optional Property | Specification | Sync with |
 | :---- | :--- | :----- |
 | `IIM:Caption-Abstract` | 2:120 Caption-Abstract | `Iptc4xmpCore:Descripion` |
 | `EXIF:ImageDescription` | 270/0x010E ImageDescription | `Iptc4xmpCore:Description` |
@@ -141,13 +148,13 @@ Optional semantically equivalent IIM and EXIF fields to sync
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
-| Property | Type | Stores |
+| Required Property | Type | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
 
 Recommended semantically equivalent IIM and EXIF fields to sync
 
-| Property | Specification | Sync with |
+| Optional Property | Specification | Sync with |
 | :---- | :--- | :----- |
 | `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | `Iptc4xmpCore:DateCreated` |
 | `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | `Iptc4xmpCore:DateCreated` |
@@ -164,9 +171,9 @@ References:
 The location is stored in a structure that contains a full name for the location, which may contain jurisdictions (such as county) that are not supported in the other jurisidiction name fields.
 There is only one location represented in the LocationShownInImage structure, so all the subfields should be consistent.  That is, GPS info, location names, and identifiers should represent the same physical location.
 Within the LocationShownInImage structure, a location may be defined by at least one of the following criteria
-the full name of the location in LocationName, 
-at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
-GPS coordinates.
+* the full name of the location in LocationName, 
+* at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
+* GPS coordinates.
 
 #### Location - Names and Identifier
 
