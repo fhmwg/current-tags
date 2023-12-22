@@ -21,15 +21,15 @@ XMP format was developed by Adobe as an open standard and then adopted as an ISO
 
 The [International Press Telecommunications Council (IPTC)](https://iptc.org/) is the global standards body of the news media and publishes the [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/).  The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard which provides clarity on how to read, write, and synchronize standard photo metadata. Most of the metadata that is important to family historians is also core to the IPTC photo metadata and has semantically equivalent metadata properties in the IIM and EXIF format.  IPTC provides [guidelines for mapping](https://iptc.org/std/photometadata/documentation/mappingguidelines/) between its XMP data an the older IIM and EXIF formats.  Additonally, IPTC publishes [interopability tests](https://iptc.org/standards/photo-metadata/interoperability-tests/) to validate that the embedded metadata is written correctly and consistently to the IPT standards.
 
-
-In general, we require one XMP property per element and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.
-
-The primary goal is to provide recommendations around sharing essential family history metadata in accordance with existing popular metadata standards and guidelines that promote interoperability between software and formats for preserving the "writing on the back of the photo" which includes
+The primary goal is to provide recommendations around sharing essential family history metadata in accordance with existing popular metadata standards and guidelines that promote interoperability between software and formats for preserving the "writing on the back of the photo" which includes these elements:
 * Title
 * Description
 * Date 
 * Location (names and geotags)
 * People (names and face tags)
+
+In general, we require one XMP property per element and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.  The goal is to define a consistent way to capture, share, and preserve these elements of essential family history metadata so that it can be consistently read and interpreted by software applications, even if the metadata was originally captured in one of the older (IIM or EXIF) format and not in the XMP format.
+
 
 ## Overarching principles
 
