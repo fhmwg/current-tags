@@ -77,7 +77,6 @@ Many other location properties exist in the IPTC standard. As with all metadata,
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey the scope of the GPS coordinates.
 
-
 ### People (Names and Face Tags)
 
 An image may depict persons either visually in the image or by close association (i.e. my grandpa's house is associated with my grandpa even though grandpa is not visually in the photo). 
@@ -174,6 +173,8 @@ Within the LocationShownInImage structure, a location may be defined by at least
 * the full name of the location in LocationName, 
 * at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
 * GPS coordinates.
+
+![LocationNamesAndGeotags](https://github.com/fhmwg/current-tags/assets/702496/07c84224-5e38-4779-9196-feacd517a729)
 
 #### Location - Names and Identifier
 
