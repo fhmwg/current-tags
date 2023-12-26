@@ -118,7 +118,7 @@ Try a new table
 
 
 | Required Property  | Reference | Group | Family | Name |
-| :------------------- | :--- | :----- | | :--- | :----- |
+| :------------------- | :--- | :----- | :--- | :----- |
 | Title | [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title) | XMP | XMP-dc | Title |
 
 Optional semantically equivalent IIM field to sync
