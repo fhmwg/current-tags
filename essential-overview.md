@@ -117,9 +117,9 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 
 Optional semantically equivalent IIM field to sync
 
-| Optional Property | Specification | Sync with |
-| :---- | :--- | :----- |
-| `IIM:ObjectName` | 2:05 Object Name | `Iptc4xmpCore:Title` |
+| Optional field   | Reference | Exiftool Group | Exiftool Family | Exiftool Tag Name |
+| :------------------- | :--- | :----- | :--- | :----- |
+| `IIM:ObjectName` | 2:05 Object Name | |IPTC | IPTC ] ObjectName 
 
 
 
