@@ -119,7 +119,7 @@ Optional semantically equivalent IIM field to sync
 
 | Optional field   | Reference | Exiftool Group | Exiftool Family | Exiftool Tag Name |
 | :------------------- | :--- | :----- | :--- | :----- |
-| `IIM:ObjectName` | 2:05 Object Name | |IPTC | IPTC ] ObjectName 
+| `IIM:ObjectName` | 2:05 Object Name |IPTC | IPTC | ObjectName |
 
 
 
