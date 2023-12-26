@@ -39,8 +39,6 @@ In general, we require one XMP property per element and recommend synching it to
 
 2. **At Least These Fields**. There are hundreds of metadata properties and fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
 
-3. **IDs are IRIs**. Internationalized Resource Identifiers (IRIs) are a polyglot extension to URIs, themselves an extension to URLs to allow storing identifiers that are not web pages. Since names, dates, etc are not enough to uniquely identify people and places, IRIs are recommended to make matching people between multiple images less error-prone. Because URLs are valid IRIs, IRIs also allow linking to external resources.
-
 ## Summary of recommendation
 
 ### Title
@@ -115,6 +113,10 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 | Required Property             | Type | Stores |
 | :------------------- | :--- | :----- |
 | `Iptc4xmpCore:Title` | `dc:title` | Image title |
+
+| Required Property  | Reference | Group | Family | Name |
+| :------------------- | :--- | :----- |
+| Title | [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title) | XMP | XMP-dc | Title |
 
 Optional semantically equivalent IIM field to sync
 
