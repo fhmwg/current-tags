@@ -115,7 +115,7 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 | `Iptc4xmpCore:Title` | `dc:title` | Image title |
 
 | Required Property  | Reference | Group | Family | Name |
-| :------------------- | :--- | :----- |
+| :------------------- | :--- | :----- | | :--- | :----- |
 | Title | [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title) | XMP | XMP-dc | Title |
 
 Optional semantically equivalent IIM field to sync
