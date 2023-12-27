@@ -172,6 +172,7 @@ Within the LocationShownInImage structure, a location may be defined by at least
 * at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
 * GPS coordinates.
 
+![LocationNamesAndGeotags](https://github.com/fhmwg/current-tags/assets/702496/d4edf519-aac8-4ab7-8644-2c295c0f5f20)
 
 
 #### Location - Names and Identifier
