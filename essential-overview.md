@@ -32,6 +32,8 @@ The primary goal is to provide recommendations around sharing essential family h
 
 In general, we require one XMP property per element and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.  The goal is to define a consistent way to capture, share, and preserve these elements of essential family history metadata so that it can be consistently read and interpreted by software applications, even if the metadata was originally captured in one of the older (IIM or EXIF) format and not in the XMP format.
 
+Keeping metadata properties straight can be a challenge.  The names are similar and it's not always clear which property is actually being written.  Exiftool has handles for metadata field based on groups and tag names to uniquely identify metadata properties. The exiftool handle is provided for each metadata field using the group and tag name displayed when using the -G -s options for exiftool.  Exiftool group names are EXIF, IPTC (for IIM properties), and XMP.  If the tag names are part of a structure, the tag name is flattened so that each field has a unique name. The exiftool handle is an easy way to keep the metadata straight, with one set of names that can be used to document, read, and write metadata properties.
+
 
 ## Overarching principles
 
