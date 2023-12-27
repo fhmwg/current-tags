@@ -172,7 +172,7 @@ Within the LocationShownInImage structure, a location may be defined by at least
 * at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
 * GPS coordinates.
 
-![LocationNamesAndGeotags](https://github.com/fhmwg/current-tags/assets/702496/07c84224-5e38-4779-9196-feacd517a729)
+
 
 #### Location - Names and Identifier
 
@@ -246,6 +246,12 @@ References:
 
 ### People (Names and Face Tag)
 
+People can be identified by face tag or by name. Person names are required.  Fact tags are optional, but if used, should be synched with the list of person names in the image.  
+
+Face tags are written as image regions.  MWG (Metadata Working Group) Guidelines for Handling Image Metadata added image region properties in 2010, which have been widely used in the industry to record face tags in images.  IPTC image regions were added about 10 years later in 2019.  Although MWG appears to be a stale entity at this time, MWG regions are still the de facto standard used by Adobe products and everyone else.  For interoperability, we are recommending that we use the de facto standard.  
+
+![People Face Tags and Names](https://github.com/fhmwg/current-tags/assets/702496/34e3bfae-0dc2-4e7d-99d5-73384d730885)
+
 #### Person Names
 
 Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#person-shown-in-the-image)
@@ -257,6 +263,8 @@ Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/s
 #### Person Face Tag
 
 Reference:  [Metadata Working Group Regions schema](https://exiv2.org/tags-xmp-mwg-rs.html)
+Documentation:   MWG Regions of type “Face” in
+ [Guidelines for Handling Image Metadata](https://web.archive.org/web/20120131102845/http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf) page 53
 
 | Property             | Type | Exiftool Handle | Stores |
 | :---- | :--- | :----- | :----- |
