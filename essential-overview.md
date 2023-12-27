@@ -55,7 +55,7 @@ The description may be of any length and contain any information the user cares 
 
 ### Date
 
-An image can record the date of the depicted scene.
+An image can record the date of the depicted scene which may be just a year or a year and month.
 
 Note that this is the date of the scene, not the date of the image creation;
 while those may be the same for photographs, they generally differ for scanned images.
@@ -110,16 +110,15 @@ In addition to the XMP metadata, there are semantically equivalent properties in
 
 Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
+| Property             | Type | Exiftool Handle | Stores |
+| :------------------- | :--- | :----- |:---|
+| `Iptc4xmpCore:Title` | `dc:title` | XMP:Title |Image title |
 
-| Required Property  | Reference | Exiftool Group | Exiftool Family | Exiftool Tag Name |
-| :------------------- | :--- | :----- | :--- | :----- |
-| Title | [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title) | XMP | XMP-dc | Title |
+Optional semantically equivalent IIM field to sync with Title
 
-Optional semantically equivalent IIM field to sync
-
-| Optional field   | Reference | Exiftool Group | Exiftool Family | Exiftool Tag Name |
-| :------------------- | :--- | :----- | :--- | :----- |
-| `IIM:ObjectName` | 2:05 Object Name |IPTC | IPTC | ObjectName |
+| Optional field   | Specification | Exiftool Handle |
+| :------------------- | :--- | :----- |
+| `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
 
 
 
@@ -129,16 +128,16 @@ Optional semantically equivalent IIM field to sync
 Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
 
 
-| Required Property | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpCore:Description`| `dc:description` | Image description |
+| Required Property  | Type | Exiftool Handle | Stores |
+| :------------------- | :--- | :----- | :--- |
+| Iptc4xmpCore:Description| dc:Description |XMP:Description  | Image description |
 
-Optional semantically equivalent IIM and EXIF fields to sync
+Optional semantically equivalent IIM and EXIF fields to sync with Description
 
-| Optional Property | Specification | Sync with |
+| Optional Property | Specification |Exiftool Handle |
 | :---- | :--- | :----- |
-| `IIM:Caption-Abstract` | 2:120 Caption-Abstract | `Iptc4xmpCore:Descripion` |
-| `EXIF:ImageDescription` | 270/0x010E ImageDescription | `Iptc4xmpCore:Description` |
+| `IIM:Caption-Abstract` | 2:120 Caption-Abstract | IPTC:Caption-Abstract|
+| `EXIF:ImageDescription` | 270/0x010E ImageDescription | EXIF:ImageDescription|
 
 
 
@@ -146,16 +145,16 @@ Optional semantically equivalent IIM and EXIF fields to sync
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
-| Required Property | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | Date of depicted scene |
+| Property             | Type | Exiftool Handle | Stores |
+| :------------------- | :--- | :----- |:---|
+| `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | XMP:DateCreated| Date of depicted scene |
 
-Recommended semantically equivalent IIM and EXIF fields to sync
+Recommended semantically equivalent IIM and EXIF fields to sync with Date 
 
-| Optional Property | Specification | Sync with |
+| Optional Property | Specification | Exiftool Handle |
 | :---- | :--- | :----- |
-| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | `Iptc4xmpCore:DateCreated` |
-| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | `Iptc4xmpCore:DateCreated` |
+| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | IPTC:DateCreated & IPTC:TimeCreated |
+| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | EXIF:DateTimeOriginal|
 
 
 ### Location 
@@ -183,16 +182,16 @@ If you are not using the LocationName, use the sublocation, city, state, and cou
 Required fields in LocationShownInImage LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields
 
 
-| Property | Type | Stores |
-| :------------------------------------------ | :--- | :----- |
-| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
-| `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
-| `    LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | most specific sublocation such as address, landmark, near, probably |
-| `    LocationShown:City` | Iptc4xmpExt:City | name of city |
-| `    LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState | name of subregion of country such as a province or state |
-| `    LocationShown:CountryName` | Iptc4xmpExt:CountryName | name of the country |
-| `    LocationShown:LocationName` | Iptc4xmpExt:LocationName | full name of location, including county if desired |
-| `    LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId | globally unique identifier such as FamilySearch place identifer, may have more than 1 |
+| Property             | Type | Exiftool Handle | Stores |
+| :------------------- | :--- | :-----          |:---|
+| `Iptc4xmpExt:LocationShown` | *nested elements* | |One\* location, primary focus of image |
+| `  Location Structure` | *nested structure* | |Structure containing identifiers, names, GPS data |
+| `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
+| `   LocationShown:City` | Iptc4xmpExt:City |XMP:LocationShownCity| name of city |
+| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState|XMP:LocationShownProvinceState | name of subregion of cuntry such as a province or state |
+| `   LocationShown:CountryName` | Iptc4xmpExt:CountryName |XMP:LocationShownCountryName| name of the country |
+| `   LocationShown:LocationName` | Iptc4xmpExt:LocationName|XMP:LocationShownLocationName | full name of location, including county if desired |
+| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
 
 Recommended semantically equivalent XMP and IIM fields to sync
 
@@ -207,16 +206,16 @@ References:
 [IPTC Core 7.4. Country (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#country-legacy)
 
 
-| Property | Specification | Sync with |
-| :---- | :--- | :----- |
-| `Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` | LocationShown:Sublocation |
-| `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | LocationShown:City |
-| `Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | LocationShown:ProvinceState |
-| `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | LocationShown:CountryName |
-| `IIM:Sublocation`  | `2:92 Sublocation` | Iptc4xmpCore:Sublocation (legacy) |
-| `IIM:City`  | `2:90` | Iptc4xmpCore:City (legacy) |
-| `IIM:Province/State`  | `2:95 Province/State` | Iptc4xmpCore:Province or State (legacy) |
-| `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name` | Iptc4xmpCore:Country (legacy) |
+| Field | Sync With | Specification | Exiftool Handle | 
+| :---- | :--- | :----- | :----- |
+| LocationShown:Sublocation |`Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` |XMP:Location|
+| LocationShown:City | `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | XMP:City |
+| LocationShown:ProvinceState |`Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | XMP:State |
+| LocationShown:CountryName | `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | XMP:City |
+|Iptc4xmpCore:Sublocation (legacy) |`IIM:Sublocation`  | `2:92 Sublocation` |  IPTC:Sub-location |
+|Iptc4xmpCore:City (legacy) | `IIM:City`  | `2:90` | IPTC:City |
+|Iptc4xmpCore:Province or State (legacy) |`IIM:Province/State`  | `2:95 Province/State` | IPTC:Province-State |
+|Iptc4xmpCore:Country (legacy) | `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name`  | IPTC:Country-PrimaryLocationName|
 
 #### Location - Geo Tags
 
