@@ -221,27 +221,25 @@ References:
 
 GPS coordinates always identify a specific point, however, many family photos do not have a specific address, just a city or state.  In this case, the location names fields may indicate the scope of the GPS coordinates.  For example, if only the state is known, the GPS coordinates will indicate a specific point in the state, but the jurisdictional names would not have a sublocation/address or city, indicating that only the state is known. Additionally using near or probably in the sublocation field would also indicate the intended precision of the GPS coordinates.
 
-| Property | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:LocationShown` | *nested elements* | One\* location, primary focus of image |
-| `  Location Structure` | *nested structure* | Structure containing identifiers, names, GPS data |
-| `    LocationShown:GPS-Latitude` | exif:GPSLatitude | Exif GPSCoordinate <External> |
-| `    LocationShown:GPS-Longitude` | exif:GPSLongitude | Exif GPSCoordinate <External>|
+| Property             | Type | Exiftool Handle | Stores |
+| :---- | :--- | :----- | :----- |
+| `Iptc4xmpExt:LocationShown` | *nested elements* | |One\* location, primary focus of image |
+| `  Location Structure` | *nested structure* | |Structure containing identifiers, names, GPS data |
+| `    LocationShown:GPS-Latitude` | exif:GPSLatitude |XMP:LocationShownGPSLatitude| GPS Latitude|
+| `    LocationShown:GPS-Longitude` | exif:GPSLongitude | XMP:LocationShownGPSLongitude| GPS Longitude |
 
-Recommended semantically equivalent EXIF fields to sync
+Recommended semantically equivalent EXIF fields to sync with LocationShown geotags:
 
 References:
 
 [XMP Namespaces > exif](https://developer.adobe.com/xmp/docs/XMPNamespaces/exif/)
 
-| Property | Specification | Sync with |
-| :---- | :--- | :----- |
-| `exif:GPSLatitude`   | `exif:GPSLatitude` | LocationShown:GPS-Latitude |
-| `exif:GPSLongitude`   | `exif:GPSLongitude` | LocationShown:GPS-Longitude |
-| `EXIF:GPSLatitudeRef`  | `Tag 0x0001` GPSLatitudeRef  | LocationShown:GPS-Latitude|
-| `EXIF:GPSLatitude`  | `Tag 0x0002 GPSLatitude ` | LocationShown:GPS-Latitude |
-| `EXIF:GPSLongitudeRef`  | `Tag 0x0003` GPSLongitudeRef  | LocationShown:GPS-Longitude|
-| `EXIF:GPSLongitude`  | `0x0004 GPSLongitude ` | LocationShown:GPS-Longitude |
+|Field | Sync With | Specification | Exiftool Handle |
+| :---- | :--- | :----- |:---|
+| LocationShown:GPS-Latitude | `EXIF:GPSLatitudeRef`  | `Tag 0x0001` GPSLatitudeRef | EXIF:GPSLatitudeRef|
+|                            | `EXIF:GPSLatitude`  | `Tag 0x0002` GPSLatitude  | EXIF:GPSLatitude |
+| LocationShown:GPS-Longitude | `EXIF:GPSLongitudeRef` |  `Tag 0x0003` GPSLongitudeRef  | EXIF:GPSLongitudeRef|
+|                             |`EXIF:GPSLongitude`  | `Tag 0x0004` GPSLongitude | EXIF:GPSLongitude |
 
 
 \* IPTC allows more than one location in an image, but the FHMWG recommends only one be used
@@ -252,19 +250,20 @@ References:
 
 Reference:  [IPTC Extension 11.30. Person Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#person-shown-in-the-image)
 
-| Property | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
+| Property             | Type | Exiftool Handle | Stores |
+| :---- | :--- | :----- | :----- |
+| `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | XMP:PersonInImage| list of names of persons in image, including those with face tags |
 
 #### Person Face Tag
 
 Reference:  [Metadata Working Group Regions schema](https://exiv2.org/tags-xmp-mwg-rs.html)
 
-| Property | Type | Stores |
-| :---- | :--- | :----- |
-| `mwg-rs:Regions` | *nested elements* | list of coordinates and names for face tags in image |
+| Property             | Type | Exiftool Handle | Stores |
+| :---- | :--- | :----- | :----- |
+| `mwg-rs:Regions` | *nested elements* | XMP:Region*| list of coordinates and names for face tags in image |
 
-Recommended semantically equivalent XMP fields to sync
-| Property | Type | Stores |
+Recommended semantically equivalent XMP fields to sync with face tags:
+
+| Property | SyncWith  | Stores |
 | :---- | :--- | :----- |
 | `Iptc4xmpExt:PersonShownInTheImage` |`Bag of Iptc4xmpExt:PersonInImage`  | list of names of persons in image, including those with face tags |
