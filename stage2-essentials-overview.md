@@ -71,23 +71,21 @@ The description may be of any length and contain any information the user cares 
 
 ### Date
 
-An image can record the date of the depicted scene.   which may be just a year or a year and month.
+An image can record the date of the depicted scene. The precision and accuracy of the date may vary, e.g. the date may only be specified by a year, or a month within a year, etc.
 
-Note that this is the date of the scene, not the date of the image creation;
-while those may be the same for photographs, they generally differ for scanned images.
+Note that this is the date of the scene depicted in the image, and may not be the date of the image’s creation. While the depicted date and the creation date may be the same for digital photographs, they generally differ for scanned images or artistic representations.
 
-Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes the date of the depicted scene.
-
+Many other date fields exist in other metadata, such as image creation dates, image modification dates, etc. As with all metadata, implementations may choose to support those if they wish, but this recommendation only addresses the date of the depicted scene.
 
 ### Location (Names and GeoTags)
 
 An image can identify one location where the primary focus of the depicted scene is found. 
 
-A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. At least one of the location name elements are required. Location dentifier and GPS coordinates are optional.
+A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. At least one of the location name elements are required. Location identifier and GPS coordinates are optional.
 
 IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
 
-Many other location properties exist in the IPTC standard. As with all metadata, implementations may chose to support those if they wish, but this recommendation only includes fields in the IPTC locationShownInImage property. Best practices recommend synching the location elements with the appropriate core XMP properties as well as IIM and EXIF properties.
+Many other location properties exist in the IPTC standard. As with all metadata, implementations may choose to support those if they wish, but this recommendation only includes fields in the IPTC locationShownInImage property. Best practices recommend synching the location elements with the appropriate core XMP properties as well as IIM and EXIF properties.
 
 GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey the scope of the GPS coordinates.
 
@@ -161,7 +159,7 @@ Optional semantically equivalent IIM and EXIF fields to sync with Description
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
-| Property             | Type | Exiftool Handle | Stores |
+| Required Property             | Type | Exiftool Handle | Stores |
 | :------------------- | :--- | :----- |:---|
 | `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | XMP:DateCreated| Date of depicted scene |
 
@@ -181,7 +179,7 @@ References:
 
 [IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
 
-The location is stored in a structure that contains a full name for the location, which may contain jurisdictions (such as county) that are not supported in the other jurisidiction name fields.
+The location is stored in a structure that contains a full name for the location, which may contain jurisdictions (such as county) that are not supported in the other jurisdiction name fields.
 There is only one location represented in the LocationShownInImage structure, so all the subfields should be consistent.  That is, GPS info, location names, and identifiers should represent the same physical location.
 Within the LocationShownInImage structure, a location may be defined by at least one of the following criteria
 * the full name of the location in LocationName, 
@@ -194,9 +192,9 @@ Within the LocationShownInImage structure, a location may be defined by at least
 #### Location - Names and Identifier
 
 FamilySearch uses the LocationName and LocationId with its place authority standards. 
-If you are not using the LocationName, use the sublocation, city, state, and country fields in the location structure in LocationShownInImage and synch them to the approprioate IIM and EXIF fields.
+If you are not using the LocationName, use the sublocation, city, state, and country fields in the location structure in LocationShownInImage and sync them to the appropriate IIM and EXIF fields.
 
-Required fields in LocationShownInImage LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields
+Required:  In the LocationShownInImage property, the LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields are required.
 
 
 | Property             | Type | Exiftool Handle | Stores |
@@ -205,7 +203,7 @@ Required fields in LocationShownInImage LocationName and/or at least one of Subl
 | `  Location Structure` | *nested structure* | |Structure containing identifiers, names, GPS data |
 | `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
 | `   LocationShown:City` | Iptc4xmpExt:City |XMP:LocationShownCity| name of city |
-| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState|XMP:LocationShownProvinceState | name of subregion of cuntry such as a province or state |
+| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState|XMP:LocationShownProvinceState | name of subregion of country such as a province or state |
 | `   LocationShown:CountryName` | Iptc4xmpExt:CountryName |XMP:LocationShownCountryName| name of the country |
 | `   LocationShown:LocationName` | Iptc4xmpExt:LocationName|XMP:LocationShownLocationName | full name of location, including county if desired |
 | `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
@@ -236,7 +234,9 @@ References:
 
 #### Location - Geo Tags
 
-GPS coordinates always identify a specific point, however, many family photos do not have a specific address, just a city or state.  In this case, the location names fields may indicate the scope of the GPS coordinates.  For example, if only the state is known, the GPS coordinates will indicate a specific point in the state, but the jurisdictional names would not have a sublocation/address or city, indicating that only the state is known. Additionally using near or probably in the sublocation field would also indicate the intended precision of the GPS coordinates.
+GPS coordinates always identify a specific point corresponding to a complete address with jurisdictional names. However, many family photos do not have a specific address. Therefore GPS coordinates are not required if the LocationShown property is used.
+
+If a GPS coordinate is specified, the location names fields may still be used to indicate the precision or accuracy of the GPS coordinates. For example, if only the state is specified in the LocationShown property, the GPS coordinates may be erroneously indicating an overspecified point in the state. The jurisdictional name fields in the LocationShown property would not have a sublocation/address or city, indicating that only the state is known. Additionally using near or probably in the sublocation field would also indicate the intended precision of the GPS coordinates.
 
 | Property             | Type | Exiftool Handle | Stores |
 | :---- | :--- | :----- | :----- |
@@ -263,7 +263,7 @@ References:
 
 ### People (Names and Face Tag)
 
-People can be identified by face tag or by name. Person names are required.  Fact tags are optional, but if used, should be synched with the list of person names in the image.  
+People can be identified by face tag or by name. **Person names are required.**  Face tags are optional, but if used, should be synced with the list of person names in the image.  
 
 Face tags are written as image regions.  MWG (Metadata Working Group) Guidelines for Handling Image Metadata added image region properties in 2010, which have been widely used in the industry to record face tags in images.  IPTC image regions were added about 10 years later in 2019.  Although MWG appears to be a stale entity at this time, MWG regions are still the de facto standard used by Adobe products and everyone else.  For interoperability, we are recommending that we use the de facto standard.  
 
