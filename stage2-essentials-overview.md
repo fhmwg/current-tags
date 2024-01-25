@@ -1,11 +1,22 @@
 # FHMWG Essential Metadata Recommendation 1 — Technical Summary
 
 This document is a technical summary of the essential metadata recommendations for family history media 
-which may be found at <https://github.com/fhmwg/current-tags/blob/master/essential.md>. If there are any discrepancies between this summary and the full recommendations, the full recommendations apply.
+which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage2-essentials.md>. If there are any discrepancies between this summary and the full recommendations, the full recommendations apply.
+
+This recommendation is stage 2 in the Family History Working Group roadmap and represents a further iteration on the recommendations published in stage 1. 
 
 ## Purpose
 
-This is a minimum standard for embedding family history metadata that enables the consistent capturing, sharing, interoperability and preservation of the "writing on the back of the photo" within the digital image itself in a machine-readable (non-visual) format.
+This is a recommendation for embedding family history metadata that is essential for the consistent capturing, sharing, interoperability and preservation of the data about what an image depicts – e.g. the traditional "writing on the back of the photo" – within a digital image itself in a machine-readable (non-visual) format.
+
+There are thousands of metadata properties in use in the wild today, many of which overlap in full or in part with other properties and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing properties which we have identified as essential to family history.
+
+## Overarching principles
+
+1. **Don't Remove Metadata**. Even if the metadata is not a form you understand or is a duplicate of other fields, some other tool may have a use for it. Leave it in the file.
+
+2. **At Least These Fields**. There are hundreds of metadata properties and fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
+3. **Only Embed What You Collect**. You are only expected to embed family history data that you already collect from your users. You are not expected to collect any new data that is not already collected by your software. However, you may need to modify the format of the data you collect in order to align with these recommendations.
 
 Photo metadata may be writtten in one of three formats:
 
@@ -35,11 +46,7 @@ In general, we require one XMP property per element and recommend synching it to
 Keeping metadata properties straight can be a challenge.  The names are similar and it's not always clear which property is actually being written.  Exiftool has handles for metadata field based on groups and tag names to uniquely identify metadata properties. The exiftool handle is provided for each metadata field using the group and tag name displayed when using the -G -s options for exiftool.  Exiftool group names are EXIF, IPTC (for IIM properties), and XMP.  If the tag names are part of a structure, the tag name is flattened so that each field has a unique name. The exiftool handle is an easy way to keep the metadata straight, with one set of names that can be used to document, read, and write metadata properties.
 
 
-## Overarching principles
 
-1. **Don't Remove Metadata**. Even if the metadata is not a form you understand or is a duplicate of other fields, some other tool may have a use for it. Leave it in the file.
-
-2. **At Least These Fields**. There are hundreds of metadata properties and fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
 
 ## Summary of recommendation
 
