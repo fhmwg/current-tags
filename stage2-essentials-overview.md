@@ -16,25 +16,29 @@ There are thousands of metadata properties in use in the wild today, many of whi
 1. **Don't Remove Metadata**. Even if the metadata is not a form you understand or is a duplicate of other fields, some other tool may have a use for it. Leave it in the file.
 
 2. **At Least These Fields**. There are hundreds of metadata properties and fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
-3. **Only Embed What You Collect**. You are only expected to embed family history data that you already collect from your users. You are not expected to collect any new data that is not already collected by your software. However, you may need to modify the format of the data you collect in order to align with these recommendations.
+3. **Only Embed What You Collect**. You are only expected to embed family history data that you already collect from your users. You are not expected to collect any new data that is not already collected by your software. However, you may need to modify the *format* of the data you collect in order to align with these recommendations.
 
-Photo metadata may be writtten in one of three formats:
+## General Background on Image Metadata
+
+Photo metadata may be written in one of three formats:
 
 * [Exchange Image File Format (EXIF)](https://web.archive.org/web/20190624045241if_/http://www.cipa.jp:80/std/documents/e/DC-008-Translation-2019-E.pdf), standards for devices (like cameras and scanners) that embed metadata. 
 * [IPTC Information Interchange Model (IIM)](https://www.iptc.org/IIM/), IPTC's first multi-media news exchange format. 
 * [Extensible Metadata Platform (XMP)](https://www.adobe.com/products/xmp.html), an ISO standard for embedding metadata in a format that cane be embedded, read, and interpreted consistently and is also extensible.
 
-EXIF metadata is the oldest format and is written as an offset in the file with a known length that was agreed upon among device manufacturers.  This format does not allow the set of metadata to be extended.  It also requires that all the fields to fit within the length given and either truncated or padded to make them fit.
+EXIF metadata is the oldest format and is written as an offset in the file with a known length that was agreed upon among device manufacturers.  This format does not allow the set of metadata to be extended.  It also requires that all the fields fit within the length given and either truncated or padded to make them fit.
 
 IIM metadata allowed more properties to be stored in the file and stored than as key, value pairs.  It duplicated some of the core EXIF data in addition to adding new fields, but did not allow new properties to be added.  Best practices recommended synching the IIM and EXIF properties that stored the same data.
 
 XMP format was developed by Adobe as an open standard and then adopted as an ISO standard.  In addition to storing the data as key, value pairs, it allowed for extending the metadata properties by adding new schema definitions.  IPTC defined its IIM metadata as core XMP metadata properties and recommended synching between the XMP IPTC core fields and the corresponding IIM and EXIF data.
 
-There are thousands of metadata fields in use in the wild today, many of which overlap in full or in part with other fields and many of which are incompletely specified and used in inconsistent ways.  The [International Press Telecommunications Council (IPTC)](https://iptc.org/) is the global standards body of the news media and publishes the [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/).  The IPTC Photo Metadata Standard is recgonized and accepted industry wide and provides guidance on how to use IPTC defined XMP metadata in a way that achieves interoperability.
+The [International Press Telecommunications Council (IPTC)](https://iptc.org/) is the global standards body of the news media and publishes the [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/).  The IPTC Photo Metadata Standard is recognized and accepted industry wide and provides guidance on how to use IPTC defined XMP metadata in a way that achieves interoperability.
 
-The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard which provides clarity on how to read, write, and synchronize standard photo metadata. Most of the metadata that is important to family historians is also core to the IPTC photo metadata and has semantically equivalent metadata properties in the IIM and EXIF format.  IPTC provides [guidelines for mapping](https://iptc.org/std/photometadata/documentation/mappingguidelines/) between its XMP data and the older IIM and EXIF formats.  Additonally, IPTC publishes [interopability tests](https://iptc.org/standards/photo-metadata/interoperability-tests/) to validate that the embedded metadata is written correctly and consistently to the IPT standards.
+## Essential Family History Metadata Compatibility
 
-The primary goal is to provide recommendations around sharing essential family history metadata in accordance with existing popular metadata standards and guidelines that promote interoperability between software and formats for preserving the "writing on the back of the photo" which includes these elements:
+The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard which provides clarity on how to read, write, and synchronize standard photo metadata. Most of the metadata that is important to family historians is also core to the IPTC photo metadata and has semantically equivalent metadata properties in the IIM and EXIF format.  IPTC provides [guidelines for mapping](https://iptc.org/std/photometadata/documentation/mappingguidelines/) between its XMP data and the older IIM and EXIF formats.  Additionally, IPTC publishes [interoperability tests](https://iptc.org/standards/photo-metadata/interoperability-tests/) to validate that the embedded metadata is written correctly and consistently to the IPT standards.
+
+This recommendation leverages and remains in accordance with existing popular metadata standards and guidelines that promote interoperability between software and formats for preserving the "writing on the back of the photo" which includes these elements:
 * Title
 * Description
 * Date 
@@ -43,12 +47,15 @@ The primary goal is to provide recommendations around sharing essential family h
 
 In general, we require one XMP property per element and recommend synching it to the appropriate IIM or EXIF properties also, in accordance with the IPTC Photo Metadata Standard.  The goal is to define a consistent way to capture, share, and preserve these elements of essential family history metadata so that it can be consistently read and interpreted by software applications, even if the metadata was originally captured in one of the older (IIM or EXIF) format and not in the XMP format.
 
-Keeping metadata properties straight can be a challenge.  The names are similar and it's not always clear which property is actually being written.  Exiftool has handles for metadata field based on groups and tag names to uniquely identify metadata properties. The exiftool handle is provided for each metadata field using the group and tag name displayed when using the -G -s options for exiftool.  Exiftool group names are EXIF, IPTC (for IIM properties), and XMP.  If the tag names are part of a structure, the tag name is flattened so that each field has a unique name. The exiftool handle is an easy way to keep the metadata straight, with one set of names that can be used to document, read, and write metadata properties.
+## A Note on Exiftool Handles
 
+Keeping metadata properties straight can be a challenge.  The names are similar and it's not always clear which property is actually being written.
 
+Exiftool is an open-source software for metadata management that uses handles for metadata fields based on groups and tag names to uniquely identify metadata properties. The exiftool handle is provided for each metadata field using the group and tag name displayed when using the -G -s options for exiftool.  Exiftool group names are EXIF, IPTC (for IIM properties), and XMP.  If the tag names are part of a structure, the tag name is flattened so that each field has a unique name.
 
+The exiftool handle is an easy way to keep the metadata straight, with one set of names that can be used to document, read, and write metadata properties.
 
-## Summary of recommendation
+## Recommendation Summary
 
 ### Title
 
@@ -64,7 +71,7 @@ The description may be of any length and contain any information the user cares 
 
 ### Date
 
-An image can record the date of the depicted scene which may be just a year or a year and month.
+An image can record the date of the depicted scene.   which may be just a year or a year and month.
 
 Note that this is the date of the scene, not the date of the image creation;
 while those may be the same for photographs, they generally differ for scanned images.
