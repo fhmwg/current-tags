@@ -1,9 +1,9 @@
-# FHMWG Essential Metadata Recommendation 1 — Technical Summary
+# FHMWG Essential Metadata Recommendation — Stage 2 Technical Overview
 
 This document is a technical summary of the essential metadata recommendations for family history media 
 which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage2-essentials.md>. If there are any discrepancies between this summary and the full recommendations, the full recommendations apply.
 
-This recommendation is stage 2 in the Family History Working Group roadmap and represents a further iteration on the recommendations published in stage 1. 
+This recommendation is stage 2 in the Family History Working Group (now operating under the name and website Save Metadata) roadmap and represents a further iteration on the recommendations published in stage 1. 
 
 ## Purpose
 
