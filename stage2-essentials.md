@@ -134,12 +134,12 @@ An image may have a title.  The title should be a short human-readable name or r
 
 The title field is intended to be short and displayable as a line of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
-### 2.1.1 Summary  <a name="2.1.1"></a>
+### 2.1.1 Recommendation  <a name="2.1.1"></a>
 Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
-| Property             | XMP Spec | Data Type/Cardinality | Exiftool Handle | Stores |
+| Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
 | :------------------- | :---     | :-----                 | :-----          |:---|
-| `Iptc4xmpCore:Title` | `dc:title` | Language Alternative / 0..1 | XMP:Title |Image title |
+| `Iptc4xmpCore:Title` | `dc:title` | Language Alternative <0..1> | XMP:Title |Image title |
 
 Optional semantically equivalent IIM field to sync with Title:
 
@@ -147,15 +147,16 @@ Optional semantically equivalent IIM field to sync with Title:
 | :------------------- | :--- | :----- |
 | `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
 
-If `dc:title` is not present,  it is recommended that the semantically equivalent field be consulted: 
+If `dc:title` is not present,  the optional semantically equivalent fields may be consulted: 
 
 | Property | Specification |
 | :---- | :--- |
 | IIM Object Name| 2:05 Object Name|
 
+
 Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
 
-### 2.1.3 Example  <a name="2.1.3"></a>
+### 2.1.2 Example  <a name="2.1.2"></a>
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
  <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
@@ -167,35 +168,101 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
  </rdf:Description>
 </rdf:RDF>
 ```
-### 2.1.4 Exiftool Help<a name="2.1.4"></a>
-#### 2.1.4.1 To Write Title Metadata
+### 2.1.3 Exiftool Help<a name="2.1.3"></a>
+
+#### 2.1.3.1 To Write Title Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
 
-#### 2.1.4.2 Exiftool Handle Options
+#### 2.1.3.2 Exiftool Handle Options
 | Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
 |:------   | :------          | :------        | :------ |
 | Title| XMP |XMP-dc| \[XMP:XMP-dc\] Title |
 
 
 ## 2.2. Description   <a name="2.2"></a>
+An image may have a description.
 
-### 2.2.1. Summary   <a name="2.2.1"></a>
+The description may be of any length and contain any information the user cares to add. The description could also include a caption for the image.
 
-| Field | Type | Stores |
+FHMWG-recommended description may containing any information the description-writer wishes to add. The intent is to capture any metadata that other structured metadata fields cannot.
+It does not store structured information. Where possible, implementations should encourage placing information in the other structured metadata fields in addition to the description.
+
+It is common for descriptions to replicate some information included elsewhere in the metadata.  Since the description is generally searchable by most applications, users may want to include dates, locations, and people in a non-structured format in the desription as well as in the appropriate structured fields.  
+
+For example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the people in the photo are more widely searchable.  Most applications will search the desription, but not all applications search the person metadata.
+
+This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
+
+### 2.2.1. Recommendation   <a name="2.2.1"></a>
+
+Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
+
+| Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
+| :------------------- | :---     | :-----                | :---            |:--- |
+| Iptc4xmpCore:Description| dc:Description | Language Alternative <0..1> |XMP:Description  | Image description |
+
+Optional semantically equivalent IIM and EXIF fields to sync with Description
+
+| Optional Property | Specification |Exiftool Handle |
 | :---- | :--- | :----- |
-| `Iptc4xmpCore:Description` | `dc:description`| Image description |
+| `IIM:Caption-Abstract` | 2:120 Caption-Abstract | IPTC:Caption-Abstract|
+| `EXIF:ImageDescription` | 270/0x010E ImageDescription | EXIF:ImageDescription|
 
-### 2.1.2. Details   <a name="2.1.2"></a>
+If  `dc:description` is not present, the following optional semantically equivalent fields maby be consulted in this order:
 
-Image description is encoded as
+| Property | Specification |
+| :---- | :--- |
+| IIM Caption/Abstract| 2:120 Caption/Abstract|
+| EXIF Image Descritpion | 270/0x010E ImageDescription | 
 
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `dc:description`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a free-text content in the given human language
+Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
+
+#### 2.2.2. Example   <a name="2.2.2"></a>
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
+  <dc:description>
+   <rdf:Alt>
+    <rdf:li xml:lang='x-default'>My aunt Judy's pet rabbit</rdf:li>
+    <rdf:li xml:lang='en'>My aunt Judy's pet rabbit</rdf:li>
+   </rdf:Alt>
+  </dc:description>
+ </rdf:Description>
+</rdf:RDF>
+```
+Note:  The xml:lang='en' element is optional.  See Alternative Language data type for details.
+
+### 2.2.3 Exiftool Help <a name="3.1.2.2.1"></a>
+
+#### 2.2.3.1 To Write Description Metadata
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
+
+#### 2.2.3.2 Exiftool Handle Options
+| Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
+|:------   | :------          | :------        | :------ |
+| Description| XMP |XMP-dc| \[XMP:XMP-dc\] Description |
+
+#### 2.3.4 Other Considerations   <a name="2.3.4"></a>
+
+IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
+
+There is a known desire to store the following captions types separately:
+
+- caption as written on image
+- printed caption accompanying image
+- caption supplied by user of digital tool
+
+There is a known desire to store the authorship and edit dates of all captions. `photoshop:CaptionWriter` may provide a partial solution to this.
+
+There is a known desire to include style markup in captions. Embedded HTML may be a solution to this, but is not directly permitted as part of XMP and raises issues about validation and markup-unaware implementations.
+
+There is a known desire to include links between portions of captions and other metadata fields. RDFa and xlink may provide a solution to this, but are quite heavy-handed.
+
 
 ## 2.3. Date   <a name="2.3"></a>
 
@@ -354,65 +421,6 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
-
-### 3.1.2. Description   <a name="3.1.2"></a>
-
-FHMWG-recommended description may containing any information the description-writer wishes to add. The intent is to capture any metadata that other structured metadata fields cannot.
-It does not store structured information.  
-
-Where possible, implementations should encourage placing information in other metadata fields.
-
-It is common for descriptions to replicate some information included elsewhere in the metadata.  Since the description is generally searchable by most applications, users may want to include dates, locations, and people in a non-structured format in the desription as well as in the appropriate structured fields.  
-For example, peopled portrayed in the image may be identified in person meatadata and also in the description so that the people in the photo are more widely searchable.  Most applications will search the desription, but not all applications search the person metadata.
-
-This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
-
-#### 3.1.2.1. Other metadata of interest   <a name="3.1.2.1"></a>
-
-If the `dc:description` is not present, it is recommended that the following semantically equivalent field be consulted:
-
-| Property | Specification |
-| :---- | :--- |
-| IIM Caption/Abstract| 2:120 Caption/Abstract|
-
-
-IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
-
-Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
-
-#### 3.1.2.2. Example   <a name="3.1.2.2"></a>
-
-```xml
-<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
- <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
-  <dc:description>
-   <rdf:Alt>
-    <rdf:li xml:lang='x-default'>My aunt Judy's pet rabbit</rdf:li>
-    <rdf:li xml:lang='en'>My aunt Judy's pet rabbit</rdf:li>
-   </rdf:Alt>
-  </dc:description>
- </rdf:Description>
-</rdf:RDF>
-```
-##### 3.1.2.2.1 Example Exiftool Command to Write Description Metadata <a name="3.1.2.2.1"></a>
-
-| Property | Exiftool Command |
-|:------ | :------ |
-| XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
-
-#### 3.1.2.3. Future extensions   <a name="3.1.2.3"></a>
-
-There is a known desire to store the following captions types separately:
-
-- caption as written on image
-- printed caption accompanying image
-- caption supplied by user of digital tool
-
-There is a known desire to store the authorship and edit dates of all captions. `photoshop:CaptionWriter` may provide a partial solution to this.
-
-There is a known desire to include style markup in captions. Embedded HTML may be a solution to this, but is not directly permitted as part of XMP and raises issues about validation and markup-unaware implementations.
-
-There is a known desire to include links between portions of captions and other metadata fields. RDFa and xlink may provide a solution to this, but are quite heavy-handed.
 
 
 
