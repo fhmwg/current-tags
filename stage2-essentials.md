@@ -114,7 +114,7 @@ Note, however, that metadata that is covered by these recommendations must be em
 
 # 2. Metadata to Write   <a name="2"></a>
 
-This section uses the following prefixes:
+This section uses the following prefixes for XMP namespaces:
 
 | Prefix        | URI                                                        |
 | :------------ | :--------------------------------------------------------- |
@@ -125,6 +125,8 @@ This section uses the following prefixes:
 | `photoshop`   | `http://ns.adobe.com/photoshop/1.0/`                       |
 | `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
 | `stArea`      | `http://ns.adobe.com/xmp/sTypeArea#`                       |
+
+Exiftool provides handles that provide a flattened name and a family group.  In addition to the -G option that shows which technology the metadata is using (EXIF, IPTC/IIM, XMP), the -G0:1 option provides a second family group in addition to the technology group which may be helpful in verifying the metadata written.  The IPTC group that is the IIM data does not have a second group.  EXIF has GPS and IFD0.  XMP has XMP-iptcCore, XMP-iptcExt, XMP-dc, XMP-mwg-rs, and XMP-photoshop. This more detailed documentation also provides the exiftool Family Group 1 tag along with the technology family group.  For example usingh the  -G0:1 option would include both groups in the output as XMP:XMP-dc.  
 
 ## 2.1. Title   <a name="2.1"></a>
 
@@ -139,15 +141,13 @@ Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specifica
 | :------------------- | :---     | :-----                 | :-----          |:---|
 | `Iptc4xmpCore:Title` | `dc:title` | Language Alternative / 0..1 | XMP:Title |Image title |
 
-IPTC leverages the Dublin Core namespace for the XMP specs for this property.  The data type of this property is XMP Language Alternative (see data types above).
-
-Optional semantically equivalent IIM field to sync with Title
+Optional semantically equivalent IIM field to sync with Title:
 
 | Optional field   | Specification | Exiftool Handle |
 | :------------------- | :--- | :----- |
 | `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
 
-If `dc:title` is not present,  it is recommended that the following semantically equivalent field be consulted: 
+If `dc:title` is not present,  it is recommended that the semantically equivalent field be consulted: 
 
 | Property | Specification |
 | :---- | :--- |
@@ -167,10 +167,16 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
  </rdf:Description>
 </rdf:RDF>
 ```
-### 2.1.4 Example Exiftool Commands to Write Title Metadata  <a name="2.1.4"></a>
+### 2.1.4 Exiftool Help<a name="2.1.4"></a>
+#### 2.1.4.1 To Write Title Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
-| XMP dc:title| exiftool Title="Judy's Rabbit" <filename>|
+| XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
+
+#### 2.1.4.2 Exiftool Handle Options
+| Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
+|:------   | :------          | :------        | :------ |
+| Title| XMP |XMP-dc| \[XMP:XMP-dc\] Title |
 
 
 ## 2.2. Description   <a name="2.2"></a>
