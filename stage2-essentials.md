@@ -4,15 +4,14 @@ title: FHMWG Recommendation 1
 
 author:
 
-  - Luther Tychonievich
+  - Luther Tychonievi
+  - Beth Ann Wiseman
   - Gordon Clarke
   - Peter Krogh
   - Maureen Taylor
   - Robert Friedman
-  - Christopher Desmond
   - Jeff Looman
   - James Tanner
-  - Nancy Desmond
   - Michael Felts
   - Russell Lynch
 
@@ -52,38 +51,30 @@ We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
 ## 1.1. Datatypes   <a name="1.1"></a>
 
-The following datatypes are used to represent values:
 
-- **AltLang**: a set of language-tagged translations of the same text.
 
-    Language tags are defined by the IETF in [BPC 47](https://tools.ietf.org/rfc/bcp/bcp47.txt).
-    
-    The default language to display when a locale-specific language is not available is defined in two ways by XMP.
-    Quoting from [the XMP specification part 1, pages 22 and 23](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf#G5.860493):
-    
-    > A default value, if known, should be the first array item. The order of other array items is not specified by this document.
-    >
-    > An xml:lang value of "x-default" may be used to explicitly denote a default item. If used, the "x-default" item shall be first in the array and its simple text value should be repeated in another item in which xml:lang specifies its actual language. However, an "x-default" item may be the only item, in which case there is only a default value in no defined language.
-    
-    Notably, XMP does not use the BCP 47 standard `i-default` language subtag. It is recommended that every AltLang have an `x-default` entry. 
-    
-    Two AltLang variants are used:
+XMP Data Types:
 
-    - **AltLang line**: may be whitespace-normalized
-    - **AltLang block**: may not be whitespace-normalized
+The [XMP Specificaiton](https://www.adobe.com/devnet/xmp.html) defines core and derived datatypes in [Part 1, Data model, Serialization, and Core Properties](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/docs/XMPSpecificationPart1.pdf) 
 
-- **Line string**: a string with no defined language. May be whitespace-normalized.
+XMP Specification Part 1 defines core the following value types in section 8.2
+Boolean
+Date
+Integer
+Real
+Text
 
-- **IRI**: An Internationalized Resource Identifier, as defined by the IETC in [RFC 3987](https://tools.ietf.org/html/rfc3987).
+XMP Derived value Types are defined in section 8.2.2
 
-- **Number**: An integer or decimal number in base 10 using U+002E (`.`, the period or full stop) as the floating point with no thousands-separators, as defined in [XMP Part 1 §8.2.1.4](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/xmp/pdfs/XMP%20SDK%20Release%20cc-2016-08/XMPSpecificationPart1.pdf#G5.869673).
 
-- **DateTime**: A date in the proleptic Gregorian calendar, optionally with time in a 24-hour clock, conforming to the subset of ISO 8601 format specified by the W3C in [NOTE-datetime](https://www.w3.org/TR/NOTE-datetime).
+**Language Alternative**: An XMP datatype that contains an alternative array of simple text items with an xml:lang qualifier that identifies the language.  The language tag value adheres to the BCP 47 spec. (XMP Specification says IETF RFC 3066 which was superseeded by [RCF 4647]https://www.rfc-editor.org/info/rfc4647 and is included in [BCP 47](https://www.rfc-editor.org/info/rfc4647). See also wikipedias' article [IETF Language Tag](https://www.rfc-editor.org/info/rfc4647).
 
-- **Closed set**: One of a fixed set of options, given in the specification.
+The Langague Alternative derived data type is a core Text with an xml:lang qualifier that identifies the language of the text.  If the language is not known, an xml:lang qualifier of "x-default" can be used instead of a specific language.  Notably, XMP does not use the BCP 47 standard `i-default` language subtag. It is recommended that every Language Alternative property have an `x-default` entry for compatibility.
 
-Whitespace normalization discards any leading or trailing whitespace, and replaces any other whitespace with a single space (U+0020) character, as specified by the W3C in [XML 1.1](https://www.w3.org/TR/xml11/).
-Whitespace in this context is a consecutive sequence of one or more characters from the set {tab (U+0009), newline (U+000A), carriage return (U+000D), space (U+0020)}.
+The first item in the array is the default item. In addition, if you know the language, add the language-specific alternate value.  
+
+The intent of the language alternative is to allow translated strings to be embedded in the metadata.  For personal family history photos, the language and translated strings may not be important.  However, if the photo is uploaded to a website that includes multiple languages, the website may need to know what language is in the string to index and search it correctly.  For this reason, including the language-specific alternative in addition to the "x-default" item is recommended. Including a list of translated strings for the language alternative data type is out of scope for this recommendation.
+
 
 ## 1.2. Do not remove metadata   <a name="1.2"></a>
 
@@ -137,21 +128,49 @@ This section uses the following prefixes:
 
 ## 2.1. Title   <a name="2.1"></a>
 
-### 2.1.1. Summary   <a name="2.1.1"></a>
+An image may have a title.  The title should be a short human-readable name or reference for the digital file.
 
-| Field | Type | Stores |
-| :---- | :--- | :----- |
-| `Iptc4xmpCore:Title` | `dc:title` | Image title |
+The title field is intended to be short and displayable as a line of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
-### 2.1.2. Details   <a name="2.1.2"></a>
+### 2.1.1 Summary  <a name="2.1.1"></a>
+Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
-Title is encoded as
+| Property             | XMP Spec | Data Type/Cardinality | Exiftool Handle | Stores |
+| :------------------- | :---     | :-----                 | :-----          |:---|
+| `Iptc4xmpCore:Title` | `dc:title` | Language Alternative / 0..1 | XMP:Title |Image title |
 
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `dc:title`
-- which shall contain 1 `rdf:Alt`
-- which shall contain 1 or more `rdf:li`, each with the `xml:lang` attribute set to a distinct language tag
-- each of which shall contain a human-readable name for identifying this image
+IPTC leverages the Dublin Core namespace for the XMP specs for this property.  The data type of this property is XMP Language Alternative (see data types above).
+
+Optional semantically equivalent IIM field to sync with Title
+
+| Optional field   | Specification | Exiftool Handle |
+| :------------------- | :--- | :----- |
+| `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
+
+If `dc:title` is not present,  it is recommended that the following semantically equivalent field be consulted: 
+
+| Property | Specification |
+| :---- | :--- |
+| IIM Object Name| 2:05 Object Name|
+
+Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
+
+### 2.1.3 Example  <a name="2.1.3"></a>
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
+  <dc:title>
+   <rdf:Alt>
+    <rdf:li xml:lang='x-default'>Judy's Rabbit</rdf:li>
+   </rdf:Alt>
+  </dc:title>
+ </rdf:Description>
+</rdf:RDF>
+```
+### 2.1.4 Example Exiftool Commands to Write Title Metadata  <a name="2.1.4"></a>
+| Property | Exiftool Command |
+|:------ | :------ |
+| XMP dc:title| exiftool Title="Judy's Rabbit" <filename>|
 
 
 ## 2.2. Description   <a name="2.2"></a>
