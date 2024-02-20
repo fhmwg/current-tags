@@ -134,7 +134,7 @@ An image may have a title.  The title should be a short human-readable name or r
 
 The title field is intended to be short and displayable as a line of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
-### 2.1.1 Recommendation  <a name="2.1.1"></a>
+### 2.1.1 Metadata to Write  <a name="2.1.1"></a>
 Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
 | Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
@@ -195,7 +195,7 @@ For example, peopled portrayed in the image may be identified in person meatadat
 
 This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
 
-### 2.2.1. Recommendation   <a name="2.2.1"></a>
+### 2.2.1. Metadata to Write   <a name="2.2.1"></a>
 
 Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
 
@@ -266,11 +266,55 @@ There is a known desire to include links between portions of captions and other 
 
 ## 2.3. Date   <a name="2.3"></a>
 
-### 2.3.1. Summary   <a name="2.3.1"></a>
+An image can record the date of the depicted scene. The precision and accuracy of the date may vary, e.g. the date may only be specified by a year, or a month within a year, etc.
 
-| Field | Type | Stores |
+Note that this is the date of the scene depicted in the image, and may not be the date of the image’s creation. While the depicted date and the creation date may be the same for digital photographs, they generally differ for scanned images or artistic representations.
+
+Many other date fields exist in other metadata, such as file creation and modification dates, copyright dates, etc. As with all metadata, implementations may choose to support those if they wish, but this recommendation only addresses the date of the depicted scene.
+
+User interfaces should make clear that this is not an image modification date: it is the date of the depicted scene.
+
+XMP recommends recording times using timezone offsets, as that provides more information than converting to UTC.
+
+The photoshop:DateCreated property should allow for truncated dates, such as year only or year and month only in both the UI and the data.  For example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-01` or the like.
+
+When syncing data to IIM:DateTimeCreated, the date should also be truncated, however, EXIF:DateTimeOriginal does not support truncated date and a full date must be supplied.  When writing the date created as EXIF data, use 01 for the truncated information. 
+
+
+### 2.3.1. Metadata to Write   <a name="2.3.1"></a>
+
+Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
+   
+|Required Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
+| :------------------- | :---     | :-----                | :---            |:--- |
+| `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | XMP:DateCreated <0..1>| ] Date of depicted scene |
+
+Recommended semantically equivalent IIM and EXIF fields to sync with Date 
+
+| Optional Property | Specification | Exiftool Handle |
 | :---- | :--- | :----- |
-| `Iptc4xmpCore:DateCreated` | `photoshop:DateCreated` | Date of depicted scene |
+| `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | IPTC:DateCreated & IPTC:TimeCreated |
+| `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | EXIF:DateTimeOriginal|
+
+
+#### 3.1.3.2. Example   <a name="3.1.3.2"></a>
+
+```xml
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+ <rdf:Description xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'>
+  <photoshop:DateCreated>2020-07-16T08:28:17-04:00</photoshop:DateCreated>
+ </rdf:Description>
+</rdf:RDF>
+```
+
+#### 3.1.3.3. Other Considerations   <a name="3.1.3.3"></a>
+
+There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
+
+- approximate dates
+- date ranges (for depictions of events that covered multiple days)
+- dates before 0001-01-01
+- dates with time information but without time zone information
 
 ### 2.3.2. Details   <a name="2.3.2"></a>
 
@@ -425,67 +469,6 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 
 
 ### 3.1.3. Date   <a name="3.1.3"></a>
-
-FHMWG-recommended date metadata stores the date of the depicted scene.
-Various other dates are sometimes present in metadata, but are of less interest from a family history perspective. These include
-
-- Creation date of digital file -- the correct date if this was a direct-to-digital photograph, but not in most other cases
-- Modification date of digital file
-- Copyright date
-- Date burned on image by camera -- the correct date if this is a photograph and the camera's clock was set correctly
-- Creation date of the depiction -- the correct date for a photograph or portrait, but not for a tapestry or illustration
-
-User interfaces should make clear that this is not an image modification date: it is the date of the depicted scene.
-
-Modifications to the file, including users changing pixel values, are generally not enough to change the `photoshop:DateCreated` unless they fundamentally change what scene is being depicted.
-
-XMP recommends recording times using timezone offsets, as that provides more information than converting to UTC.
-
-IPTC recommends truncating any unavailable information; for example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-15` or the like.
-
-#### 3.1.3.1. Other metadata of interest   <a name="3.1.3.1"></a>
-
-The following metadata are defined to store the following dates.
-Note that many user interfaces list these simply as "date" so the accuracy of these definitions may vary from one image to another.
-These are listed in approximate order from most likely to correctly represent the date of the depicted scene to least likely.
-
-| Standard    | Tag                 | Date type                         |
-|-------------|---------------------|-----------------------------------|
-| IPTC IIM    | 2:55 and 2:60       | Date of depicted scene            |
-| EXIF        | DateTimeOriginal    | Creation of first image           |
-| Dublin Core | date                | A date associated with the media  |
-| EXIF        | DateTimeDigitized   | Creation of first digital file    |
-| IPTC IIM    | 2:62 and 2:63       | Creation of first digital file    |
-| XMP         | CreateDate          | Creation of digital file          |
-| EXIF        | DateTime            | Modification date digital file    |
-| XMP         | ModifyDate          | Modification date digital file    |
-| XMP         | MetadataDate        | Modification date of metadata     |
-
-If `photoshop:DateCreated` metadata field is absent but an alternative date field is present, it is recommended that the first available entry in the above list be use as a default value (converting from the EXIF format to the ISO 8601 format if appropriate). It is recommended that the user be asked for confirmation before entering this metadata into `photoshop:DateCreated`.
-
-Many other dates may also be present in metadata, such as copyright date, date of licensing, publication date, date of particular modification action, etc.
-
-The IPTC IIM tags 2:55 (Date Created) and 2:60 (Time Created) were superseded by the current IPTC `photoshop:DateCreated`.
-If both an IIM field and `photoshop:DateCreated` are present, `photoshop:DateCreated` is most likely to be correct.
-
-#### 3.1.3.2. Example   <a name="3.1.3.2"></a>
-
-```xml
-<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
- <rdf:Description xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'>
-  <photoshop:DateCreated>2020-07-16T08:28:17-04:00</photoshop:DateCreated>
- </rdf:Description>
-</rdf:RDF>
-```
-
-#### 3.1.3.3. Future extensions   <a name="3.1.3.3"></a>
-
-There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
-
-- approximate dates
-- date ranges (for depictions of events that covered multiple days)
-- dates before 0001-01-01
-- dates with time information but without time zone information
 
 
 
@@ -711,7 +694,7 @@ The quasi-language-tag `x-default` used by XMP
 - is semantically equivalent to the standard tag `und-i-default`: an undetermined language to be shown by default
 - is the only tag edited by some generic metadata editing programs
 
-Because of the last point above, it is recommended that `x-default` be used in evert AltLang.
+Because of the last point above, it is recommended that `x-default` be used in every AltLang.
 
 As with other metadata, a conformant application must not discard or edit language-tagged data in an AltLang simply because the language is unknown to the application.
 Users should be asked to indicate the language in which they are working;
