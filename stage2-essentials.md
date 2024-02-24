@@ -1,6 +1,6 @@
 ---
 
-title: FHMWG Recommendation 1
+title: FHMWG Essential Metadata Recommendation -- Stage 2
 
 author:
 
@@ -19,7 +19,6 @@ author:
 
 
 # Contents
-
 
 1. [Overarching Principles](#1)
 1. [Metadata to Write](#2)
@@ -129,7 +128,7 @@ This section uses the following prefixes for XMP namespaces:
 | `rdf`         | `http://www.w3.org/1999/02/22-rdf-syntax-ns#`              |
 | `stArea`      | `http://ns.adobe.com/xmp/sTypeArea#`                       |
 
-Exiftool provides handles that provide a flattened name and a family group.  In addition to the -G option that shows which technology the metadata is using (EXIF, IPTC/IIM, XMP), the -G0:1 option provides a second family group in addition to the technology group which may be helpful in verifying the metadata written.  The IPTC group that is the IIM data does not have a second group.  EXIF has GPS and IFD0.  XMP has XMP-iptcCore, XMP-iptcExt, XMP-dc, XMP-mwg-rs, and XMP-photoshop. This more detailed documentation also provides the exiftool Family Group 1 tag along with the technology family group.  For example usingh the  -G0:1 option would include both groups in the output as XMP:XMP-dc.  
+Exiftool provides handles that provide a flattened name and a family group.  In addition to the -G option that shows which technology the metadata is using (EXIF, IPTC/IIM, XMP), the -G0:1 option provides a second family group in addition to the technology group which may be helpful in verifying the metadata written.  The IPTC group that is the IIM data does not have a second group.  EXIF has GPS and IFD0.  XMP has XMP-iptcCore, XMP-iptcExt, XMP-dc, XMP-mwg-rs, and XMP-photoshop. This more detailed documentation also provides the exiftool Family Group 1 tag that indicates the XMP namespace along with the technology family group.  For example using the -G0:1 option and looking at the XMP title property, would include both groups in the output as XMP:XMP-dc.  
 
 ## 2.1. Title   <a name="2.1"></a>
 
@@ -150,16 +149,16 @@ Optional semantically equivalent IIM field to sync with Title:
 | :------------------- | :--- | :----- |
 | `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
 
-If `dc:title` is not present,  the optional semantically equivalent fields may be consulted: 
+### 2.1.2 Metadata to Read <a name="2.1.2"><a/>
+If `dc:title` is not present,  these optional semantically equivalent fields may be consulted: 
 
 | Property | Specification |
 | :---- | :--- |
 | IIM Object Name| 2:05 Object Name|
 
-
 Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
 
-### 2.1.2 Example  <a name="2.1.2"></a>
+### 2.1.3 Example  <a name="2.1.3"></a>
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
  <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
@@ -171,14 +170,14 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
  </rdf:Description>
 </rdf:RDF>
 ```
-### 2.1.3 Exiftool Help<a name="2.1.3"></a>
+### 2.1.4 Exiftool Help<a name="2.1.4"></a>
 
-#### 2.1.3.1 To Write Title Metadata
+#### 2.1.4.1 To Write Title Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
 
-#### 2.1.3.2 Exiftool Handle Options
+#### 2.1.4.2 Exiftool Handle Options
 | Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
 |:------   | :------          | :------        | :------ |
 | Title| XMP |XMP-dc| \[XMP:XMP-dc\] Title |
@@ -224,7 +223,7 @@ If  `dc:description` is not present, the following optional semantically equival
 | IIM Caption/Abstract| 2:120 Caption/Abstract|
 | EXIF Image Descritpion | 270/0x010E ImageDescription | 
 
-#### 2.2.2. Example   <a name="2.2.2"></a>
+#### 2.2.3. Example   <a name="2.2.3"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -240,19 +239,21 @@ If  `dc:description` is not present, the following optional semantically equival
 ```
 Note:  The xml:lang='en' element is optional.  See Alternative Language data type for details.
 
-### 2.2.3 Exiftool Help <a name="3.1.2.2.1"></a>
+### 2.2.4 Exiftool Help <a name="2.2.4"></a>
 
-#### 2.2.3.1 To Write Description Metadata
+#### 2.2.4.1 To Write Description Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
 
-#### 2.2.3.2 Exiftool Handle Options
-| Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
-|:------   | :------          | :------        | :------ |
-| Description| XMP |XMP-dc| \[XMP:XMP-dc\] Description |
+#### 2.2.4.2 Reading Description Metadata
+| Property    | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
+|:------      | :------          | :------        | :------ |
+| Description | XMP              |XMP-dc          | \[XMP:XMP-dc\] Description |
 
-#### 2.2.4 Other Considerations   <a name="2.2.4"></a>
+
+
+#### 2.2.5 Other Considerations   <a name="2.2.4"></a>
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
@@ -282,33 +283,30 @@ XMP recommends recording times using timezone offsets, as that provides more inf
 
 The photoshop:DateCreated property should allow for truncated dates, such as year only or year and month only in both the UI and the data.  For example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-01` or the like.
 
-When syncing data to IIM:DateTimeCreated, the date should also be truncated, however, EXIF:DateTimeOriginal does not support truncated date and a full date must be supplied.  When writing the date created as EXIF data, use 01 for the truncated information. 
-
+When syncing data to IIM:DateTimeCreated, the date should also be truncated, however, EXIF:DateTimeOriginal does not support truncated date and a full date must be supplied.  When writing the date created as EXIF data, use 01 for the truncated information. Example, if the data is 1830 user 1830 for the XMP property, 1830-00-00 for the IIM property, and 1830-01-01 for the EXIF property.
 
 ### 2.3.1. Metadata to Write   <a name="2.3.1"></a>
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
-|Required Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
-| :------------------- | :---     | :-----                | :---            |:--- |
-| `Iptc4xmpCore:DateCreated`| `photoshop:DateCreated` | XMP:DateCreated <0..1>| ] Date of depicted scene |
+|Required Property             | XMP Spec                | Data Type <Cardinality>  | Exiftool Handle              | Stores |
+| :-------------------         | :---                    | :-----                   | :---                         |:--- |
+| `Iptc4xmpCore:DateCreated`   | `photoshop:DateCreated` | XMP:DateCreated <0..1>   |/[XMP-photoshop:DateCreated/] | Date of depicted scene |
 
-Recommended semantically equivalent IIM and EXIF fields to sync with Date 
+Recommended semantically equivalent IIM and EXIF fields to sync with date created: 
 
-| Optional Property | Specification | Exiftool Handle |
-| :---- | :--- | :----- |
+| Optional Property     | Specification | Exiftool Handle |
+| :----                 | :---          | :----- |
 | `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | IPTC:DateCreated & IPTC:TimeCreated |
 | `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | EXIF:DateTimeOriginal|
 
 ### 2.3.2 Reading Date Metadata
 When reading date created metadata, consult the following fields in this order
-XMP:photoshop:dateCreated [XMP:XMP-photoshop] DateCreated
-IIM:DateTimeCreated [IPTC] DateCreated
-EXIF:DateTimeOriginal [EXIF:ExifIFD] DateTimeOriginal
+*XMP:photoshop:dateCreated /[XMP:XMP-photoshop/] DateCreated
+*IIM:DateTimeCreated /[IPTC/] DateCreated
+*EXIF:DateTimeOriginal /[EXIF:ExifIFD/] DateTimeOriginal
 
-
-
-#### 3.1.3.2. Example   <a name="3.1.3.2"></a>
+### 2.3.3 XMP Example   <a name="2.3.3"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -317,8 +315,11 @@ EXIF:DateTimeOriginal [EXIF:ExifIFD] DateTimeOriginal
  </rdf:Description>
 </rdf:RDF>
 ```
+### 2.3.4 Exiftool Help <a name="2.3.4"></a>
+#### 2.3.4.1 Writing Title Metadata <a name="2.3.4.1"></a>
+#### 2.3.4.2 Reading Title Metadata  <a name="2.3.4.2"></a>
 
-#### 3.1.3.3. Other Considerations   <a name="3.1.3.3"></a>
+### 2.3.5 Other Considerations   <a name="2.3.5"></a>
 
 There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
 
@@ -329,11 +330,34 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 
 ### 2.3.2. Details   <a name="2.3.2"></a>
 
-Date is encoded as
+XMP photoshop:DateCreated is an XMP Date core value type defined in Section 8.1.1.2 (page 21) of XMP Specification Part 1 as:
 
-- The top-level `rdf:Description`
-- shall contain 0 or 1 `photoshop:DateCreated`
-- which shall contain a date or date-time string conforming to the subset of ISO 8601 format specified in <https://www.w3.org/TR/NOTE-datetime>
+A date-time value is represented using a subset of the formats as defined in Date and Time Formats:
+
+YYYY<br>
+YYYY-MM<br>
+YYYY-MM-DD<br>
+YYYY-MM-DDThh:mmTZD<br>
+YYYY-MM-DDThh:mm:ssTZD<br>
+YYYY-MM-DDThh:mm:ss.sTZD<br>
+
+In which:
+* YYYY = four-digit year
+* MM = two-digit month (01=January)
+* DD = two-digit day of month (01 to 31)
+* hh = two digits of hour (00 to 23)
+* mm = two digits of minute (00 to 59)
+* ss = two digits of second (00 to 59)
+* s = one or more digits representing a decimal fraction of a second
+* TZD = time zone designator (Z or +hh:mm or -hh:mm)
+  
+The time zone designator need not be present in XMP. When not present, the time zone is unknown, and an XMP processor should not assume anything about the missing time zone.
+
+Local time-zone designators +hh:mm or -hh:mm should be used when possible instead of converting to UTC. 
+
+NOTE: If a file was saved at noon on October 23, a timestamp of 2004-10-23T12:00:00-06:00 conveys more information than 2004-10-23T18:00:00Z
+
+
 
 ## 2.4. Location   <a name="2.5"></a>
 
