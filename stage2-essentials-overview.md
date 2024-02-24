@@ -39,7 +39,7 @@ The [International Press Telecommunications Council (IPTC)](https://iptc.org/) i
 The essential family history metadata recommendations closely follow the IPTC Photo Metadata Standard which provides clarity on how to read, write, and synchronize standard photo metadata. Most of the metadata that is important to family historians is also core to the IPTC photo metadata and has semantically equivalent metadata properties in the IIM and EXIF format.  IPTC provides [guidelines for mapping](https://iptc.org/std/photometadata/documentation/mappingguidelines/) between its XMP data and the older IIM and EXIF formats.  Additionally, IPTC publishes [interoperability tests](https://iptc.org/standards/photo-metadata/interoperability-tests/) to validate that the embedded metadata is written correctly and consistently to the IPT standards.
 
 This recommendation leverages and remains in accordance with existing popular metadata standards and guidelines that promote interoperability between software and formats for preserving the "writing on the back of the photo" which includes these elements:
-* Title
+* [Title](Title)
 * Description
 * Date 
 * Location (names and geotags)
