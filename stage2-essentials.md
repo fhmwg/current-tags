@@ -95,7 +95,6 @@ Note that removing a field is distinct from editing it to be the empty string: r
 ## 1.3. Selective Implementation   <a name="1.3"></a>
 
 If
-
 - a user provides additional metadata about an image, and
 - the metadata provided is of a type covered in this recommendation, and
 - the user does not request that the metadata be kept private
@@ -111,6 +110,10 @@ Etc.
 
 Applications may implement metadata beyond the scope of this recommendation, either by implementing other metadata standards or by designing their own metadata system.
 Note, however, that metadata that is covered by these recommendations must be embedded according to them, even if it is also embedded in additional ways.
+
+## 1.5 Metadata Interoperability
+
+XMP data is the top level data and is the data written and read.  Semantically equivalent fields in whatever format (XMP, IIM, EXIF) should be kept in sync with the XMP data. When reading metadata XMP properties should be consulted first, then IIM data, and then EXIF data. This allows older applications and embedded metadata to interoperate with the family history data that the user provides.  
 
 # 2. Metadata to Write   <a name="2"></a>
 
@@ -210,14 +213,16 @@ Optional semantically equivalent IIM and EXIF fields to sync with Description
 | `IIM:Caption-Abstract` | 2:120 Caption-Abstract | IPTC:Caption-Abstract|
 | `EXIF:ImageDescription` | 270/0x010E ImageDescription | EXIF:ImageDescription|
 
+Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
+
+### 2.2.2 Metadata to Read
+
 If  `dc:description` is not present, the following optional semantically equivalent fields maby be consulted in this order:
 
 | Property | Specification |
 | :---- | :--- |
 | IIM Caption/Abstract| 2:120 Caption/Abstract|
 | EXIF Image Descritpion | 270/0x010E ImageDescription | 
-
-Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
 
 #### 2.2.2. Example   <a name="2.2.2"></a>
 
@@ -247,7 +252,7 @@ Note:  The xml:lang='en' element is optional.  See Alternative Language data typ
 |:------   | :------          | :------        | :------ |
 | Description| XMP |XMP-dc| \[XMP:XMP-dc\] Description |
 
-#### 2.3.4 Other Considerations   <a name="2.3.4"></a>
+#### 2.2.4 Other Considerations   <a name="2.2.4"></a>
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
@@ -262,7 +267,6 @@ There is a known desire to store the authorship and edit dates of all captions. 
 There is a known desire to include style markup in captions. Embedded HTML may be a solution to this, but is not directly permitted as part of XMP and raises issues about validation and markup-unaware implementations.
 
 There is a known desire to include links between portions of captions and other metadata fields. RDFa and xlink may provide a solution to this, but are quite heavy-handed.
-
 
 ## 2.3. Date   <a name="2.3"></a>
 
@@ -295,6 +299,13 @@ Recommended semantically equivalent IIM and EXIF fields to sync with Date
 | :---- | :--- | :----- |
 | `IIM:DateTimeCreated` | 2:55 Date Created + 2:60 Time Created | IPTC:DateCreated & IPTC:TimeCreated |
 | `EXIF:DateTimeOriginal` | 0x9003 DateTimeOriginal | EXIF:DateTimeOriginal|
+
+### 2.3.2 Reading Date Metadata
+When reading date created metadata, consult the following fields in this order
+XMP:photoshop:dateCreated [XMP:XMP-photoshop] DateCreated
+IIM:DateTimeCreated [IPTC] DateCreated
+EXIF:DateTimeOriginal [EXIF:ExifIFD] DateTimeOriginal
+
 
 
 #### 3.1.3.2. Example   <a name="3.1.3.2"></a>
