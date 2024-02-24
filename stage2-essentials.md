@@ -61,7 +61,7 @@ Integer
 Real
 Text
 
-XMP Derived value Types are defined in section 8.2.2
+XMP Derived Value Types are defined in section 8.2.2
 
 
 **Language Alternative**: An XMP datatype that contains an alternative array of simple text items with an xml:lang qualifier that identifies the language.  The language tag value adheres to the BCP 47 spec. (XMP Specification says IETF RFC 3066 which was superseeded by [RCF 4647]https://www.rfc-editor.org/info/rfc4647 and is included in [BCP 47](https://www.rfc-editor.org/info/rfc4647). See also wikipedias' article [IETF Language Tag](https://www.rfc-editor.org/info/rfc4647).
@@ -71,6 +71,14 @@ The Langague Alternative derived data type is a core Text with an xml:lang quali
 The first item in the array is the default item. In addition, if you know the language, add the language-specific alternate value.  
 
 The intent of the language alternative is to allow translated strings to be embedded in the metadata.  For personal family history photos, the language and translated strings may not be important.  However, if the photo is uploaded to a website that includes multiple languages, the website may need to know what language is in the string to index and search it correctly.  For this reason, including the language-specific alternative in addition to the "x-default" item is recommended. Including a list of translated strings for the language alternative data type is out of scope for this recommendation.
+
+**URI**: Text denoting an Internet Uniform Resource Identifier as defined in [IETF RFC 3986](https://www.rfc-editor.org/info/rfc3986) A URI can be a locator, a name, or both.
+
+XMP Basic Value Types are defined in section 8.2.1 and serialiation for unicode is covered in section 7.1
+
+**Text**: A possibly empty Unicode string. The XMP specification does not dictate the Unicode encoding (UTF-8, UTF-16, UTF-32), but is left up to the reader.  XMP readers should recognize and honor a leading Unicode U+FEFF character as a byte-order marker. A writing using UTF-16 or UTF-32 should include a leading Unicode U+FEFF character.  An XMP writer UTF8 may use a leading U+FEEFF character, but it is not recommended.
+
+
 
 
 ## 1.2. Do not remove metadata   <a name="1.2"></a>
@@ -404,21 +412,22 @@ Within the LocationShownInImage structure, a location may be defined by at least
 ![LocationNamesAndGeotags](https://github.com/fhmwg/current-tags/assets/702496/d4edf519-aac8-4ab7-8644-2c295c0f5f20)
 
 ## 2.4.1 Location - Names and Identifier   <a name="2.4"></a>
+
 FamilySearch uses the LocationName and LocationId with its place authority standards. 
 If you are not using the LocationName, use the sublocation, city, state, and country fields in the location structure in LocationShownInImage and sync them to the appropriate IIM and EXIF fields.
 
 Required:  In the LocationShownInImage property, the LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields are required.
 
-| Property             | Type | Exiftool Handle | Stores |
-| :------------------- | :--- | :-----          |:---|
-| `Iptc4xmpExt:LocationShown` | *nested elements* | |One\* location, primary focus of image |
-| `  Location Structure` | *nested structure* | |Structure containing identifiers, names, GPS data |
-| `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
-| `   LocationShown:City` | Iptc4xmpExt:City |XMP:LocationShownCity| name of city |
-| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState|XMP:LocationShownProvinceState | name of subregion of country such as a province or state |
-| `   LocationShown:CountryName` | Iptc4xmpExt:CountryName |XMP:LocationShownCountryName| name of the country |
-| `   LocationShown:LocationName` | Iptc4xmpExt:LocationName|XMP:LocationShownLocationName | full name of location, including county if desired |
-| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
+| Property                        | XMP Spec             | Data Type <Cardinality>    | Exiftool Handle | Stores |
+| :-------------------            | :---                | :-----          |:                |:---|
+| `Iptc4xmpExt:LocationShown`     | *nested elements*   | struct <0..n>     |                 |One\* location, primary focus of image |
+| `  Location Structure`          | *nested structure*  | struct <0..n>     |                 |Structure containing identifiers, names, GPS data |
+| `   LocationShown:Sublocation`  | Iptc4xmpExt:Sublocation  | XMP:Text <0..1>   | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
+| `   LocationShown:City`          | Iptc4xmpExt:City         | XMP:Text <0..1>    |XMP:LocationShownCity| name of city |
+| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState  | XMP:Text <0..1>  |XMP:LocationShownProvinceState | name of subregion of country such as a province or state |
+| `   LocationShown:CountryName`   | Iptc4xmpExt:CountryName  | XMP:Text <0..1>    |XMP:LocationShownCountryName| name of the country |
+| `   LocationShown:LocationName`  | Iptc4xmpExt:LocationName  | XMP:Language Alternative <0..1>   |XMP:LocationShownLocationName | full name of location, including county if desired |
+| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId XMP:URI <0..n> |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
 
 Recommended semantically equivalent XMP and IIM fields to sync
 
