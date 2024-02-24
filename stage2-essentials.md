@@ -136,7 +136,7 @@ An image may have a title.  The title should be a short human-readable name or r
 
 The title field is intended to be short and displayable as a line of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
-### 2.1.1 Metadata to Write  <a name="2.1.1"></a>
+### 2.1.1 Title Metadata to Write  <a name="2.1.1"></a>
 Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
 | Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
@@ -149,7 +149,7 @@ Optional semantically equivalent IIM field to sync with Title:
 | :------------------- | :--- | :----- |
 | `IIM:ObjectName` | 2:05 Object Name |IPTC:ObjectName |
 
-### 2.1.2 Metadata to Read <a name="2.1.2"><a/>
+### 2.1.2 Title Metadata to Read <a name="2.1.2"><a/>
 If `dc:title` is not present,  these optional semantically equivalent fields may be consulted: 
 
 | Property | Specification |
@@ -158,7 +158,7 @@ If `dc:title` is not present,  these optional semantically equivalent fields may
 
 Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag the Title as "Not in Sync" if the Title and IIM field are not the same, FHWMG is not currently requiring the sync.  
 
-### 2.1.3 Example  <a name="2.1.3"></a>
+### 2.1.3 Title XMP Example  <a name="2.1.3"></a>
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
  <rdf:Description xmlns:dc='http://purl.org/dc/elements/1.1/'>
@@ -170,18 +170,20 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
  </rdf:Description>
 </rdf:RDF>
 ```
-### 2.1.4 Exiftool Help<a name="2.1.4"></a>
+### 2.1.4 Title Exiftool Help<a name="2.1.4"></a>
 
-#### 2.1.4.1 To Write Title Metadata
+#### 2.1.4.1 Writing Title Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:title| exiftool -Title="Judy's Rabbit" <filename>|
 
-#### 2.1.4.2 Exiftool Handle Options
+#### 2.1.4.2 Reading Title Metadata
 | Property | Technology Group |Family Group 1| Handle Using -G0:1 -s Options |
 |:------   | :------          | :------        | :------ |
 | Title| XMP |XMP-dc| \[XMP:XMP-dc\] Title |
 
+### 2.1.5 Other Considerations for Title Metadata
+TODO:  Title is not headline
 
 ## 2.2. Description   <a name="2.2"></a>
 An image may have a description.
@@ -197,7 +199,7 @@ For example, peopled portrayed in the image may be identified in person meatadat
 
 This inevitably leads to the possibility of conflicting information. Because it is not possible to programmatically determine which metadata is most accurate, implementations should display all metadata to the user and not attempt to perform automated resolution of conflicts between descriptions and other metadata.
 
-### 2.2.1. Metadata to Write   <a name="2.2.1"></a>
+### 2.2.1. Writing Descrirpiton Metadata   <a name="2.2.1"></a>
 
 Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
 
@@ -214,7 +216,7 @@ Optional semantically equivalent IIM and EXIF fields to sync with Description
 
 Note:  Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interoptests-iptcpmd.html) will flag Description as "Not in Sync" if IIM 2:120 Caption/Abstract is missing, FHMWG is not currently requiring this sync.
 
-### 2.2.2 Metadata to Read
+### 2.2.2 Reading Description Metadata
 
 If  `dc:description` is not present, the following optional semantically equivalent fields maby be consulted in this order:
 
@@ -223,7 +225,7 @@ If  `dc:description` is not present, the following optional semantically equival
 | IIM Caption/Abstract| 2:120 Caption/Abstract|
 | EXIF Image Descritpion | 270/0x010E ImageDescription | 
 
-#### 2.2.3. Example   <a name="2.2.3"></a>
+#### 2.2.3. Description XMP Example   <a name="2.2.3"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -239,9 +241,9 @@ If  `dc:description` is not present, the following optional semantically equival
 ```
 Note:  The xml:lang='en' element is optional.  See Alternative Language data type for details.
 
-### 2.2.4 Exiftool Help <a name="2.2.4"></a>
+### 2.2.4 Description Exiftool Help <a name="2.2.4"></a>
 
-#### 2.2.4.1 To Write Description Metadata
+#### 2.2.4.1 Writing Description Metadata
 | Property | Exiftool Command |
 |:------ | :------ |
 | XMP dc:description| exiftool -Description="My aunt Judy's pet rabbit" <filename>|
@@ -253,7 +255,7 @@ Note:  The xml:lang='en' element is optional.  See Alternative Language data typ
 
 
 
-#### 2.2.5 Other Considerations   <a name="2.2.4"></a>
+#### 2.2.5 Other Considerations for Description Metadata  <a name="2.2.5"></a>
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
@@ -285,7 +287,7 @@ The photoshop:DateCreated property should allow for truncated dates, such as yea
 
 When syncing data to IIM:DateTimeCreated, the date should also be truncated, however, EXIF:DateTimeOriginal does not support truncated date and a full date must be supplied.  When writing the date created as EXIF data, use 01 for the truncated information. Example, if the data is 1830 user 1830 for the XMP property, 1830-00-00 for the IIM property, and 1830-01-01 for the EXIF property.
 
-### 2.3.1. Metadata to Write   <a name="2.3.1"></a>
+### 2.3.1. Date Metadata to Write   <a name="2.3.1"></a>
 
 Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
@@ -306,7 +308,7 @@ When reading date created metadata, consult the following fields in this order
 *IIM:DateTimeCreated /[IPTC/] DateCreated
 *EXIF:DateTimeOriginal /[EXIF:ExifIFD/] DateTimeOriginal
 
-### 2.3.3 XMP Example   <a name="2.3.3"></a>
+### 2.3.3 XMP Date Example   <a name="2.3.3"></a>
 
 ```xml
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -316,10 +318,10 @@ When reading date created metadata, consult the following fields in this order
 </rdf:RDF>
 ```
 ### 2.3.4 Exiftool Help <a name="2.3.4"></a>
-#### 2.3.4.1 Writing Title Metadata <a name="2.3.4.1"></a>
-#### 2.3.4.2 Reading Title Metadata  <a name="2.3.4.2"></a>
+#### 2.3.4.1 Writing Date Metadata <a name="2.3.4.1"></a>
+#### 2.3.4.2 Reading Date Metadata  <a name="2.3.4.2"></a>
 
-### 2.3.5 Other Considerations   <a name="2.3.5"></a>
+### 2.3.5 Other Considerations for Date Metadata   <a name="2.3.5"></a>
 
 There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
 
@@ -330,6 +332,7 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 
 ### 2.3.2. Details   <a name="2.3.2"></a>
 
+#### 2.3.2.1 XMP Details
 XMP photoshop:DateCreated is an XMP Date core value type defined in Section 8.1.1.2 (page 21) of XMP Specification Part 1 as:
 
 A date-time value is represented using a subset of the formats as defined in Date and Time Formats:
