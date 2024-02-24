@@ -186,6 +186,10 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 |:------   | :------          | :------        | :------ |
 | Title| XMP |XMP-dc| \[XMP:XMP-dc\] Title |
 
+### 2.1.5 Title Details 
+#### 2.1.5.1 XMP Title Details
+#### 2.1.5.2  IPTC Guidelines for Mapping Title to EXIF and IIM
+
 ### 2.1.5 Other Considerations for Title Metadata
 TODO:  Title is not headline
 
@@ -259,9 +263,11 @@ Note:  The xml:lang='en' element is optional.  See Alternative Language data typ
 |:------      | :------          | :------        | :------ |
 | Description | XMP              |XMP-dc          | \[XMP:XMP-dc\] Description |
 
+### 2.2.5 Description Details  <a name="2.2.5"></a>
+#### 2.2.5.1 XMP Description Details
+#### 2.2.5.2  IPTC Guidelines for Mapping Description to EXIF and IIM
 
-
-#### 2.2.5 Other Considerations for Description Metadata  <a name="2.2.5"></a>
+### 2.2.6 Other Considerations for Description Metadata  <a name="2.2.6"></a>
 
 IPTC also defines `photoshop:CaptionWriter`, which may be useful for applications that wish to record who authored a description. Note, however, that `photoshop:CaptionWriter` is limited to a single name. The FHMWG is not aware of any existing metadata suitable for storing the contributions of multiple metadata authors and editors.
 
@@ -329,18 +335,9 @@ When reading date created metadata, consult the following fields in this order
 #### 2.3.4.1 Writing Date Metadata <a name="2.3.4.1"></a>
 #### 2.3.4.2 Reading Date Metadata  <a name="2.3.4.2"></a>
 
-### 2.3.5 Other Considerations for Date Metadata   <a name="2.3.5"></a>
+### 2.3.5. Date Details   <a name="2.3.5"></a>
 
-There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
-
-- approximate dates
-- date ranges (for depictions of events that covered multiple days)
-- dates before 0001-01-01
-- dates with time information but without time zone information
-
-### 2.3.2. Date Details   <a name="2.3.2"></a>
-
-#### 2.3.2.1 XMP Details for Date
+#### 2.3.5.1 XMP Details for Date
 XMP photoshop:DateCreated is an XMP Date core value type defined in Section 8.1.1.2 (page 21) of XMP Specification Part 1 as:
 
 A date-time value is represented using a subset of the formats as defined in Date and Time Formats:
@@ -368,10 +365,18 @@ Local time-zone designators +hh:mm or -hh:mm should be used when possible instea
 
 NOTE: If a file was saved at noon on October 23, a timestamp of 2004-10-23T12:00:00-06:00 conveys more information than 2004-10-23T18:00:00Z
 
-#### 2.3.2.2 IPTC Guidelines for Mapping Date Create to EXIF and IIM
+#### 2.3.5.2 IPTC Guidelines for Mapping Date Create to EXIF and IIM
 
 [Exif Note on Date Created](https://iptc.org/std/photometadata/documentation/mappingguidelines/#exif-note-on-date-created)
 
+### 2.3.6 Other Considerations for Date Metadata   <a name="2.3.6"></a>
+
+There is a known desire to store date information that XMP's subset of ISO 8601 cannot:
+
+- approximate dates
+- date ranges (for depictions of events that covered multiple days)
+- dates before 0001-01-01
+- dates with time information but without time zone information
 
 ## 2.4. Location   <a name="2.4"></a>
 
