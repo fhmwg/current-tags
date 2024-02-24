@@ -50,8 +50,6 @@ We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
 ## 1.1. Datatypes   <a name="1.1"></a>
 
-
-
 XMP Data Types:
 
 The [XMP Specificaiton](https://www.adobe.com/devnet/xmp.html) defines core and derived datatypes in [Part 1, Data model, Serialization, and Core Properties](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/docs/XMPSpecificationPart1.pdf) 
@@ -379,6 +377,78 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 - dates with time information but without time zone information
 
 ## 2.4. Location   <a name="2.4"></a>
+
+References:
+
+[IPTC Extension 11.22. Location Shown in the Image](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-shown-in-the-image)
+
+[IPTC Extension 12.10. Location structure](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#location-structure)
+
+An image can identify one location where the primary focus of the depicted scene is found. 
+
+A location can have names such as a full name, identifier, sublocation, city, state, country, as well as GPS coordinates. At least one of the location name elements are required. Location identifier and GPS coordinates are optional.
+
+IPTC allows storing more than one location in a single image's metadata. Because the meaning of multiple locations is not uniformly understood, we recommend against using multiple locations.
+
+Many other location properties exist in the IPTC standard. As with all metadata, implementations may choose to support those if they wish, but this recommendation only includes fields in the IPTC locationShownInImage property. Best practices recommend syncing the location elements with the appropriate core XMP properties as well as IIM and EXIF properties.
+
+GPS coordinates always identify a single precise point, but real locations may cover a larger area or be imprecisely located.  The location names can help convey the scope of the GPS coordinates.
+
+The location is stored in a structure that contains a full name for the location, which may contain jurisdictions (such as county) that are not supported in the other jurisdiction name fields.
+There is only one location represented in the LocationShownInImage structure, so all the subfields should be consistent.  That is, GPS info, location names, and identifiers should represent the same physical location.
+Within the LocationShownInImage structure, a location may be defined by at least one of the following criteria
+* the full name of the location in LocationName, 
+* at least one of the jurisdictional locations such as sublocation/address, city, state, country, or
+* GPS coordinates.
+
+![LocationNamesAndGeotags](https://github.com/fhmwg/current-tags/assets/702496/d4edf519-aac8-4ab7-8644-2c295c0f5f20)
+
+## 2.4.1 Location - Names and Identifier   <a name="2.4"></a>
+FamilySearch uses the LocationName and LocationId with its place authority standards. 
+If you are not using the LocationName, use the sublocation, city, state, and country fields in the location structure in LocationShownInImage and sync them to the appropriate IIM and EXIF fields.
+
+Required:  In the LocationShownInImage property, the LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields are required.
+
+| Property             | Type | Exiftool Handle | Stores |
+| :------------------- | :--- | :-----          |:---|
+| `Iptc4xmpExt:LocationShown` | *nested elements* | |One\* location, primary focus of image |
+| `  Location Structure` | *nested structure* | |Structure containing identifiers, names, GPS data |
+| `   LocationShown:Sublocation` | Iptc4xmpExt:Sublocation | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
+| `   LocationShown:City` | Iptc4xmpExt:City |XMP:LocationShownCity| name of city |
+| `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState|XMP:LocationShownProvinceState | name of subregion of country such as a province or state |
+| `   LocationShown:CountryName` | Iptc4xmpExt:CountryName |XMP:LocationShownCountryName| name of the country |
+| `   LocationShown:LocationName` | Iptc4xmpExt:LocationName|XMP:LocationShownLocationName | full name of location, including county if desired |
+| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
+
+Recommended semantically equivalent XMP and IIM fields to sync
+
+References:
+
+[IPTC Core 7.24. Sublocation (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#sublocation-legacy)
+
+[IPTC Core 7.2. City (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#city-legacy)
+
+[IPTC Core 7.19. Province or State (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#province-or-state-legacy)
+
+[IPTC Core 7.4. Country (legacy)](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#country-legacy)
+
+
+| Field | Sync With | Specification | Exiftool Handle | 
+| :---- | :--- | :----- | :----- |
+| LocationShown:Sublocation |`Iptc4xmpCore:Sublocation (legacy)` | `Iptc4xmpCore:Location` |XMP:Location|
+| LocationShown:City | `Iptc4xmpCore:City (legacy)`  | `photoshop:City` | XMP:City |
+| LocationShown:ProvinceState |`Iptc4xmpCore:Province or State(legacy)`  | `photoshop:State`  | XMP:State |
+| LocationShown:CountryName | `Iptc4xmpCore:Country (legacy)`  | `photoshop:Country` | XMP:City |
+|Iptc4xmpCore:Sublocation (legacy) |`IIM:Sublocation`  | `2:92 Sublocation` |  IPTC:Sub-location |
+|Iptc4xmpCore:City (legacy) | `IIM:City`  | `2:90` | IPTC:City |
+|Iptc4xmpCore:Province or State (legacy) |`IIM:Province/State`  | `2:95 Province/State` | IPTC:Province-State |
+|Iptc4xmpCore:Country (legacy) | `IIM:Country/Primary Location Name`  | `2:101 Country/Primary Location Name`  | IPTC:Country-PrimaryLocationName|
+
+
+
+## 2.4.2 Location - Geo Tags  <a name="2.4"></a>
+
+
 
 ### 2.4.1. Summary   <a name="2.4.1"></a>
 
