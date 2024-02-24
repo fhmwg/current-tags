@@ -418,16 +418,16 @@ If you are not using the LocationName, use the sublocation, city, state, and cou
 
 Required:  In the LocationShownInImage property, the LocationName and/or at least one of Sublocation, City, ProvinceState, and Country fields are required.
 
-| Property                        | XMP Spec             | Data Type <Cardinality>    | Exiftool Handle | Stores |
-| :-------------------            | :---                | :-----          |:                |:---|
-| `Iptc4xmpExt:LocationShown`     | *nested elements*   | struct <0..n>     |                 |One\* location, primary focus of image |
-| `  Location Structure`          | *nested structure*  | struct <0..n>     |                 |Structure containing identifiers, names, GPS data |
+| Property                        | XMP Spec                | Data Type <Cardinality>    | Exiftool Handle | Stores |
+| :-------------------            | :---                    | :-----                     |:---                |:---|
+| `Iptc4xmpExt:LocationShown`     | *nested elements*        | struct <0..n>     |                 |One location, primary focus of image |
+| `  Location Structure`          | *nested structure*       | struct <0..n>     |                 |Structure containing identifiers, names, GPS data |
 | `   LocationShown:Sublocation`  | Iptc4xmpExt:Sublocation  | XMP:Text <0..1>   | XMP:LocationShownSublocation|most specific sublocation such as address, landmark, near, probably |
 | `   LocationShown:City`          | Iptc4xmpExt:City         | XMP:Text <0..1>    |XMP:LocationShownCity| name of city |
 | `   LocationShown:ProvinceState` | Iptc4xmpExt:ProvinceState  | XMP:Text <0..1>  |XMP:LocationShownProvinceState | name of subregion of country such as a province or state |
 | `   LocationShown:CountryName`   | Iptc4xmpExt:CountryName  | XMP:Text <0..1>    |XMP:LocationShownCountryName| name of the country |
 | `   LocationShown:LocationName`  | Iptc4xmpExt:LocationName  | XMP:Language Alternative <0..1>   |XMP:LocationShownLocationName | full name of location, including county if desired |
-| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId XMP:URI <0..n> |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
+| `   LocationShown:LocationIdentifier` | Iptc4xmpExt:LocationId|XMP:URI <0..n> |XMP:LocationShownLocationId| globally unique identifier such as FamilySearch place identifer, may have more than 1 |
 
 Recommended semantically equivalent XMP and IIM fields to sync
 
