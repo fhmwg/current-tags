@@ -114,6 +114,9 @@ Note, however, that metadata that is covered by these recommendations must be em
 
 XMP data is the top level data and is the data written and read.  Semantically equivalent fields in whatever format (XMP, IIM, EXIF) should be kept in sync with the XMP data. When reading metadata XMP properties should be consulted first, then IIM data, and then EXIF data. This allows older applications and embedded metadata to interoperate with the family history data that the user provides.  
 
+## 1.6 Technical Conflicts
+The FHMWG recommendations are provided to promote interoperability and best practices.  The recommendations should fall within the framework of the various metadata standards, however, if any of the FHMWG recommendations are in direct technical conflict with any of the underlying standards (XMP, IPTC, IIM, EXIF), the standards prevail.  
+
 # 2. Metadata to Write   <a name="2"></a>
 
 This section uses the following prefixes for XMP namespaces:
@@ -132,12 +135,13 @@ Exiftool provides handles that provide a flattened name and a family group.  In 
 
 ## 2.1. Title   <a name="2.1"></a>
 
+Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
+
 An image may have a title.  The title should be a short human-readable name or reference for the digital file.
 
 The title field is intended to be short and displayable as a line of text in most user interfaces. Longer information should be placed in the description field instead. If the title is longer than an application displays, the application may display a prefix of the title with an indicator that the title has been truncated for display. Note this truncation is for display only: implementations must not truncate existing longer titles upon export.
 
 ### 2.1.1 Title Metadata to Write  <a name="2.1.1"></a>
-Reference:  [IPTC Core 7.25. Title](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#title)  
 
 | Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
 | :------------------- | :---     | :-----                 | :-----          |:---|
@@ -186,6 +190,9 @@ Note: Although the [IPTC Interoperability Test](https://getpmd.iptc.org/interopt
 TODO:  Title is not headline
 
 ## 2.2. Description   <a name="2.2"></a>
+
+Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
+
 An image may have a description.
 
 The description may be of any length and contain any information the user cares to add. The description could also include a caption for the image.
@@ -201,7 +208,6 @@ This inevitably leads to the possibility of conflicting information. Because it 
 
 ### 2.2.1. Writing Descrirpiton Metadata   <a name="2.2.1"></a>
 
-Reference:  [IPTC Core 7.11. Description](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#description)  
 
 | Property             | XMP Spec | Data Type <Cardinality> | Exiftool Handle | Stores |
 | :------------------- | :---     | :-----                | :---            |:--- |
@@ -273,23 +279,25 @@ There is a known desire to include links between portions of captions and other 
 
 ## 2.3. Date   <a name="2.3"></a>
 
+Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
+
+If there is any discrepancy between the summary data below and the IPTC Core reference above, the IPTC documentation prevails.
+
 An image can record the date of the depicted scene. The precision and accuracy of the date may vary, e.g. the date may only be specified by a year, or a month within a year, etc.
 
 Note that this is the date of the scene depicted in the image, and may not be the date of the image’s creation. While the depicted date and the creation date may be the same for digital photographs, they generally differ for scanned images or artistic representations.
 
-Many other date fields exist in other metadata, such as file creation and modification dates, copyright dates, etc. As with all metadata, implementations may choose to support those if they wish, but this recommendation only addresses the date of the depicted scene.
+Many other date fields exist in other metadata, such as file creation and modification dates, copyright dates, etc. As with all metadata, implementations may choose to support those if they wish, but this recommendation only addresses the date of the depicted scene. 
 
-User interfaces should make clear that this is not an image modification date: it is the date of the depicted scene.
+User interfaces should make clear that this is not an image modification date: it is the date of the depicted scene.  
 
 XMP recommends recording times using timezone offsets, as that provides more information than converting to UTC.
 
-The photoshop:DateCreated property should allow for truncated dates, such as year only or year and month only in both the UI and the data.  For example, if the depicted scene occurred sometime in April 1830, use `1830-04` not `1830-04-01` or the like.
+The user interface for entering dates should support providing partial dates, such as year only or year and month only. 
 
 When syncing data to IIM:DateTimeCreated, the date should also be truncated, however, EXIF:DateTimeOriginal does not support truncated date and a full date must be supplied.  When writing the date created as EXIF data, use 01 for the truncated information. Example, if the data is 1830 user 1830 for the XMP property, 1830-00-00 for the IIM property, and 1830-01-01 for the EXIF property.
 
 ### 2.3.1. Date Metadata to Write   <a name="2.3.1"></a>
-
-Reference:  [IPTC Core 7.10. Date Created](https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata#date-created)
    
 |Required Property             | XMP Spec                | Data Type <Cardinality>  | Exiftool Handle              | Stores |
 | :-------------------         | :---                    | :-----                   | :---                         |:--- |
@@ -330,9 +338,9 @@ There is a known desire to store date information that XMP's subset of ISO 8601 
 - dates before 0001-01-01
 - dates with time information but without time zone information
 
-### 2.3.2. Details   <a name="2.3.2"></a>
+### 2.3.2. Date Details   <a name="2.3.2"></a>
 
-#### 2.3.2.1 XMP Details
+#### 2.3.2.1 XMP Details for Date
 XMP photoshop:DateCreated is an XMP Date core value type defined in Section 8.1.1.2 (page 21) of XMP Specification Part 1 as:
 
 A date-time value is represented using a subset of the formats as defined in Date and Time Formats:
@@ -360,11 +368,14 @@ Local time-zone designators +hh:mm or -hh:mm should be used when possible instea
 
 NOTE: If a file was saved at noon on October 23, a timestamp of 2004-10-23T12:00:00-06:00 conveys more information than 2004-10-23T18:00:00Z
 
+#### 2.3.2.2 IPTC Guidelines for Mapping Date Create to EXIF and IIM
+
+[Exif Note on Date Created](https://iptc.org/std/photometadata/documentation/mappingguidelines/#exif-note-on-date-created)
 
 
-## 2.4. Location   <a name="2.5"></a>
+## 2.4. Location   <a name="2.4"></a>
 
-### 2.4.1. Summary   <a name="2.5.1"></a>
+### 2.4.1. Summary   <a name="2.4.1"></a>
 
 | Field | Type | Stores |
 | :---- | :--- | :----- |
