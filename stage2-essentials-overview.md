@@ -23,27 +23,36 @@ In the most broad terms, these recommendations assume an implementation that adh
 ## The Metadata Pipeline
 
 In order to aid in the implementation of our standard and overarching principles (see implementation levels further below), it is helpful to understand how we describe the stages of metadata interaction within a given software data pipeline (“system”). We define five stages of interactions that the metadata of user-generated, uploaded, imported, or contributed files (e.g. media) may experience in any given software system:
-1, **RETAIN:** The first thing a system must decide is whether to retain or strip the metadata already embedded in media that is uploaded, imported or added by a user. There are many reasons for a business to choose to strip the metadata, from reducing file size, to protecting privacy, to managing liability. By retaining metadata, the system makes no modification to the original file or its metadata and stores that original for the duration of their relationship with the user or owner of that file.
-2, **READ:** A system may read some or all of the embedded file metadata into a separate file, database or other data structure. At this step, the metadata is no longer bound uniquely to the original file and can be manipulated by the system independently. Reading metadata does not imply metadata retention. A given system might both read and then strip metadata.
-3. **PRESENT:** The system can present the metadata stored in the database to an end user. The system can be designed to present only a subset of available metadata fields to and can modify the format of the metadata for presentation purposes. 
+
+1. **RETAIN:** The first thing a system must decide is whether to retain or strip the metadata already embedded in media that is uploaded, imported or added by a user. There are many reasons for a business to choose to strip the metadata, from reducing file size, to protecting privacy, to managing liability. By retaining metadata, the system makes no modification to the original file or its metadata and stores that original for the duration of their relationship with the user or owner of that file.
+
+2. **READ:** A system may read some or all of the embedded file metadata into a separate file, database or other data structure. At this step, the metadata is no longer bound uniquely to the original file and can be manipulated by the system independently. Reading metadata does not imply metadata retention. A given system might both read and then strip metadata.
+
+3. **PRESENT:** The system can present the metadata stored in the database to an end user. The system can be designed to present only a subset of available metadata fields to and can modify the format of the metadata for presentation purposes.
+   
 4. **EDIT:** A system may allow a user to make changes to the metadata, whether outside of the original file or embedded within it. Typically, user-specified changes to metadata are stored first in some data structure, whether temporarily or indefinitely, and then potentially embedded into the file.
+   
 5. **SEARCH:** A system may allow users to search for files based on metadata fields associated with the file, either in a separate data structure or embedded within the file.
 
 ## Core Goals
 
 Any individual software system will have a metadata pipeline that achieves some if not all of these stages for some if not all possible metadata fields. However, the goal of the FHMWG essentials recommendations is to foster an interoperable ecosystem of software products that go beyond this internal pipeline and achieve two additional goals for image files specifically:
 1. **INTEROPERATE:** systems must interoperate so that users can import or export files and their metadata following shared conventions for file and metadata formats. Metadata interoperability may be achieved by adherence to existing metadata standards for reading and writing metadata as well as any method of information transfer including but not limited to direct API access, exportable metadata structures (.csv, .xls, .json, etc.), embedding edited metadata into original files, etc.
+   
 2. **EMBED** systems must have the ability to write metadata stored outside of the original files in independent data structures back into the original files themselves. e.g. interoperability is achieved via file embedded metadata.
 If the metadata is embedded then when a user downloads the photo it travels with the photo. This is the ultimate step for digital preservation.
 
 ## Implementation Levels
 
 No matter how thoroughly you choose to implement these FHMWG standards, you are helping to enhance the value of digital media for family history provided that you follow our overarching principles and the implementation guidance below.
-We have defined three levels to guide service providers to implement our recommendations. The goal is for providers to work towards reaching the highest level of implementation by starting from the lowest. Providers already close to achieving the requirements of a given level should ideally work towards coverage of that level before moving up to the next level. 
+We have defined three levels to guide service providers to implement our recommendations. The goal is for providers to work towards reaching the highest level of implementation by starting from the lowest. Providers already close to achieving the requirements of a given level should ideally work towards coverage of that level before moving up to the next level.
+
 **Level 1: Preserve Metadata**
 The most accessible level that any software system developer can achieve is to retain and preserve the metadata already present in a file provided by a user. A system at the preserve level retains the original file metadata undisturbed in whatever state it might exist, whether or not it matches our recommended structure. This step is absolutely critical to the preservation mission of the FHMWG.
+
 **Level 2: Present Metadata**
-The next level requires the system to read metadata that is already present in the file provided by a user and present it to the user via a user interface. At this level the system may choose to read data from any fields it chooses. However, the system should use the metadata fields in these recommendations when storing the data, enabling search and when presenting it back to the user. 
+The next level requires the system to read metadata that is already present in the file provided by a user and present it to the user via a user interface. At this level the system may choose to read data from any fields it chooses. However, the system should use the metadata fields in these recommendations when storing the data, enabling search and when presenting it back to the user.
+
 **Level 3: Put Metadata Back**
 In this final level, the system allows the user to edit metadata, saves any changes made by the user, and writes the changes back into the files using the metadata fields in these recommendations, e.g. the metadata is embedded. These fields must be the ones presented to the user in the user interface when accepting edits. 
 
