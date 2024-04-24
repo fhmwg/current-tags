@@ -1,4 +1,4 @@
-# FHMWG Essential Metadata Recommendation — Stage 2 Technical Overview
+# FHMWG Essential Metadata Recommendation — Stage 2 Technical Summary
 
 This document is a technical summary of the essential metadata recommendations for family history media 
 which may be found at <https://github.com/fhmwg/current-tags/blob/master/stage2-essentials.md>. If there are any discrepancies between this summary and the full recommendations, the full recommendations apply.
@@ -9,14 +9,51 @@ This recommendation is stage 2 in the Family History Working Group (now operatin
 
 This is a recommendation for embedding family history metadata that is essential for the consistent capturing, sharing, interoperability and preservation of the data about what an image depicts – e.g. the traditional "writing on the back of the photo" – within a digital image itself in a machine-readable (non-visual) format.
 
-There are thousands of metadata properties in use in the wild today, many of which overlap in full or in part with other properties and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing properties which we have identified as essential to family history.
+There are thousands of metadata properties in use today, many of which overlap in full or in part with other properties and many of which are incompletely specified and used in inconsistent ways. The primary goal of this recommendation is to identify and clarify the meaning of a small subset of these existing properties which we have identified as essential to family history.
 
 ## Overarching principles
+
+In the most broad terms, these recommendations assume an implementation that adheres to the following general basic principles:
 
 1. **Don't Remove Metadata**. Even if the metadata is not a form you understand or is a duplicate of other fields, some other tool may have a use for it. Leave it in the file.
 
 2. **At Least These Fields**. There are hundreds of metadata properties and fields available, of which we recommend using just one. You are welcome to read and write as many of the other fields as you wish, as long as you also use the one we recommend.
 3. **Only Embed What You Collect**. You are only expected to embed family history data that you already collect from your users. You are not expected to collect any new data that is not already collected by your software. However, you may need to modify the *format* of the data you collect in order to align with these recommendations.
+
+## The Metadata Pipeline
+
+In order to aid in the implementation of our standard and overarching principles (see implementation levels further below), it is helpful to understand how we describe the stages of metadata interaction within a given software data pipeline (“system”). We define five stages of interactions that the metadata of user-generated, uploaded, imported, or contributed files (e.g. media) may experience in any given software system:
+1, **RETAIN:** The first thing a system must decide is whether to retain or strip the metadata already embedded in media that is uploaded, imported or added by a user. There are many reasons for a business to choose to strip the metadata, from reducing file size, to protecting privacy, to managing liability. By retaining metadata, the system makes no modification to the original file or its metadata and stores that original for the duration of their relationship with the user or owner of that file.
+2, **READ:** A system may read some or all of the embedded file metadata into a separate file, database or other data structure. At this step, the metadata is no longer bound uniquely to the original file and can be manipulated by the system independently. Reading metadata does not imply metadata retention. A given system might both read and then strip metadata.
+3. **PRESENT:** The system can present the metadata stored in the database to an end user. The system can be designed to present only a subset of available metadata fields to and can modify the format of the metadata for presentation purposes. 
+4. **EDIT:** A system may allow a user to make changes to the metadata, whether outside of the original file or embedded within it. Typically, user-specified changes to metadata are stored first in some data structure, whether temporarily or indefinitely, and then potentially embedded into the file.
+5. **SEARCH:** A system may allow users to search for files based on metadata fields associated with the file, either in a separate data structure or embedded within the file.
+
+## Core Goals
+
+Any individual software system will have a metadata pipeline that achieves some if not all of these stages for some if not all possible metadata fields. However, the goal of the FHMWG essentials recommendations is to foster an interoperable ecosystem of software products that go beyond this internal pipeline and achieve two additional goals for image files specifically:
+1. **INTEROPERATE:** systems must interoperate so that users can import or export files and their metadata following shared conventions for file and metadata formats. Metadata interoperability may be achieved by adherence to existing metadata standards for reading and writing metadata as well as any method of information transfer including but not limited to direct API access, exportable metadata structures (.csv, .xls, .json, etc.), embedding edited metadata into original files, etc.
+2. **EMBED** systems must have the ability to write metadata stored outside of the original files in independent data structures back into the original files themselves. e.g. interoperability is achieved via file embedded metadata.
+If the metadata is embedded then when a user downloads the photo it travels with the photo. This is the ultimate step for digital preservation.
+
+## Implementation Levels
+
+No matter how thoroughly you choose to implement these FHMWG standards, you are helping to enhance the value of digital media for family history provided that you follow our overarching principles and the implementation guidance below.
+We have defined three levels to guide service providers to implement our recommendations. The goal is for providers to work towards reaching the highest level of implementation by starting from the lowest. Providers already close to achieving the requirements of a given level should ideally work towards coverage of that level before moving up to the next level. 
+**Level 1: Preserve Metadata**
+The most accessible level that any software system developer can achieve is to retain and preserve the metadata already present in a file provided by a user. A system at the preserve level retains the original file metadata undisturbed in whatever state it might exist, whether or not it matches our recommended structure. This step is absolutely critical to the preservation mission of the FHMWG.
+**Level 2: Present Metadata**
+The next level requires the system to read metadata that is already present in the file provided by a user and present it to the user via a user interface. At this level the system may choose to read data from any fields it chooses. However, the system should use the metadata fields in these recommendations when storing the data, enabling search and when presenting it back to the user. 
+**Level 3: Put Metadata Back**
+In this final level, the system allows the user to edit metadata, saves any changes made by the user, and writes the changes back into the files using the metadata fields in these recommendations, e.g. the metadata is embedded. These fields must be the ones presented to the user in the user interface when accepting edits. 
+
+**NOTES:** 
+* Information about the implementation level of the system should be made available to the user via support documentation as each level has a unique set of consequences that is important for the user to understand.
+* Each level is inclusive of the last. Level 2 assumes level 1 preservation steps are being taken to make sure existing metadata is not lost. Level 3 assumes level 2 presentation steps are being taken to present metadata using our recommendations.
+* It is not required that metadata be embedded after every user edit. Metadata may be retained by the system provided that they are embedded into the files at the point when files are exported from the system. 
+* The user may be presented with options to determine whether the system retains or embeds metadata, overriding any system presets or defaults.
+
+
 
 ## General Background on Image Metadata
 
