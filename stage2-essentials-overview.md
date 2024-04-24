@@ -48,12 +48,15 @@ No matter how thoroughly you choose to implement these FHMWG standards, you are 
 We have defined three levels to guide service providers to implement our recommendations. The goal is for providers to work towards reaching the highest level of implementation by starting from the lowest. Providers already close to achieving the requirements of a given level should ideally work towards coverage of that level before moving up to the next level.
 
 **Level 1: Preserve Metadata**
+
 The most accessible level that any software system developer can achieve is to retain and preserve the metadata already present in a file provided by a user. A system at the preserve level retains the original file metadata undisturbed in whatever state it might exist, whether or not it matches our recommended structure. This step is absolutely critical to the preservation mission of the FHMWG.
 
 **Level 2: Present Metadata**
+
 The next level requires the system to read metadata that is already present in the file provided by a user and present it to the user via a user interface. At this level the system may choose to read data from any fields it chooses. However, the system should use the metadata fields in these recommendations when storing the data, enabling search and when presenting it back to the user.
 
 **Level 3: Put Metadata Back**
+
 In this final level, the system allows the user to edit metadata, saves any changes made by the user, and writes the changes back into the files using the metadata fields in these recommendations, e.g. the metadata is embedded. These fields must be the ones presented to the user in the user interface when accepting edits. 
 
 **NOTES:** 
