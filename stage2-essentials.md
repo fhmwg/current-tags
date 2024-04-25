@@ -52,7 +52,7 @@ We also endorse IPTC's guidelines for [Interoperabilty]() and [Mapping]().
 
 XMP Data Types:
 
-The [XMP Specificaiton](https://www.adobe.com/devnet/xmp.html) defines core and derived datatypes in [Part 1, Data model, Serialization, and Core Properties](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/docs/XMPSpecificationPart1.pdf) 
+The [XMP Specification](https://www.adobe.com/devnet/xmp.html) defines core and derived datatypes in [Part 1, Data model, Serialization, and Core Properties](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/docs/XMPSpecificationPart1.pdf) 
 
 XMP Specification Part 1 defines core the following value types in section 8.2
 Boolean
@@ -66,7 +66,7 @@ XMP Derived Value Types are defined in section 8.2.2
 
 **Language Alternative**: An XMP datatype that contains an alternative array of simple text items with an xml:lang qualifier that identifies the language.  The language tag value adheres to the BCP 47 spec. (XMP Specification says IETF RFC 3066 which was superseeded by [RCF 4647]https://www.rfc-editor.org/info/rfc4647 and is included in [BCP 47](https://www.rfc-editor.org/info/rfc4647). See also wikipedias' article [IETF Language Tag](https://www.rfc-editor.org/info/rfc4647).
 
-The Langague Alternative derived data type is a core Text with an xml:lang qualifier that identifies the language of the text.  If the language is not known, an xml:lang qualifier of "x-default" can be used instead of a specific language.  Notably, XMP does not use the BCP 47 standard `i-default` language subtag. It is recommended that every Language Alternative property have an `x-default` entry for compatibility.
+The Language Alternative derived data type is a core Text with an xml:lang qualifier that identifies the language of the text.  If the language is not known, an xml:lang qualifier of "x-default" can be used instead of a specific language.  Notably, XMP does not use the BCP 47 standard `i-default` language subtag. It is recommended that every Language Alternative property have an `x-default` entry for compatibility.
 
 The first item in the array is the default item. In addition, if you know the language, add the language-specific alternate value.  
 
